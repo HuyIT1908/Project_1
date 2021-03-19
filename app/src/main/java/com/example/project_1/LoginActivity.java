@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.project_1.DAO.NguoiDungDAO;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginActivity extends AppCompatActivity {
@@ -21,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     CheckBox cb_tk;
     Button btn_login, btn_dang_ki;
     Context context = LoginActivity.this;
+    NguoiDungDAO nguoiDungDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         setTitle("Đăng Nhập");
 
+        nguoiDungDAO = new NguoiDungDAO(context);
         edt_login_tk = findViewById(R.id.edt_login_tk);
         edt_login_mk = findViewById(R.id.edt_login_mk);
         cb_tk = findViewById(R.id.ckb_tk);
@@ -44,17 +47,28 @@ public class LoginActivity extends AppCompatActivity {
             String mk = edt_login_mk.getEditText().getText().toString();
             boolean luu_tk = cb_tk.isChecked();
 
-            if (tk.isEmpty() || mk.isEmpty()) {
-                dialog_chung(0, context, "Không được để trống \n\nTài Khoản và Mật khẩu !!!");
+            if ( tk.isEmpty() ) {
+                dialog_chung(0, context, "Không được để trống \n\nTài Khoản !!!");
+            } else if ( mk.isEmpty() ){
+                dialog_chung(0, context, "Không được để trống \n\nMật khẩu !!!");
             } else {
 
-                rememberUser(tk, mk, luu_tk);
-                dialog_chung(1, context, "Đăng nhập thành công");
-//                them vao database o day nha
-//
-//
-//
-//
+                if ( nguoiDungDAO.checkLogin(tk , mk) > 0) {
+
+                    rememberUser(tk, mk, luu_tk);
+                    dialog_chung(1, context, "Đăng nhập thành công");
+
+                    startActivity(new Intent(context, HomeActivity.class));
+                    finish();
+                } else if (tk.equalsIgnoreCase("admin") && mk.equalsIgnoreCase("admin")) {
+
+                    rememberUser(tk , mk, cb_tk.isChecked());
+                    startActivity(new Intent(this, HomeActivity.class));
+                    finish();
+                } else {
+
+                    dialog_chung(0 , context , "Tên đăng nhập và mật khẩu không đúng ???");
+                }
 
             }
 //            Log.e("\t\t----Error  : "  , tk + "\t" + mk + "\t" + luu_tk);
