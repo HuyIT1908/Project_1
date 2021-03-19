@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,12 +13,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.example.project_1.DAO.NguoiDungDAO;
+import com.example.project_1.Models.NguoiDung;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class Sign_UpActivity extends AppCompatActivity {
     TextInputLayout edt_ho_ten, edt_sdt, edt_tk, edt_mk, edt_lai_mk;
     Button btn_SignUp;
     Context context = Sign_UpActivity.this;
+    NguoiDungDAO nguoiDungDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,7 @@ public class Sign_UpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign__up);
         setTitle("Đăng Kí");
 
+        nguoiDungDAO = new NguoiDungDAO(context);
         edt_ho_ten = findViewById(R.id.edt_signup_ho_ten);
         edt_sdt = findViewById(R.id.edt_signup_sdt);
         edt_tk = findViewById(R.id.edt_signup_tk);
@@ -56,6 +61,27 @@ public class Sign_UpActivity extends AppCompatActivity {
             dialog_chung(0 , context , "Số điện thoại phải là dạng 10 số");
         } else if ( !sdt.matches(regex_sdt) ){
             dialog_chung(0 , context , "Số Điện Thoại phải nhập SỐ ...");
+        } else {
+
+            try {
+                NguoiDung user = new NguoiDung(
+                        tk , mk , ho_ten , "" , sdt
+                );
+
+                if (nguoiDungDAO.inserNguoiDung(user) > 0) {
+
+                    dialog_chung(1 , context , "Đăng Kí Thành Công");
+                    rememberUser(tk , mk , true);
+                    startActivity(new Intent(context , LoginActivity.class));
+                    finish();
+                } else {
+
+                    dialog_chung(1 , context , "Đăng Kí Thất Bại");
+                }
+
+            } catch (Exception ex) {
+                Log.e("Error Đăng Kí  : \t\t", ex.toString());
+            }
         }
 
         Log.e("show  : ", ho_ten + "\n" + sdt + "\n" + tk
