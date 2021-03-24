@@ -24,6 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.e("//=======\t\t" + NguoiDungDAO.TAG , "Đã tạo Table Thành công nha \t\t\n !!!");
         db.execSQL( TkCaNhanDAO.SQL_TK_CA_NHAN );
         Log.e("//=======\t\t" + TkCaNhanDAO.TAG , "Đã tạo Table Thành công nha \t\t\n !!!");
+//        coment thoi ma
 //        db.execSQL(SachDAO.SQL_SACH);
 //        db.execSQL(HoaDonDAO.SQL_HOA_DON);
 //        db.execSQL(HoaDonChiTietDAO.SQL_HOA_DON_CHI_TIET);
