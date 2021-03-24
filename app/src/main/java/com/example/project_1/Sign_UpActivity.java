@@ -47,12 +47,16 @@ public class Sign_UpActivity extends AppCompatActivity {
         lai_mk = edt_lai_mk.getEditText().getText().toString();
         String regex_sdt = "[0-9]{9,10}";
 
-        if (ho_ten.isEmpty()
-                || sdt.isEmpty()
-                || tk.isEmpty()
-                || mk.isEmpty()
-                || lai_mk.isEmpty()) {
-            dialog_chung(0, context, "Không được để trống ......");
+        if (  ho_ten.isEmpty() ){
+            dialog_chung(0, context, "Phải nhập Họ Tên");
+        } else if (  sdt.isEmpty() ){
+            dialog_chung(0, context, "Phải nhập Số Điện Thoại");
+        } else if (  tk.isEmpty() ){
+            dialog_chung(0, context, "Phải nhập Tài Khoản");
+        } else if (  mk.isEmpty() ){
+            dialog_chung(0, context, "Phải nhập Mật Khẩu");
+        } else if (  lai_mk.isEmpty() ){
+            dialog_chung(0, context, "Hãy nhập lại Mật Khẩu !!!");
         } else if (sdt.length() > 10) {
             dialog_chung(0, context, "Số Điện Thoại \nChỉ được nhập 10 số");
         } else if ( !mk.equals(lai_mk)) {
