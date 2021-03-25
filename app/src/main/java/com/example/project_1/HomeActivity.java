@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.example.project_1.NguoiDung.DSnguoiDungFragment;
 import com.example.project_1.Thu.ThuFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
@@ -49,7 +50,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener
-                    , new ThuFragment() ).commit();
+                    , new DSnguoiDungFragment() ).commit();
             navigationView.setCheckedItem(R.id.nav_thu);
         }
 
