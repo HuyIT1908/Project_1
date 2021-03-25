@@ -7,13 +7,16 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.example.project_1.DAO.ChiDAO;
+import com.example.project_1.DAO.KHchiDAO;
+import com.example.project_1.DAO.KhoanNoDAO;
 import com.example.project_1.DAO.NguoiDungDAO;
 import com.example.project_1.DAO.ThuDAO;
 import com.example.project_1.DAO.TkCaNhanDAO;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "dbChiTieuManager";
-    public static final int VERSION = 1;
+    public static final int VERSION = 4;
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME + ".db", null, VERSION);
@@ -27,8 +30,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.e("//=======\t\t" + TkCaNhanDAO.TAG , "Đã tạo Table Thành công nha \t\t\n !!!");
         db.execSQL( ThuDAO.SQL_Thu );
         Log.e("//=======\t\t" + ThuDAO.TAG , "Đã tạo Table Thành công nha \t\t\n !!!");
-//        db.execSQL(HoaDonDAO.SQL_HOA_DON);
-//        db.execSQL(HoaDonChiTietDAO.SQL_HOA_DON_CHI_TIET);
+        db.execSQL(  ChiDAO.SQL_Chi  );
+        Log.e("//=======\t\t" + ChiDAO.TAG , "Đã tạo Table Thành công nha \t\t\n !!!");
+        db.execSQL(  KHchiDAO.SQL_ke_hoach_chi  );
+        Log.e("//===\t\t" + KHchiDAO.TAG , "Đã tạo Table Thành công nha \t\t\n !!!");
+
+        db.execSQL(  KhoanNoDAO.SQL_Khoan_No  );
+        Log.e("//===\t\t" + KhoanNoDAO.TAG , "Đã tạo Table Thành công nha \t\t\n !!!");
     }
 
     @Override
@@ -36,8 +44,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("Drop table if exists " + NguoiDungDAO.TABLE_NAME);
         db.execSQL("Drop table if exists " + TkCaNhanDAO.TABLE_NAME );
         db.execSQL("Drop table if exists " + ThuDAO.TABLE_NAME  );
-//        db.execSQL("Drop table if exists " + HoaDonDAO.TABLE_NAME);
-//        db.execSQL("Drop table if exists "+HoaDonChiTietDAO.TABLE_NAME);
+        db.execSQL("Drop table if exists " + ChiDAO.TABLE_NAME  );
+        db.execSQL("Drop table if exists " + KHchiDAO.TABLE_NAME  );
+        db.execSQL("Drop table if exists " + KhoanNoDAO.TABLE_NAME  );
+
+
         onCreate(db);
+        Log.e("\nDa cap nhat DataBase " , "\t\tthanh cong . OK !!!" + "\t\t\t\t DatabaseHelper");
     }
 }
