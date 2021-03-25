@@ -14,11 +14,11 @@ import com.example.project_1.DAO.NguoiDungDAO;
 import com.example.project_1.DAO.ThongKeDAO;
 import com.example.project_1.DAO.ThuDAO;
 import com.example.project_1.DAO.TkCaNhanDAO;
-import com.example.project_1.TietKiemDAO;
+import com.example.project_1.DAO.TietKiemDAO;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "dbChiTieuManager";
-    public static final int VERSION = 6;
+    public static final int VERSION = 7;
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME + ".db", null, VERSION);
