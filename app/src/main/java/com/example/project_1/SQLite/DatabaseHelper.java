@@ -11,12 +11,14 @@ import com.example.project_1.DAO.ChiDAO;
 import com.example.project_1.DAO.KHchiDAO;
 import com.example.project_1.DAO.KhoanNoDAO;
 import com.example.project_1.DAO.NguoiDungDAO;
+import com.example.project_1.DAO.ThongKeDAO;
 import com.example.project_1.DAO.ThuDAO;
 import com.example.project_1.DAO.TkCaNhanDAO;
+import com.example.project_1.TietKiemDAO;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "dbChiTieuManager";
-    public static final int VERSION = 4;
+    public static final int VERSION = 6;
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME + ".db", null, VERSION);
@@ -37,6 +39,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(  KhoanNoDAO.SQL_Khoan_No  );
         Log.e("//===\t\t" + KhoanNoDAO.TAG , "Đã tạo Table Thành công nha \t\t\n !!!");
+        db.execSQL(  TietKiemDAO.SQL_Tiet_Kiem  );
+        Log.e("//===\t\t" + TietKiemDAO.TAG , "Đã tạo Table Thành công nha \t\t\n !!!");
+        db.execSQL(  ThongKeDAO.SQL_Thong_Ke  );
+        Log.e("//===\t\t" + ThongKeDAO.TAG , "Đã tạo Table Thành công nha \t\t\n !!!");
     }
 
     @Override
@@ -47,6 +53,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("Drop table if exists " + ChiDAO.TABLE_NAME  );
         db.execSQL("Drop table if exists " + KHchiDAO.TABLE_NAME  );
         db.execSQL("Drop table if exists " + KhoanNoDAO.TABLE_NAME  );
+        db.execSQL("Drop table if exists " + TietKiemDAO.TABLE_NAME  );
+        db.execSQL("Drop table if exists " + ThongKeDAO.TABLE_NAME  );
 
 
         onCreate(db);
