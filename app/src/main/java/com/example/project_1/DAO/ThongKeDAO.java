@@ -12,19 +12,21 @@ public class ThongKeDAO {
     public static final String TABLE_NAME = "ThongKe";
     //    create table
     public static final String SQL_Thong_Ke = "CREATE TABLE \"ThongKe\" (\n" +
-            "\t\"tongSoTien\"\tTEXT,\n" +
-            "\t\"maNguoiDung\"\tTEXT,\n" +
+            "\t\"maThongKe\"\tTEXT,\n" +
+            "\t\"userName\"\tTEXT,\n" +
             "\t\"maChiTieu\"\tTEXT,\n" +
             "\t\"maThuNhap\"\tTEXT,\n" +
             "\t\"maKhoanNo\"\tTEXT,\n" +
             "\t\"maTietKiem\"\tTEXT,\n" +
-            "\tPRIMARY KEY(\"tongSoTien\"),\n" +
-            "\tFOREIGN KEY(\"maThuNhap\") REFERENCES \"Thu\"(\"maThuNhap\"),\n" +
-            "\tFOREIGN KEY(\"maChiTieu\") REFERENCES \"Chi\"(\"maChiTieu\"),\n" +
-            "\tFOREIGN KEY(\"maNguoiDung\") REFERENCES \"tkCaNhan\"(\"maNguoiDung\"),\n" +
+            "\t\"tongSoTien\"\tTEXT,\n" +
+            "\tFOREIGN KEY(\"userName\") REFERENCES \"NguoiDung\"(\"userName\"),\n" +
+            "\tPRIMARY KEY(\"maThongKe\"),\n" +
+            "\tFOREIGN KEY(\"maTietKiem\") REFERENCES \"TietKiem\"(\"maTietKiem\"),\n" +
             "\tFOREIGN KEY(\"maKhoanNo\") REFERENCES \"KhoanNo\"(\"maKhoanNo\"),\n" +
-            "\tFOREIGN KEY(\"maTietKiem\") REFERENCES \"TietKiem\"(\"maTietKiem\")\n" +
+            "\tFOREIGN KEY(\"maThuNhap\") REFERENCES \"Thu\"(\"maThuNhap\"),\n" +
+            "\tFOREIGN KEY(\"maChiTieu\") REFERENCES \"Chi\"(\"maChiTieu\")\n" +
             ");" ;
+
     public static final String TAG = "ThongKeDAO";
 
     public ThongKeDAO(Context context) {
