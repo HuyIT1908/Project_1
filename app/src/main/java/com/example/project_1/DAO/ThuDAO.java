@@ -48,7 +48,9 @@ public class ThuDAO {
 
 //        insert db
         try {
-            if (db.insert( TABLE_NAME, null, values) == -1) {
+            if (check_Khoan_Thu(thu) ){
+                return -1;
+            } else if (db.insert( TABLE_NAME, null, values) == -1) {
                 return -1;
             }
         } catch (Exception ex) {
@@ -63,22 +65,24 @@ public class ThuDAO {
         List<Thu> listThu = new ArrayList<>();
 
         Cursor c = db.query(TABLE_NAME, null, null, null, null, null, null);
-        c.moveToFirst();
-        while (c.isAfterLast() == false) {
+        if ( c != null){
+            c.moveToFirst();
+            while (c.isAfterLast() == false) {
 
-            Thu thu = new Thu();
-            thu.setMaThuNhap( c.getString(0));
-            thu.setUserName( c.getString(1));
+                Thu thu = new Thu();
+                thu.setMaThuNhap( c.getString(0));
+                thu.setUserName( c.getString(1));
 
-            thu.setSoTienThu( c.getString(2));
-            thu.setNgayNhanTien( c.getString(3));
-            thu.setChuThich( c.getString(4));
+                thu.setSoTienThu( c.getString(2));
+                thu.setNgayNhanTien( c.getString(3));
+                thu.setChuThich( c.getString(4));
 //            get data add list
-            listThu.add(thu);
-            Log.d(TAG + "//=====\t\t\t\t", thu.toString());
-            c.moveToNext();
+                listThu.add(thu);
+                Log.d(TAG + "//=====\t\t\t\t", thu.toString());
+                c.moveToNext();
+            }
+            c.close();
         }
-        c.close();
         return listThu;
     }
 
@@ -101,83 +105,39 @@ public class ThuDAO {
         return 1;
     }
 
-//    //  change Password
-//    public int changePasswordNguoiDung(NguoiDung nd) {
-////        update Password according to the username
-//        ContentValues values = new ContentValues();
-//        values.put("username", nd.getUserName());
-//        values.put("password", nd.getPassword());
-//        int result = db.update(TABLE_NAME, values, "username=?", new
-//                String[]{nd.getUserName()});
-//        if (result == 0) {
-//            return -1;
-//        }
-//        return 1;
-//    }
-//
-//    //  update info for to nguoi dung
-//    public int updateInfoNguoiDung(NguoiDung nd) {
-//        ContentValues values = new ContentValues();
-//        values.put("username", nd.getUserName());
-//        values.put("password", nd.getPassword());
-//
-//        values.put("hoten", nd.getHoTen());
-//        values.put("gt", nd.getGioiTinh());
-//        values.put("phone", nd.getPhone());
-//
-//        int result = db.update(TABLE_NAME, values, "username=?", new
-//                String[]{nd.getUserName()});
-//        if (result == 0) {
-//            return -1;
-//        }
-//        return 1;
-//    }
-//
-//    //    delete    account
-//    public int deleteNguoiDungByID(String username) {
-//        int result = db.delete(TABLE_NAME, "username=?", new String[]{username});
-//
-//        if (result == 0)
-//            return -1;
-//        return 1;
-//    }
-//
-//    //check login
-//    public int checkLogin(String username, String password) {
-//        int result = 0;
-////        get all data for to list
-//        List<NguoiDung> dsNguoiDung = new ArrayList<>();
-//
-//        Cursor c = db.query(TABLE_NAME, null, null, null, null, null, null);
-//        c.moveToFirst();
-//        while (c.isAfterLast() == false) {
-//
-//            NguoiDung ee = new NguoiDung();
-//            ee.setUserName(c.getString(0));
-//            ee.setPassword(c.getString(1));
-//
-//            ee.setHoTen(c.getString(2));
-//            ee.setGioiTinh(c.getString(3));
-//            ee.setPhone(c.getString(4));
-//
-//            Log.d(TAG + "//=====\t\t\t\t", ee.toString());
-//            if (username.equals(c.getString(0))
-//                    && password.equals(c.getString(1))){
-//                c.close();
-////                Log.e("-kiem tra login -------" , "----------thanh cong roi nha");
-//                return 1;
-//            }
-////            get data add list
-//            dsNguoiDung.add(ee);
-//            Log.d(TAG + "//===== \t\t","Error function checkLogin" + ee.toString());
-//            c.moveToNext();
-//        }
-//        c.close();
-//
-//
-////        int result = db.delete(TABLE_NAME, "username=? AND password=?", new String[]{username, password});
-//        if (result == 0)
-//            return -1;
-//        return 1;
-//    }
+    //    delete    account
+    public int deleteNguoiDungByID(String maThuNhap) {
+        int result = db.delete(TABLE_NAME, "maThuNhap=?", new String[]{ maThuNhap });
+
+        if (result == 0)
+            return -1;
+        return 1;
+    }
+
+    public boolean check_Khoan_Thu(Thu thu){
+
+        Cursor c = db.query(TABLE_NAME, null, null, null, null, null, null);
+        if ( c != null){
+            c.moveToFirst();
+            while (c.isAfterLast() == false) {
+
+                Thu thu_trong = new Thu();
+                thu_trong.setMaThuNhap( c.getString(0));
+                thu_trong.setUserName( c.getString(1));
+
+                thu_trong.setSoTienThu( c.getString(2));
+                thu_trong.setNgayNhanTien( c.getString(3));
+                thu_trong.setChuThich( c.getString(4));
+
+                if (  thu.getMaThuNhap().toString().equals( thu_trong.getMaThuNhap().toString() ) ){
+                    c.close();
+                    return true;
+                }
+
+                c.moveToNext();
+            }
+            c.close();
+        }
+        return false;
+    }
 }

@@ -54,7 +54,9 @@ public class NguoiDungDAO {
         values.put("tongSoTien", nd.getTongSoTien());
 //        insert db
         try {
-            if (db.insert(TABLE_NAME, null, values) == -1) {
+            if ( checkLogin(nd.getUserName() , nd.getPassword()) > 0 ){
+                return -1;
+            } else if ( db.insert(TABLE_NAME, null, values) == -1) {
                 return -1;
             }
         } catch (Exception ex) {

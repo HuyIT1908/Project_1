@@ -69,13 +69,6 @@ public class NguoiDung {
 
     @Override
     public String toString() {
-        return "NguoiDung{" +
-                "userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", hoTen='" + hoTen + '\'' +
-                ", gioiTinh='" + gioiTinh + '\'' +
-                ", phone='" + phone + '\'' +
-                ", tongSoTien='" + tongSoTien + '\'' +
-                '}';
+        return getUserName() + "  |  " + getHoTen();
     }
 }
