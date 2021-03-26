@@ -25,21 +25,21 @@
             android:textStyle="bold" />
         <ImageView
             android:id="@+id/img_chung_delete"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/icon_delete_3"
-            android:paddingHorizontal="10dp"/>
+            />
 
         <ImageView
             android:id="@+id/img_chung_edit"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_toLeftOf="@id/img_chung_delete"
             android:layout_centerVertical="true"
             android:src="@drawable/icon_edit"
-            android:paddingRight="10dp" />
+            android:paddingRight="5dp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -101,6 +101,7 @@
                     android:id="@+id/tv_chung_so_tien"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
                     android:text="TextView" />
 
                 <TextView

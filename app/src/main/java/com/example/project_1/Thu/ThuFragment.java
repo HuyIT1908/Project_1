@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -70,6 +71,16 @@ public class ThuFragment extends Fragment {
         ThuAdapter adapter = new ThuAdapter(getActivity() , listThu);
         lv_ds_Thu.setAdapter(adapter);
 
+        try {
+            lv_ds_Thu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    update_Khoan_thu(position);
+                }
+            });
+        } catch (Exception ex){
+            Log.e("\t\t\tThuFragment : Error\t" , ex.toString());
+        }
         return view;
     }
 
@@ -92,6 +103,7 @@ public class ThuFragment extends Fragment {
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
         builder.setView(view).setTitle("Thêm Khoản Thu");
+        builder.setCancelable(false);
 
         AlertDialog dialog = builder.create();
 
@@ -145,10 +157,10 @@ public class ThuFragment extends Fragment {
                             dialog_chung(1, getActivity(), "Thêm khoản thu Thành Công");
                             dialog.dismiss();
 
-//                            list.clear();
-//                            list = nguoiDungDAO.getAllNguoiDung();
-//                            DSnguoiDungAdapter adapter = new DSnguoiDungAdapter( getActivity() , list);
-//                            lv_ds.setAdapter(adapter);
+                            listThu.clear();
+                            listThu = thuDAO.getAll_Khoan_Thu();
+                            ThuAdapter adapter = new ThuAdapter(getActivity() , listThu);
+                            lv_ds_Thu.setAdapter(adapter);
 
                         } else if ( thuDAO.check_Khoan_Thu(thu) ) {
 
@@ -213,5 +225,108 @@ public class ThuFragment extends Fragment {
                     }
                 } , calendar.get(Calendar.YEAR) , calendar.get(Calendar.MONTH) , calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
+    }
+
+    private void update_Khoan_thu(Integer position) {
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.add_khoan_thu , null);
+
+        TextInputLayout edt_ma_thu_nhap, edt_so_Tien_THu, edt_ngay_nhan_tien, edt_Chu_Thich;
+
+        Button btn_add_Khoan_Thu = view.findViewById(R.id.btn_add_Khoan_Thu);
+        Button btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_nhan_tien);
+        edt_ma_thu_nhap  = view.findViewById(R.id.edt_ma_thu_nhap);
+        Spinner spinner_userName = view.findViewById(R.id.spinner_userName);
+        edt_so_Tien_THu  = view.findViewById(R.id.edt_so_Tien_THu);
+        edt_ngay_nhan_tien  = view.findViewById(R.id.edt_ngay_nhan_tien);
+        edt_Chu_Thich  = view.findViewById(R.id.edt_Chu_Thich_khoan_thu);
+        spinner_userName.setSelection(0);
+        get_nguoi_Dung(spinner_userName);
+
+        listThu.clear();
+        listThu = thuDAO.getAll_Khoan_Thu();
+        edt_ma_thu_nhap.getEditText().setText( listThu.get(position).getMaThuNhap() );
+        edt_ma_thu_nhap.getEditText().setEnabled(false);
+        spinner_userName.setSelection(position);
+        edt_so_Tien_THu.getEditText().setText( listThu.get(position).getSoTienThu() );
+        edt_ngay_nhan_tien.getEditText().setText( listThu.get(position).getNgayNhanTien() );
+        edt_Chu_Thich.getEditText().setText( listThu.get(position).getChuThich() );
+        btn_add_Khoan_Thu.setText("Cập Nhật");
+
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
+        builder.setView(view).setTitle("Thêm Khoản Thu");
+        builder.setCancelable(false);
+
+        AlertDialog dialog = builder.create();
+
+        btn_ngay_nhan_tien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                get_time(edt_ngay_nhan_tien);
+            }
+        });
+
+        btn_add_Khoan_Thu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ma_thu_nhap , userName , so_Tien_thu , ngay_nhan_tien , chu_Thich;
+                ma_thu_nhap = edt_ma_thu_nhap.getEditText().getText().toString();
+                userName = spinner_userName.getSelectedItem().toString();
+                so_Tien_thu = edt_so_Tien_THu.getEditText().getText().toString();
+                ngay_nhan_tien = edt_ngay_nhan_tien.getEditText().getText().toString();
+                chu_Thich = edt_Chu_Thich.getEditText().getText().toString();
+                String regex_so = "[0-9]+";
+
+                if (  ma_thu_nhap.isEmpty() ){
+
+                    dialog_chung(0, getActivity(), "Phải nhập Mã Thu Nhập");
+
+                } else if (  so_Tien_thu.isEmpty() ){
+
+                    dialog_chung(0, getActivity(), "Phải nhập Số Tiền");
+
+                } else if ( ! so_Tien_thu.matches(regex_so) ){
+
+                    dialog_chung(0, getActivity(), "Số tiền phải nhập Số");
+
+                }
+                else if (  ngay_nhan_tien.isEmpty() ){
+
+                    dialog_chung(0, getActivity(), "Phải chọn Ngày Nhận Tiền");
+
+                } else {
+                    try {
+                        Thu thu = new Thu(
+                                ma_thu_nhap,
+                                userName,
+                                so_Tien_thu,
+                                ngay_nhan_tien,
+                                chu_Thich
+                        );
+
+                        if ( thuDAO.update_Khoan_Thu(thu) > 0) {
+
+                            dialog_chung(1, getActivity(), "Cập Nhật Khoản Thu Thành Công");
+                            dialog.dismiss();
+
+                            listThu.clear();
+                            listThu = thuDAO.getAll_Khoan_Thu();
+                            ThuAdapter adapter = new ThuAdapter(getActivity() , listThu);
+                            lv_ds_Thu.setAdapter(adapter);
+
+                        } else {
+
+                            dialog_chung(1, getActivity(), "Cập Nhật Thất Bại");
+                        }
+
+                    } catch (Exception ex) {
+                        Log.e("Error Đăng Kí  : \t\t", ex.toString());
+                    }
+                }
+
+            }
+        });
+
+        dialog.show();
     }
 }

@@ -107,7 +107,12 @@ public class ThuDAO {
 
     //    delete    account
     public int delete_khoan_thu_By_ID(String maThuNhap) {
-        int result = db.delete(TABLE_NAME, "maThuNhap=?", new String[]{ maThuNhap });
+        int result = -1;
+        try {
+            result = db.delete(TABLE_NAME, "maThuNhap=?", new String[]{ maThuNhap });
+        } catch (Exception ex){
+            Log.e("\t\t\t" + TAG + "Error Database" , ex.toString() );
+        }
 
         if (result == 0)
             return -1;

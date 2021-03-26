@@ -77,6 +77,7 @@ public class ThuAdapter extends BaseAdapter {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+
                                     thuDAO.delete_khoan_thu_By_ID( list.get(position).getMaThuNhap() );
                                     list.remove(position);
                                     notifyDataSetChanged();
@@ -123,5 +124,10 @@ public class ThuAdapter extends BaseAdapter {
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
+    }
+
+    @Override
+    public void notifyDataSetInvalidated() {
+        super.notifyDataSetInvalidated();
     }
 }

@@ -139,15 +139,13 @@ private void edit_User(Integer i) {
 
                     if (nguoiDungDAO.updateNguoiDung(user) > 0) {
 
-                        dialog_chung(1 , getActivity() , "Đổi mật khẩu thành công");
+                        dialog_chung(1 , getActivity() , "Cập nhật thành công");
                         dialog.dismiss();
 
                         list.clear();
                         list = nguoiDungDAO.getAllNguoiDung();
                         DSnguoiDungAdapter adapter = new DSnguoiDungAdapter( getActivity() , list);
                         lv_ds.setAdapter(adapter);
-                    } else if ( nguoiDungDAO.checkLogin(user.getUserName() , user.getPassword()) > 0){
-                        dialog_chung(0 , getActivity() , "Tài Khoản đã tồn tại !\nVui lòng chọn tài khoản khác.");
                     } else {
 
                         dialog_chung(1 , getActivity() , "Chỉnh sửa thất bại");
