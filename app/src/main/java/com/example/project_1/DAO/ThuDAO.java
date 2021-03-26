@@ -102,6 +102,7 @@ public class ThuDAO {
     }
 
 //    //  change Password thay doi o day nha
+   them dong 105 o day nha
 //    public int changePasswordNguoiDung(NguoiDung nd) {
 ////        update Password according to the username
 //        ContentValues values = new ContentValues();
