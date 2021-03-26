@@ -45,12 +45,13 @@ public class NguoiDungDAO {
     public int inserNguoiDung(NguoiDung nd) {
 //        them nguoi dung vao db
         ContentValues values = new ContentValues();
-        values.put("username", nd.getUserName());
-        values.put("password", nd.getPassword());
+        values.put("userName", nd.getUserName());
+        values.put("passWord", nd.getPassword());
 
-        values.put("hoten", nd.getHoTen());
-        values.put("gt", nd.getGioiTinh());
+        values.put("tenND", nd.getHoTen());
+        values.put("gioiTinh", nd.getGioiTinh());
         values.put("phone", nd.getPhone());
+        values.put("tongSoTien", nd.getTongSoTien());
 //        insert db
         try {
             if (db.insert(TABLE_NAME, null, values) == -1) {
@@ -86,6 +87,7 @@ public class NguoiDungDAO {
                 ee.setHoTen(c.getString(2));
                 ee.setGioiTinh(c.getString(3));
                 ee.setPhone(c.getString(4));
+                ee.setTongSoTien( c.getString(5) );
 //            get data add list
                 dsNguoiDung.add(ee);
                 Log.d(TAG + "//=====\t\t\t\t", ee.toString());
@@ -100,14 +102,15 @@ public class NguoiDungDAO {
     public int updateNguoiDung(NguoiDung nd) {
 //        update nguoi dung according to the username
         ContentValues values = new ContentValues();
-        values.put("username", nd.getUserName());
-        values.put("password", nd.getPassword());
+        values.put("userName", nd.getUserName());
+        values.put("passWord", nd.getPassword());
 
-        values.put("hoten", nd.getHoTen());
-        values.put("gt", nd.getGioiTinh());
+        values.put("tenND", nd.getHoTen());
+        values.put("gioiTinh", nd.getGioiTinh());
         values.put("phone", nd.getPhone());
+        values.put("tongSoTien", nd.getTongSoTien());
 //        update for to database
-        int result = db.update(TABLE_NAME, values, "username=?", new
+        int result = db.update(TABLE_NAME, values, "userName=?", new
                 String[]{nd.getUserName()});
         if (result == 0) {
             return -1;
@@ -121,7 +124,7 @@ public class NguoiDungDAO {
         ContentValues values = new ContentValues();
         values.put("username", nd.getUserName());
         values.put("password", nd.getPassword());
-        int result = db.update(TABLE_NAME, values, "username=?", new
+        int result = db.update(TABLE_NAME, values, "userName=?", new
                 String[]{nd.getUserName()});
         if (result == 0) {
             return -1;
@@ -132,14 +135,15 @@ public class NguoiDungDAO {
     //  update info for to nguoi dung
     public int updateInfoNguoiDung(NguoiDung nd) {
         ContentValues values = new ContentValues();
-        values.put("username", nd.getUserName());
-        values.put("password", nd.getPassword());
+        values.put("userName", nd.getUserName());
+        values.put("passWord", nd.getPassword());
 
-        values.put("hoten", nd.getHoTen());
-        values.put("gt", nd.getGioiTinh());
+        values.put("tenND", nd.getHoTen());
+        values.put("gioiTinh", nd.getGioiTinh());
         values.put("phone", nd.getPhone());
+        values.put("tongSoTien", nd.getTongSoTien());
 
-        int result = db.update(TABLE_NAME, values, "username=?", new
+        int result = db.update(TABLE_NAME, values, "userName=?", new
                 String[]{nd.getUserName()});
         if (result == 0) {
             return -1;
@@ -149,7 +153,7 @@ public class NguoiDungDAO {
 
     //    delete    account
     public int deleteNguoiDungByID(String username) {
-        int result = db.delete(TABLE_NAME, "username=?", new String[]{username});
+        int result = db.delete(TABLE_NAME, "userName=?", new String[]{username});
 
         if (result == 0)
             return -1;
