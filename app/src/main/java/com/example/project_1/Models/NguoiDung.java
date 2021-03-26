@@ -6,6 +6,7 @@ public class NguoiDung {
     private String hoTen;
     private String gioiTinh;
     private String phone;
+    private String tongSoTien;
 
     public NguoiDung() {
     }
@@ -58,6 +59,14 @@ public class NguoiDung {
         this.phone = phone;
     }
 
+    public String getTongSoTien() {
+        return tongSoTien;
+    }
+
+    public void setTongSoTien(String tongSoTien) {
+        this.tongSoTien = tongSoTien;
+    }
+
     @Override
     public String toString() {
         return "NguoiDung{" +
@@ -66,6 +75,7 @@ public class NguoiDung {
                 ", hoTen='" + hoTen + '\'' +
                 ", gioiTinh='" + gioiTinh + '\'' +
                 ", phone='" + phone + '\'' +
+                ", tongSoTien='" + tongSoTien + '\'' +
                 '}';
     }
 }

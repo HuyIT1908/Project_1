@@ -13,13 +13,14 @@ public class ThuDAO {
     //    create table
     public static final String SQL_Thu = "CREATE TABLE \"Thu\" (\n" +
             "\t\"maThuNhap\"\tTEXT,\n" +
-            "\t\"maNguoiDung\"\tTEXT,\n" +
+            "\t\"userName\"\tTEXT,\n" +
             "\t\"soTienThu\"\tTEXT,\n" +
             "\t\"ngayNhanTien\"\tTEXT,\n" +
             "\t\"chuThich\"\tTEXT,\n" +
-            "\tFOREIGN KEY(\"maNguoiDung\") REFERENCES \"tkCaNhan\"(\"maNguoiDung\"),\n" +
+            "\tFOREIGN KEY(\"userName\") REFERENCES \"NguoiDung\"(\"userName\"),\n" +
             "\tPRIMARY KEY(\"maThuNhap\")\n" +
             ");" ;
+
     public static final String TAG = "ThuDAO";
 
     public ThuDAO(Context context) {

@@ -13,13 +13,14 @@ public class TietKiemDAO {
     //    create table
     public static final String SQL_Tiet_Kiem = "CREATE TABLE \"TietKiem\" (\n" +
             "\t\"maTietKiem\"\tTEXT,\n" +
-            "\t\"maNguoiDung\"\tTEXT,\n" +
+            "\t\"userName\"\tTEXT,\n" +
             "\t\"soTienTietKiem\"\tTEXT,\n" +
             "\t\"ngayTietKiem\"\tTEXT,\n" +
             "\t\"chuThich\"\tTEXT,\n" +
-            "\tPRIMARY KEY(\"maTietKiem\"),\n" +
-            "\tFOREIGN KEY(\"maNguoiDung\") REFERENCES \"tkCaNhan\"(\"maNguoiDung\")\n" +
+            "\tFOREIGN KEY(\"userName\") REFERENCES \"NguoiDung\"(\"userName\"),\n" +
+            "\tPRIMARY KEY(\"maTietKiem\")\n" +
             ");" ;
+
     public static final String TAG = "TietKiemDAO";
 
     public TietKiemDAO(Context context) {

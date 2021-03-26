@@ -13,14 +13,15 @@ public class KhoanNoDAO {
     //    create table
     public static final String SQL_Khoan_No = "CREATE TABLE \"KhoanNo\" (\n" +
             "\t\"maKhoanNo\"\tTEXT,\n" +
-            "\t\"maNguoiDung\"\tTEXT,\n" +
+            "\t\"userName\"\tTEXT,\n" +
             "\t\"soTienNo\"\tTEXT,\n" +
             "\t\"ngayNo\"\tTEXT,\n" +
             "\t\"ngayTra\"\tTEXT,\n" +
             "\t\"chuThich\"\tTEXT,\n" +
-            "\tPRIMARY KEY(\"maKhoanNo\"),\n" +
-            "\tFOREIGN KEY(\"maNguoiDung\") REFERENCES \"tkCaNhan\"(\"maNguoiDung\")\n" +
+            "\tFOREIGN KEY(\"userName\") REFERENCES \"NguoiDung\"(\"userName\"),\n" +
+            "\tPRIMARY KEY(\"maKhoanNo\")\n" +
             ");" ;
+
     public static final String TAG = "KhoanNoDAO";
 
     public KhoanNoDAO(Context context) {

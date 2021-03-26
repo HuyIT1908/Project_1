@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                 } else {
 
-                    dialog_chung(0 , context , "Tên đăng nhập và mật khẩu không đúng ???");
+                    dialog_chung(0 , context , "Tên đăng nhập và mật khẩu không đúng ???  \n\nHoặc không có ! ! !");
                 }
 
             }

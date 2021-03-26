@@ -18,17 +18,27 @@ public class NguoiDungDAO {
     //    ten table
     public static final String TABLE_NAME = "NguoiDung";
     //    create table
-    public static final String SQL_NGUOI_DUNG = "CREATE TABLE NguoiDung (username text primary key," +
-            " password text," +
-            " hoten text," +
-            " gt text," +
-            " phone text);";
+    public static final String SQL_NGUOI_DUNG = "CREATE TABLE \"NguoiDung\" (\n" +
+            "\t\"userName\"\tTEXT UNIQUE,\n" +
+            "\t\"passWord\"\tTEXT NOT NULL,\n" +
+            "\t\"tenND\"\tTEXT,\n" +
+            "\t\"gioiTinh\"\tTEXT,\n" +
+            "\t\"phone\"\tTEXT,\n" +
+            "\t\"tongSoTien\"\tTEXT,\n" +
+            "\tPRIMARY KEY(\"userName\")\n" +
+            ");" ;
+
     public static final String TAG = "NguoiDungDAO";
 
     public NguoiDungDAO(Context context) {
 //        tao doi tuong va lay quyen doc ghi
         dbHelper = new DatabaseHelper(context);
         db = dbHelper.getWritableDatabase();
+        try {
+
+        } catch (Exception ex){
+            Log.e("\t\t line 34\t" + TAG , ex.toString() );
+        }
     }
 
     //insert
@@ -57,23 +67,32 @@ public class NguoiDungDAO {
 //        get all data for to list
         List<NguoiDung> dsNguoiDung = new ArrayList<>();
 
-        Cursor c = db.query(TABLE_NAME, null, null, null, null, null, null);
-        c.moveToFirst();
-        while (c.isAfterLast() == false) {
-
-            NguoiDung ee = new NguoiDung();
-            ee.setUserName(c.getString(0));
-            ee.setPassword(c.getString(1));
-
-            ee.setHoTen(c.getString(2));
-            ee.setGioiTinh(c.getString(3));
-            ee.setPhone(c.getString(4));
-//            get data add list
-            dsNguoiDung.add(ee);
-            Log.d(TAG + "//=====\t\t\t\t", ee.toString());
-            c.moveToNext();
+        Cursor c = null;
+        try {
+            c = db.query(TABLE_NAME, null, null, null, null, null, null);
+//            c = db.rawQuery("SELECT * FROM NguoiDung" , null);
+//            Log.e("\t\t" + TAG , c.toString() );
+        } catch (Exception ex){
+            Log.e(TAG + "\tline 69" , ex.toString() +"\t" + c);
         }
-        c.close();
+        if (c != null){
+            c.moveToFirst();
+            while (c.isAfterLast() == false) {
+
+                NguoiDung ee = new NguoiDung();
+                ee.setUserName(c.getString(0));
+                ee.setPassword(c.getString(1));
+
+                ee.setHoTen(c.getString(2));
+                ee.setGioiTinh(c.getString(3));
+                ee.setPhone(c.getString(4));
+//            get data add list
+                dsNguoiDung.add(ee);
+                Log.d(TAG + "//=====\t\t\t\t", ee.toString());
+                c.moveToNext();
+            }
+            c.close();
+        }
         return dsNguoiDung;
     }
 
@@ -156,8 +175,11 @@ public class NguoiDungDAO {
             ee.setPhone(c.getString(4));
 
             Log.d(TAG + "//=====\t\t\t\t", ee.toString());
-            if (username.equals(c.getString(0))
-                    && password.equals(c.getString(1))){
+            if ( username.equals(c.getString(0)) ){
+                c.close();
+                return 1;
+            } else if (  username.equals(c.getString(0))
+                    && password.equals(c.getString(1)) ){
                 c.close();
 //                Log.e("-kiem tra login -------" , "----------thanh cong roi nha");
                 return 1;

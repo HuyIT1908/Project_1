@@ -13,13 +13,14 @@ public class ChiDAO {
     //    create table
     public static final String SQL_Chi = "CREATE TABLE \"Chi\" (\n" +
             "\t\"maChiTieu\"\tTEXT,\n" +
-            "\t\"maNguoiDung\"\tTEXT,\n" +
+            "\t\"userName\"\tTEXT,\n" +
             "\t\"soTienChi\"\tTEXT,\n" +
             "\t\"ngayChi\"\tTEXT,\n" +
             "\t\"chuThich\"\tTEXT,\n" +
-            "\tFOREIGN KEY(\"maNguoiDung\") REFERENCES \"tkCaNhan\"(\"maNguoiDung\"),\n" +
+            "\tFOREIGN KEY(\"userName\") REFERENCES \"NguoiDung\"(\"userName\"),\n" +
             "\tPRIMARY KEY(\"maChiTieu\")\n" +
             ");" ;
+
     public static final String TAG = "ChiDAO";
 
     public ChiDAO(Context context) {

@@ -47,7 +47,7 @@
                 android:title="Giới thiệu" />
             <item
                 android:id="@+id/nav_thoat"
-
+                android:icon="@drawable/icon_exit"
                 android:title="Thoát" />
         </menu>
     </item>

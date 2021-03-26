@@ -13,13 +13,14 @@ public class KHchiDAO {
     //    create table
     public static final String SQL_ke_hoach_chi = "CREATE TABLE \"KeHoachChi\" (\n" +
             "\t\"maDuChi\"\tTEXT,\n" +
-            "\t\"maNguoiDung\"\tTEXT,\n" +
+            "\t\"userName\"\tTEXT,\n" +
             "\t\"soTienDuChi\"\tTEXT,\n" +
             "\t\"ngayDuChi\"\tTEXT,\n" +
             "\t\"chuThich\"\tTEXT,\n" +
-            "\tPRIMARY KEY(\"maDuChi\"),\n" +
-            "\tFOREIGN KEY(\"maNguoiDung\") REFERENCES \"tkCaNhan\"(\"maNguoiDung\")\n" +
-            ");" ;
+            "\tFOREIGN KEY(\"userName\") REFERENCES \"NguoiDung\"(\"userName\"),\n" +
+            "\tPRIMARY KEY(\"maDuChi\")\n" +
+            ")" ;
+
     public static final String TAG = "KeHoachChiDAO";
 
     public KHchiDAO(Context context) {

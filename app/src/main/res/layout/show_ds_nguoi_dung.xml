@@ -3,27 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="100dp"
     android:padding="4dp">
 
     <ImageView
         android:id="@+id/ivIcon2"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:scaleType="fitXY"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_centerVertical="true"
+         />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
         android:layout_toRightOf="@id/ivIcon2"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvName"
+            android:id="@+id/tv_ds_tk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -32,23 +34,32 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvPhone"
+            android:id="@+id/tv_ds_mk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="Phone" />
 
         <TextView
-            android:id="@+id/tv_gt"
+            android:id="@+id/tv_ds_hoTen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/tv_ds_sdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:text="TextView" />
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/ivDelete"
+        android:id="@+id/imv_ds_xoa"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:src="@drawable/ic_action_delete" />
 </RelativeLayout>
