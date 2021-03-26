@@ -106,7 +106,7 @@ public class ThuDAO {
     }
 
     //    delete    account
-    public int deleteNguoiDungByID(String maThuNhap) {
+    public int delete_khoan_thu_By_ID(String maThuNhap) {
         int result = db.delete(TABLE_NAME, "maThuNhap=?", new String[]{ maThuNhap });
 
         if (result == 0)

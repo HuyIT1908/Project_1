@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.project_1.Adapter.DSnguoiDungAdapter;
+import com.example.project_1.Adapter.ThuAdapter;
 import com.example.project_1.DAO.NguoiDungDAO;
 import com.example.project_1.DAO.ThuDAO;
 import com.example.project_1.Models.NguoiDung;
@@ -63,6 +64,11 @@ public class ThuFragment extends Fragment {
                 add_Khoan_thu();
             }
         });
+
+        listThu.clear();
+        listThu = thuDAO.getAll_Khoan_Thu();
+        ThuAdapter adapter = new ThuAdapter(getActivity() , listThu);
+        lv_ds_Thu.setAdapter(adapter);
 
         return view;
     }

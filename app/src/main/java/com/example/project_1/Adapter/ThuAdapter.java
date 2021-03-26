@@ -52,13 +52,20 @@ public class ThuAdapter extends BaseAdapter {
             viewHoler = new ViewHoler();
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.show_ds_nguoi_dung , null);
+            convertView = inflater.inflate(R.layout.show_chung , null);
 
-            viewHoler.userName = convertView.findViewById(R.id.tv_ds_tk);
-            viewHoler.passWord = convertView.findViewById(R.id.tv_ds_mk);
-            viewHoler.hoTen = convertView.findViewById(R.id.tv_ds_hoTen);
-            viewHoler.sdt = convertView.findViewById(R.id.tv_ds_sdt);
-            viewHoler.delete = convertView.findViewById(R.id.imv_ds_xoa);
+            viewHoler.ma_thu_nhap = convertView.findViewById(R.id.tv_chung_ma);
+            viewHoler.userName = convertView.findViewById(R.id.tv_chung_tk);
+            viewHoler.so_Tien_thu = convertView.findViewById(R.id.tv_chung_so_tien);
+            viewHoler.ngay_nhan_tien = convertView.findViewById(R.id.tv_chung_ngay);
+            viewHoler.chu_THich = convertView.findViewById(R.id.tv_chung_chu_thich);
+            viewHoler.edit = convertView.findViewById(R.id.img_chung_edit);
+            viewHoler.delete = convertView.findViewById(R.id.img_chung_delete);
+
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_1)).setText("Tài Khoản :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_2)).setText("Số Tiền thu :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_3)).setText("Ngày Nhận Tiền :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_4)).setText("Ghi chú :");
 
             viewHoler.delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -70,10 +77,10 @@ public class ThuAdapter extends BaseAdapter {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    nguoiDungDAO.deleteNguoiDungByID( list.get(position).getUserName() );
+                                    thuDAO.delete_khoan_thu_By_ID( list.get(position).getMaThuNhap() );
                                     list.remove(position);
                                     notifyDataSetChanged();
-                                    Toast.makeText(context, "Đã xóa người dùng thành công",
+                                    Toast.makeText(context, "Đã xóa Khoản Thu thành công",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -93,20 +100,24 @@ public class ThuAdapter extends BaseAdapter {
         } else {
             viewHoler = (ViewHoler) convertView.getTag();
         }
-        viewHoler.userName.setText("Tài khoản :  " + list.get(position).getUserName() );
-        viewHoler.passWord.setText("Mật Khẩu :  " + list.get(position).getPassword() );
-        viewHoler.hoTen.setText("Họ tên :  " + list.get(position).getHoTen() );
-        viewHoler.sdt.setText("Số Điện Thoại :  " + list.get(position).getPhone() );
+
+        viewHoler.ma_thu_nhap.setText( list.get(position).getMaThuNhap() );
+        viewHoler.userName.setText( list.get(position).getUserName() );
+        viewHoler.so_Tien_thu.setText( list.get(position).getSoTienThu() );
+        viewHoler.ngay_nhan_tien.setText( list.get(position).getNgayNhanTien() );
+        viewHoler.chu_THich.setText( list.get(position).getChuThich() );
+
         return convertView;
     }
 
     private static class ViewHoler{
         TextView ma_thu_nhap;
         TextView userName;
-        TextView so_Tien;
+        TextView so_Tien_thu;
         TextView ngay_nhan_tien;
         TextView chu_THich;
         ImageView delete;
+        ImageView edit;
     }
 
     @Override
