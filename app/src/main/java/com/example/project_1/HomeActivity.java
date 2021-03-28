@@ -22,6 +22,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.project_1.Chi.ChiFragment;
 import com.example.project_1.DAO.NguoiDungDAO;
 import com.example.project_1.Models.NguoiDung;
 import com.example.project_1.NguoiDung.DSnguoiDungFragment;
@@ -62,8 +63,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener
-                    , new ThuFragment() ).commit();
-            navigationView.setCheckedItem(R.id.nav_thu);
+                    , new ChiFragment() ).commit();
+            navigationView.setCheckedItem(R.id.nav_chi);
         }
 
     }
@@ -75,9 +76,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 setTitle("Khoản Thu");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new ThuFragment() ).commit();
                 break;
-//            case R.id.nav_chi:
-//                getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new FragmentChi()).commit();
-//                break;
+            case R.id.nav_chi:
+                setTitle("Khoản Chi");
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new ChiFragment() ).commit();
+                break;
 //            case R.id.nav_thong_ke:
 //                getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new FragmentThongKe()).commit();
 //                break;

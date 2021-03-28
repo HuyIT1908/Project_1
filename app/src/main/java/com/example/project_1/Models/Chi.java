@@ -2,7 +2,7 @@ package com.example.project_1.Models;
 
 public class Chi {
     private String maChiTieu;
-    private String maNguoiDung;
+    private String userName;
     private String soTienChi;
     private String ngayChi;
     private String chuThich;
@@ -10,9 +10,9 @@ public class Chi {
     public Chi() {
     }
 
-    public Chi(String maChiTieu, String maNguoiDung, String soTienChi, String ngayChi, String chuThich) {
+    public Chi(String maChiTieu, String userName, String soTienChi, String ngayChi, String chuThich) {
         this.maChiTieu = maChiTieu;
-        this.maNguoiDung = maNguoiDung;
+        this.userName = userName;
         this.soTienChi = soTienChi;
         this.ngayChi = ngayChi;
         this.chuThich = chuThich;
@@ -26,12 +26,12 @@ public class Chi {
         this.maChiTieu = maChiTieu;
     }
 
-    public String getMaNguoiDung() {
-        return maNguoiDung;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setMaNguoiDung(String maNguoiDung) {
-        this.maNguoiDung = maNguoiDung;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getSoTienChi() {
@@ -57,4 +57,5 @@ public class Chi {
     public void setChuThich(String chuThich) {
         this.chuThich = chuThich;
     }
+
 }

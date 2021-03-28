@@ -47,7 +47,6 @@ public class ThuFragment extends Fragment {
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     final Calendar calendar = Calendar.getInstance();
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
