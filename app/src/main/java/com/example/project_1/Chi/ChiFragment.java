@@ -149,7 +149,7 @@ public class ChiFragment extends Fragment {
                 } else {
                     try {
                         Chi chi = new Chi(
-                                ma_chi_tieu ,
+                                "CT_" + ma_chi_tieu ,
                                 userName ,
                                 so_tien_chi ,
                                 ngay_Chi ,
@@ -254,7 +254,7 @@ public class ChiFragment extends Fragment {
         list_CHi = chiDAO.getAll_Khoan_Chi() ;
         edt_ma_chi_tieu.getEditText().setText( list_CHi.get(position).getMaChiTieu() );
         edt_ma_chi_tieu.getEditText().setEnabled(false);
-        spinner_userName.setSelection(position);
+        spinner_userName.setSelection( getIndex( spinner_userName , list_CHi.get(position).getUserName() ) );
         edt_so_tien_chi.getEditText().setText( list_CHi.get(position).getSoTienChi() );
         edt_ngay_Chi.getEditText().setText( list_CHi.get(position).getNgayChi() );
         edt_Chu_Thich.getEditText().setText( list_CHi.get(position).getChuThich() );
@@ -335,5 +335,15 @@ public class ChiFragment extends Fragment {
         });
 
         dialog.show();
+    }
+
+    private int getIndex(Spinner spinner, String myString) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)) {
+                return i;
+            }
+        }
+
+        return 0;
     }
 }

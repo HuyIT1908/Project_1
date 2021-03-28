@@ -144,7 +144,7 @@ public class ThuFragment extends Fragment {
                 } else {
                     try {
                         Thu thu = new Thu(
-                                ma_thu_nhap,
+                                "TN_" + ma_thu_nhap,
                                 userName,
                                 so_Tien_thu,
                                 ngay_nhan_tien,
@@ -246,7 +246,7 @@ public class ThuFragment extends Fragment {
         listThu = thuDAO.getAll_Khoan_Thu();
         edt_ma_thu_nhap.getEditText().setText( listThu.get(position).getMaThuNhap() );
         edt_ma_thu_nhap.getEditText().setEnabled(false);
-        spinner_userName.setSelection(position);
+        spinner_userName.setSelection( getIndex( spinner_userName , listThu.get(position).getUserName() ) );
         edt_so_Tien_THu.getEditText().setText( listThu.get(position).getSoTienThu() );
         edt_ngay_nhan_tien.getEditText().setText( listThu.get(position).getNgayNhanTien() );
         edt_Chu_Thich.getEditText().setText( listThu.get(position).getChuThich() );
@@ -327,5 +327,15 @@ public class ThuFragment extends Fragment {
         });
 
         dialog.show();
+    }
+
+    private int getIndex(Spinner spinner, String myString) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)) {
+                return i;
+            }
+        }
+
+        return 0;
     }
 }
