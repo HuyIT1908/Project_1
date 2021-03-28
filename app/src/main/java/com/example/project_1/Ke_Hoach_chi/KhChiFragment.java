@@ -169,7 +169,7 @@ public class KhChiFragment extends Fragment {
 
                         } else if ( kHchiDAO.check_ID_KhChi( kHchi ) ) {
 
-                            dialog_chung(0, getActivity(), "Kế Hoặch Chi đã tồn tại !\n\nVui lòng nhập mã khác.");
+                            dialog_chung(0, getActivity(), "Kế Hoạch Chi đã tồn tại !\n\nVui lòng nhập mã khác.");
 
                         } else {
 
