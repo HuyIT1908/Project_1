@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.project_1.Chi.ChiFragment;
 import com.example.project_1.DAO.NguoiDungDAO;
+import com.example.project_1.Ke_Hoach_chi.KhChiFragment;
 import com.example.project_1.Models.NguoiDung;
 import com.example.project_1.NguoiDung.DSnguoiDungFragment;
 import com.example.project_1.Thu.ThuFragment;
@@ -63,9 +64,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener
-                    , new ChiFragment() ).commit();
-            navigationView.setCheckedItem(R.id.nav_chi);
-            setTitle("Khoản Chi");
+                    , new KhChiFragment() ).commit();
+            navigationView.setCheckedItem(R.id.nav_ke_hoach);
+            setTitle("Kế Hoạch Chi");
         }
 
     }
@@ -81,9 +82,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 setTitle("Khoản Chi");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new ChiFragment() ).commit();
                 break;
-//            case R.id.nav_thong_ke:
-//                getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new FragmentThongKe()).commit();
-//                break;
+            case R.id.nav_ke_hoach:
+                setTitle("Kế Hoạch Chi");
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new KhChiFragment() ).commit();
+                break;
             case R.id.nav_list_user:
                 setTitle("Quản Lí Tài Khoản");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new DSnguoiDungFragment()).commit();

@@ -20,7 +20,7 @@
         <item
             android:id="@+id/nav_ke_hoach"
 
-            android:title="Kế Hoạch" />
+            android:title="Kế Hoạch Chi" />
 
         <item
             android:id="@+id/nav_khoan_no"
