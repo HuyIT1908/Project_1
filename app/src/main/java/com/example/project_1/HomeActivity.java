@@ -65,6 +65,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener
                     , new ChiFragment() ).commit();
             navigationView.setCheckedItem(R.id.nav_chi);
+            setTitle("Khoản Chi");
         }
 
     }

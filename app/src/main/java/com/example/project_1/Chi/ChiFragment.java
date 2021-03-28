@@ -75,7 +75,7 @@ public class ChiFragment extends Fragment {
             lv_ds_Chi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    update_Khoan_Chi(position);
+                    update_Khoan_Chi(position);
                 }
             });
         } catch (Exception ex){
@@ -100,9 +100,9 @@ public class ChiFragment extends Fragment {
         edt_Chu_Thich  = view.findViewById(R.id.edt_Chu_Thich_khoan_thu);
         spinner_userName.setSelection(0);
         get_nguoi_Dung(spinner_userName);
-        edt_ma_chi_tieu.getEditText().setHint("Mã Chi Tiêu");
-        edt_so_tien_chi.getEditText().setHint("Số Tiền Chi");
-        edt_ngay_Chi.getEditText().setHint("Ngày Chi");
+        edt_ma_chi_tieu.setHint("Mã Chi Tiêu");
+        edt_so_tien_chi.setHint("Số Tiền Chi");
+        edt_ngay_Chi.setHint("Ngày Chi");
 
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder( getActivity() );
@@ -229,5 +229,111 @@ public class ChiFragment extends Fragment {
                     }
                 } , calendar.get(Calendar.YEAR) , calendar.get(Calendar.MONTH) , calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
+    }
+
+    private void update_Khoan_Chi(Integer position){
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.add_khoan_thu , null);
+
+        TextInputLayout edt_ma_chi_tieu, edt_so_tien_chi, edt_ngay_Chi, edt_Chu_Thich;
+
+        Button btn_add_Khoan_Thu = view.findViewById(R.id.btn_add_Khoan_Thu);
+        Button btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_nhan_tien);
+        edt_ma_chi_tieu  = view.findViewById(R.id.edt_ma_thu_nhap);
+        Spinner spinner_userName = view.findViewById(R.id.spinner_userName);
+        edt_so_tien_chi  = view.findViewById(R.id.edt_so_Tien_THu);
+        edt_ngay_Chi  = view.findViewById(R.id.edt_ngay_nhan_tien);
+        edt_Chu_Thich  = view.findViewById(R.id.edt_Chu_Thich_khoan_thu);
+        spinner_userName.setSelection(0);
+        get_nguoi_Dung(spinner_userName);
+        edt_ma_chi_tieu.setHint("Mã Chi Tiêu");
+        edt_so_tien_chi.setHint("Số Tiền Chi");
+        edt_ngay_Chi.setHint("Ngày Chi");
+
+        list_CHi.clear();
+        list_CHi = chiDAO.getAll_Khoan_Chi() ;
+        edt_ma_chi_tieu.getEditText().setText( list_CHi.get(position).getMaChiTieu() );
+        edt_ma_chi_tieu.getEditText().setEnabled(false);
+        spinner_userName.setSelection(position);
+        edt_so_tien_chi.getEditText().setText( list_CHi.get(position).getSoTienChi() );
+        edt_ngay_Chi.getEditText().setText( list_CHi.get(position).getNgayChi() );
+        edt_Chu_Thich.getEditText().setText( list_CHi.get(position).getChuThich() );
+        btn_add_Khoan_Thu.setText("Cập Nhật");
+
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
+        builder.setView(view).setTitle("Cập Nhật Khoản Chi");
+        builder.setCancelable(false);
+
+        AlertDialog dialog = builder.create();
+
+        btn_ngay_nhan_tien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                get_time(edt_ngay_Chi);
+            }
+        });
+
+        btn_add_Khoan_Thu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ma_chi_tieu , userName , so_tien_chi , ngay_chi , chu_Thich;
+                ma_chi_tieu = edt_ma_chi_tieu.getEditText().getText().toString();
+                userName = spinner_userName.getSelectedItem().toString();
+                so_tien_chi = edt_so_tien_chi.getEditText().getText().toString();
+                ngay_chi = edt_ngay_Chi.getEditText().getText().toString();
+                chu_Thich = edt_Chu_Thich.getEditText().getText().toString();
+                String regex_so = "[0-9]+";
+
+                if (  ma_chi_tieu.isEmpty() ){
+
+                    dialog_chung(0, getActivity(), "Phải nhập Mã Chi Tiêu");
+
+                } else if (  so_tien_chi.isEmpty() ){
+
+                    dialog_chung(0, getActivity(), "Phải nhập Số Tiền");
+
+                } else if ( ! so_tien_chi.matches(regex_so) ){
+
+                    dialog_chung(0, getActivity(), "Số tiền phải dạng nhập Số");
+
+                }
+                else if (  ngay_chi.isEmpty() ){
+
+                    dialog_chung(0, getActivity(), "Phải chọn Ngày Chi");
+
+                } else {
+                    try {
+                        Chi chi = new Chi(
+                                ma_chi_tieu ,
+                                userName ,
+                                so_tien_chi ,
+                                ngay_chi ,
+                                chu_Thich
+                        );
+
+                        if ( chiDAO.update_Khoan_Chi( chi ) > 0) {
+
+                            dialog_chung(1, getActivity(), "Cập Nhật Khoản Chi Thành Công");
+                            dialog.dismiss();
+
+                            list_CHi.clear();
+                            list_CHi = chiDAO.getAll_Khoan_Chi();
+                            ChiAdapter adapter = new ChiAdapter( getActivity() , list_CHi);
+                            lv_ds_Chi.setAdapter(adapter);
+
+                        } else {
+
+                            dialog_chung(1, getActivity(), "Cập Nhật Thất Bại");
+                        }
+
+                    } catch (Exception ex) {
+                        Log.e("Error Đăng Kí  : \t\t", ex.toString());
+                    }
+                }
+
+            }
+        });
+
+        dialog.show();
     }
 }
