@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.project_1.Chi.ChiFragment;
 import com.example.project_1.DAO.NguoiDungDAO;
 import com.example.project_1.Ke_Hoach_chi.KhChiFragment;
+import com.example.project_1.KhoanNo.KhoanNoFragment;
 import com.example.project_1.Models.NguoiDung;
 import com.example.project_1.NguoiDung.DSnguoiDungFragment;
 import com.example.project_1.Thu.ThuFragment;
@@ -64,9 +65,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener
-                    , new KhChiFragment() ).commit();
+                    , new KhoanNoFragment() ).commit();
             navigationView.setCheckedItem(R.id.nav_ke_hoach);
-            setTitle("Kế Hoạch Chi");
+            setTitle("Khoản Nợ");
         }
 
     }
@@ -85,6 +86,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_ke_hoach:
                 setTitle("Kế Hoạch Chi");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new KhChiFragment() ).commit();
+                break;
+            case R.id.nav_khoan_no:
+                setTitle("Khoản Nợ");
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new KhoanNoFragment() ).commit();
                 break;
             case R.id.nav_list_user:
                 setTitle("Quản Lí Tài Khoản");
