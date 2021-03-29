@@ -67,7 +67,7 @@ public class DSnguoiDungAdapter extends BaseAdapter {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
                     builder.setTitle("Thông báo").setMessage("Bạn có chắc chắn muốn xóa người dùng này không ?");
-                    builder.setPositiveButton("Xóa",
+                    builder.setNegativeButton("Xóa",
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -79,7 +79,7 @@ public class DSnguoiDungAdapter extends BaseAdapter {
                                 }
                             });
 
-                    builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton("Hủy", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
