@@ -128,6 +128,7 @@ public class KHchiDAO {
                 kHchi.setChuThich(  c.getString(4));
 
                 if ( ngoai.getMaDuChi().toString().equals( kHchi.getMaDuChi().toString() ) ){
+                    c.close();
                     return true;
                 }
                 Log.d(TAG + "//=====\t\t", kHchi.toString());
