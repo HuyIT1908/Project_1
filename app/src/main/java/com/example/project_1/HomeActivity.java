@@ -53,6 +53,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) context);
 
+        View mHeaderView = navigationView.getHeaderView(0);
+        TextView tv_chao = mHeaderView.findViewById(R.id.tv_header_chao);
+        get_remember_User(tv_chao);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this,
                 drawer,
@@ -125,6 +129,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case 1:
                 Toast.makeText(context, tb, Toast.LENGTH_SHORT).show();
                 break;
+        }
+    }
+
+    private void get_remember_User(TextView tv) {
+        SharedPreferences pref = getSharedPreferences("USER_FILE", MODE_PRIVATE);
+        String tk = pref.getString("USERNAME", null);
+        String mk = pref.getString("PASSWORD", null);
+        boolean nho = pref.getBoolean("REMEMBER", true);
+        if (tk != null && mk != null) {
+            tv.setText("Xin Chào :  " + tk);
+//            Log.e("-----------login test", String.valueOf(nho) + "\t" + tk + "\t\t" + mk);
         }
     }
 }

@@ -39,7 +39,7 @@
     </group>
 
 
-    <item android:title="Giới thiệu">
+    <item android:title="Chức Năng Khác">
         <menu>
             <item
                 android:id="@+id/nav_gioi_thieu"

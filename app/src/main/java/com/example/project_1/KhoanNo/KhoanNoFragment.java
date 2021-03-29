@@ -76,7 +76,7 @@ public class KhoanNoFragment extends Fragment {
             lv_ds_Khoan_No.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    update_Ke_Hoach_Chi(position);
+                    update_Khoan_No(position);
                 }
             });
         } catch (Exception ex){
@@ -255,4 +255,122 @@ public class KhoanNoFragment extends Fragment {
         return 0;
     }
 
+    private void update_Khoan_No(Integer position){
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.add_khoan_thu , null);
+
+        TextInputLayout edt_ma_Khoan_No, edt_so_Tien_No, edt_ngay_No, edt_Chu_Thich;
+
+        Button btn_huy = view.findViewById(R.id.btn_huy);
+        Button btn_add_ke_hoach_chi = view.findViewById(R.id.btn_add_Khoan_Thu);
+        Button btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_nhan_tien);
+        edt_ma_Khoan_No  = view.findViewById(R.id.edt_ma_thu_nhap);
+        Spinner spinner_userName = view.findViewById(R.id.spinner_userName);
+        edt_so_Tien_No  = view.findViewById(R.id.edt_so_Tien_THu);
+        edt_ngay_No  = view.findViewById(R.id.edt_ngay_nhan_tien);
+        edt_Chu_Thich  = view.findViewById(R.id.edt_Chu_Thich_khoan_thu);
+        spinner_userName.setSelection(0);
+        get_nguoi_Dung(spinner_userName);
+        edt_ma_Khoan_No.setHint("Mã Khoản Nợ");
+        edt_so_Tien_No.setHint("Số Tiền Nợ");
+        edt_ngay_No.setHint("Ngày Nợ");
+
+        list_Khoan_No.clear();
+        list_Khoan_No = khoanNoDAO.getAll_Khoan_No();
+        edt_ma_Khoan_No.getEditText().setText( list_Khoan_No.get(position).getMaKhoanNo() );
+        edt_ma_Khoan_No.getEditText().setEnabled(false);
+        spinner_userName.setSelection( getIndex( spinner_userName , list_Khoan_No.get(position).getUserName() ) );
+        edt_so_Tien_No.getEditText().setText( list_Khoan_No.get(position).getSoTienNo() );
+        edt_ngay_No.getEditText().setText( list_Khoan_No.get(position).getNgayNo() );
+        edt_Chu_Thich.getEditText().setText( list_Khoan_No.get(position).getChuThich() );
+        btn_add_ke_hoach_chi.setText("Cập Nhật");
+
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
+        builder.setView(view).setTitle("Cập Nhật Khoản Nợ");
+        builder.setCancelable(false);
+
+        AlertDialog dialog = builder.create();
+
+        btn_ngay_nhan_tien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                get_time(edt_ngay_No);
+            }
+        });
+
+        btn_add_ke_hoach_chi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ma_Khoan_No , userName , so_Tien_No , ngay_No , chu_Thich;
+                ma_Khoan_No = edt_ma_Khoan_No.getEditText().getText().toString();
+                userName = spinner_userName.getSelectedItem().toString();
+                so_Tien_No = edt_so_Tien_No.getEditText().getText().toString();
+                ngay_No = edt_ngay_No.getEditText().getText().toString();
+                chu_Thich = edt_Chu_Thich.getEditText().getText().toString();
+                String regex_so = "[0-9]+";
+
+                if (  ma_Khoan_No.isEmpty() ){
+
+                    dialog_chung(0, getActivity(), "Phải nhập Mã Khoản Nợ");
+
+                } else if (  so_Tien_No.isEmpty() ){
+
+                    dialog_chung(0, getActivity(), "Phải nhập Số Nợ");
+
+                } else if ( ! so_Tien_No.matches(regex_so) ){
+
+                    dialog_chung(0, getActivity(), "Số tiền phải dạng nhập Số");
+
+                }
+                else if (  ngay_No.isEmpty() ){
+
+                    dialog_chung(0, getActivity(), "Phải chọn Ngày Nợ");
+
+                } else {
+                    try {
+                        KhoanNo khoanNo = new KhoanNo(
+                                ma_Khoan_No ,
+                                userName ,
+                                so_Tien_No ,
+                                ngay_No ,
+                                chu_Thich
+                        );
+
+                        if ( khoanNoDAO.update_Khoan_NO( khoanNo ) > 0) {
+
+                            dialog_chung(1, getActivity(), "Cập Nhật Khoản Nợ Thành Công");
+                            dialog.dismiss();
+
+                            list_Khoan_No.clear();
+                            list_Khoan_No = khoanNoDAO.getAll_Khoan_No();
+                            KhoanNoAdapter adapter = new KhoanNoAdapter( getActivity() , list_Khoan_No);
+                            lv_ds_Khoan_No.setAdapter(adapter);
+
+                        } else {
+
+                            dialog_chung(1, getActivity(), "Cập Nhật Thất Bại");
+                        }
+
+                    } catch (Exception ex) {
+                        Log.e("Error Cập Nhật  : \t\t", ex.toString());
+                    }
+                }
+
+            }
+        });
+
+        btn_huy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+                list_Khoan_No.clear();
+                list_Khoan_No = khoanNoDAO.getAll_Khoan_No();
+                KhoanNoAdapter adapter = new KhoanNoAdapter( getActivity() , list_Khoan_No);
+                lv_ds_Khoan_No.setAdapter(adapter);
+            }
+        });
+
+        dialog.show();
+    }
 }

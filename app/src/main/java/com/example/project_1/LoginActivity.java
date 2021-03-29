@@ -79,7 +79,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void sign_Up(View view){
         startActivity(new Intent(context , Sign_UpActivity.class));
-        finish();
     }
 
     private void dialog_chung(Integer so, Context context, String tb) {

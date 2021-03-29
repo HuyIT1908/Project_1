@@ -19,7 +19,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class Sign_UpActivity extends AppCompatActivity {
     TextInputLayout edt_ho_ten, edt_sdt, edt_tk, edt_mk, edt_lai_mk;
-    Button btn_SignUp;
+    Button btn_SignUp , btn_cancel_sihnUp;
     Context context = Sign_UpActivity.this;
     NguoiDungDAO nguoiDungDAO;
 
@@ -36,6 +36,14 @@ public class Sign_UpActivity extends AppCompatActivity {
         edt_mk = findViewById(R.id.edt_signup_mk);
         edt_lai_mk = findViewById(R.id.edt_signup_nhap_lai_mk);
         btn_SignUp = findViewById(R.id.btn_signup);
+        btn_cancel_sihnUp = findViewById(R.id.btn_cancel_sihnUp);
+
+        btn_cancel_sihnUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     public void sign_UP(View view) {

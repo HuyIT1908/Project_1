@@ -70,7 +70,8 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:onClick="login"
-                    android:text="đăng nhập" />
+                    android:textAllCaps="false"
+                    android:text="Đăng Nhập" />
 
                 <Button
                     android:id="@+id/btn_dang_ky"
@@ -80,7 +81,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:onClick="sign_Up"
-                    android:text="đăng kí" />
+                    android:textAllCaps="false"
+                    android:text="Đăng kí" />
             </LinearLayout>
 
         </LinearLayout>
