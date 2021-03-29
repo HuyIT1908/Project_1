@@ -74,18 +74,19 @@ public class DSnguoiDungFragment extends Fragment {
 //            this.homeActivity = (HomeActivity) context;
 //        }
 //    }
-private void edit_User(Integer i) {
+    private void edit_User(Integer i) {
     LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     View view = inflater.inflate(R.layout.add_tk , null);
 
     TextInputLayout edt_ho_ten, edt_sdt, edt_tk, edt_mk, edt_lai_mk;
     Button btn_add_tk = view.findViewById(R.id.btn_add_tk);
-    btn_add_tk.setText("chỉnh sửa");
+    btn_add_tk.setText("Chỉnh Sửa");
     edt_ho_ten = view.findViewById(R.id.edt_add_ho_ten);
     edt_sdt = view.findViewById(R.id.edt_add_sdt);
     edt_tk = view.findViewById(R.id.edt_add_tk);
     edt_mk = view.findViewById(R.id.edt_add_mk);
     edt_lai_mk = view.findViewById(R.id.edt_add_nhap_lai_mk);
+    Button btn_huy = view.findViewById(R.id.btn_cancel_dk);
 
     list.clear();
     list = nguoiDungDAO.getAllNguoiDung();
@@ -161,6 +162,18 @@ private void edit_User(Integer i) {
         }
     });
 
+    btn_huy.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            dialog.dismiss();
+
+            list.clear();
+            list = nguoiDungDAO.getAllNguoiDung();
+            DSnguoiDungAdapter adapter = new DSnguoiDungAdapter( getActivity() , list);
+            lv_ds.setAdapter(adapter);
+        }
+    });
+
     dialog.show();
 }
 
@@ -189,6 +202,7 @@ private void edit_User(Integer i) {
         edt_tk = view.findViewById(R.id.edt_add_tk);
         edt_mk = view.findViewById(R.id.edt_add_mk);
         edt_lai_mk = view.findViewById(R.id.edt_add_nhap_lai_mk);
+        Button btn_huy = view.findViewById(R.id.btn_cancel_dk);
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
         builder.setView(view).setTitle("Thêm tài khoản");
@@ -255,6 +269,18 @@ private void edit_User(Integer i) {
 
                 Log.e("show  : ", ho_ten + "\n" + sdt + "\n" + tk
                         + "\n" + mk + "\n" + lai_mk + "\n\t\t\t\t\t" + sdt.matches(regex_sdt) );
+            }
+        });
+
+        btn_huy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+                list.clear();
+                list = nguoiDungDAO.getAllNguoiDung();
+                DSnguoiDungAdapter adapter = new DSnguoiDungAdapter( getActivity() , list);
+                lv_ds.setAdapter(adapter);
             }
         });
 

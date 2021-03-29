@@ -89,6 +89,7 @@ public class ThuFragment extends Fragment {
 
         TextInputLayout edt_ma_thu_nhap, edt_so_Tien_THu, edt_ngay_nhan_tien, edt_Chu_Thich;
 
+        Button btn_huy = view.findViewById(R.id.btn_huy);
         Button btn_add_Khoan_Thu = view.findViewById(R.id.btn_add_Khoan_Thu);
         Button btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_nhan_tien);
         edt_ma_thu_nhap  = view.findViewById(R.id.edt_ma_thu_nhap);
@@ -178,6 +179,18 @@ public class ThuFragment extends Fragment {
             }
         });
 
+        btn_huy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+                listThu.clear();
+                listThu = thuDAO.getAll_Khoan_Thu();
+                ThuAdapter adapter = new ThuAdapter(getActivity() , listThu);
+                lv_ds_Thu.setAdapter(adapter);
+            }
+        });
+
         dialog.show();
     }
 
@@ -232,6 +245,7 @@ public class ThuFragment extends Fragment {
 
         TextInputLayout edt_ma_thu_nhap, edt_so_Tien_THu, edt_ngay_nhan_tien, edt_Chu_Thich;
 
+        Button btn_huy = view.findViewById(R.id.btn_huy);
         Button btn_add_Khoan_Thu = view.findViewById(R.id.btn_add_Khoan_Thu);
         Button btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_nhan_tien);
         edt_ma_thu_nhap  = view.findViewById(R.id.edt_ma_thu_nhap);
@@ -323,6 +337,18 @@ public class ThuFragment extends Fragment {
                     }
                 }
 
+            }
+        });
+
+        btn_huy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+                listThu.clear();
+                listThu = thuDAO.getAll_Khoan_Thu();
+                ThuAdapter adapter = new ThuAdapter(getActivity() , listThu);
+                lv_ds_Thu.setAdapter(adapter);
             }
         });
 

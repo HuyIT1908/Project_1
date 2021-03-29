@@ -69,6 +69,6 @@ public class NguoiDung {
 
     @Override
     public String toString() {
-        return getUserName() + "  |  " + getHoTen();
+        return getUserName() +  " | Số tiền :  " + getTongSoTien();
     }
 }

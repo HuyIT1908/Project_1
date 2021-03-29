@@ -103,9 +103,22 @@
                     android:id="@+id/btn_add_tk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:onClick="sign_UP"
-                    android:text="đăng kí" />
+                    android:text="Đăng kí"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/btn_cancel_dk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:textAllCaps="false"
+                    android:text="Hủy" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

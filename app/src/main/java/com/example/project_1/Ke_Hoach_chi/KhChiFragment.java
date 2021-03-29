@@ -92,7 +92,8 @@ public class KhChiFragment extends Fragment {
 
         TextInputLayout edt_ma_Du_Chi, edt_so_Tien_Du_Chi , edt_ngay_Du_Chi, edt_Chu_Thich;
 
-        Button btn_add_Khoan_Thu = view.findViewById(R.id.btn_add_Khoan_Thu);
+        Button btn_huy = view.findViewById(R.id.btn_huy);
+        Button btn_add_ke_hoach_chi = view.findViewById(R.id.btn_add_Khoan_Thu);
         Button btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_nhan_tien);
         edt_ma_Du_Chi  = view.findViewById(R.id.edt_ma_thu_nhap);
         Spinner spinner_userName = view.findViewById(R.id.spinner_userName);
@@ -119,7 +120,7 @@ public class KhChiFragment extends Fragment {
             }
         });
 
-        btn_add_Khoan_Thu.setOnClickListener(new View.OnClickListener() {
+        btn_add_ke_hoach_chi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String ma_Du_Chi , userName , so_Tien_Du_Chi , ngay_Du_Chi , chu_Thich;
@@ -181,6 +182,18 @@ public class KhChiFragment extends Fragment {
                     }
                 }
 
+            }
+        });
+
+        btn_huy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+                list_KhChi.clear();
+                list_KhChi = kHchiDAO.getAll_Ke_hoach_chi();
+                KhCHiAdapter adapter = new KhCHiAdapter( getActivity() , list_KhChi );
+                lv_ds_ke_hoach_Chi.setAdapter(adapter);
             }
         });
 
@@ -351,6 +364,7 @@ public class KhChiFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+
                 list_KhChi.clear();
                 list_KhChi = kHchiDAO.getAll_Ke_hoach_chi();
                 KhCHiAdapter adapter = new KhCHiAdapter( getActivity() , list_KhChi );

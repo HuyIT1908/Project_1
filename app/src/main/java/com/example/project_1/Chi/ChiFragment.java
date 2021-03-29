@@ -91,7 +91,8 @@ public class ChiFragment extends Fragment {
 
         TextInputLayout edt_ma_chi_tieu, edt_so_tien_chi , edt_ngay_Chi, edt_Chu_Thich;
 
-        Button btn_add_Khoan_Thu = view.findViewById(R.id.btn_add_Khoan_Thu);
+        Button btn_huy = view.findViewById(R.id.btn_huy);
+        Button btn_add_Khoan_Chi = view.findViewById(R.id.btn_add_Khoan_Thu);
         Button btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_nhan_tien);
         edt_ma_chi_tieu  = view.findViewById(R.id.edt_ma_thu_nhap);
         Spinner spinner_userName = view.findViewById(R.id.spinner_userName);
@@ -118,7 +119,7 @@ public class ChiFragment extends Fragment {
             }
         });
 
-        btn_add_Khoan_Thu.setOnClickListener(new View.OnClickListener() {
+        btn_add_Khoan_Chi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String ma_chi_tieu , userName , so_tien_chi , ngay_Chi , chu_Thich;
@@ -183,6 +184,18 @@ public class ChiFragment extends Fragment {
             }
         });
 
+        btn_huy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+                list_CHi.clear();
+                list_CHi = chiDAO.getAll_Khoan_Chi() ;
+                ChiAdapter adapter = new ChiAdapter( getActivity() , list_CHi );
+                lv_ds_Chi.setAdapter(adapter);
+            }
+        });
+
         dialog.show();
     }
 
@@ -237,7 +250,8 @@ public class ChiFragment extends Fragment {
 
         TextInputLayout edt_ma_chi_tieu, edt_so_tien_chi, edt_ngay_Chi, edt_Chu_Thich;
 
-        Button btn_add_Khoan_Thu = view.findViewById(R.id.btn_add_Khoan_Thu);
+        Button btn_huy = view.findViewById(R.id.btn_huy);
+        Button btn_add_Khoan_Chi = view.findViewById(R.id.btn_add_Khoan_Thu);
         Button btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_nhan_tien);
         edt_ma_chi_tieu  = view.findViewById(R.id.edt_ma_thu_nhap);
         Spinner spinner_userName = view.findViewById(R.id.spinner_userName);
@@ -258,7 +272,7 @@ public class ChiFragment extends Fragment {
         edt_so_tien_chi.getEditText().setText( list_CHi.get(position).getSoTienChi() );
         edt_ngay_Chi.getEditText().setText( list_CHi.get(position).getNgayChi() );
         edt_Chu_Thich.getEditText().setText( list_CHi.get(position).getChuThich() );
-        btn_add_Khoan_Thu.setText("Cập Nhật");
+        btn_add_Khoan_Chi.setText("Cập Nhật");
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
         builder.setView(view).setTitle("Cập Nhật Khoản Chi");
@@ -273,7 +287,7 @@ public class ChiFragment extends Fragment {
             }
         });
 
-        btn_add_Khoan_Thu.setOnClickListener(new View.OnClickListener() {
+        btn_add_Khoan_Chi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String ma_chi_tieu , userName , so_tien_chi , ngay_chi , chu_Thich;
@@ -331,6 +345,18 @@ public class ChiFragment extends Fragment {
                     }
                 }
 
+            }
+        });
+
+        btn_huy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+                list_CHi.clear();
+                list_CHi = chiDAO.getAll_Khoan_Chi();
+                ChiAdapter adapter = new ChiAdapter( getActivity() , list_CHi);
+                lv_ds_Chi.setAdapter(adapter);
             }
         });
 
