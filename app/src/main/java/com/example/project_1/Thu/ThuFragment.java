@@ -117,33 +117,34 @@ public class ThuFragment extends Fragment {
         btn_add_Khoan_Thu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String ma_thu_nhap , userName , so_Tien_thu , ngay_nhan_tien , chu_Thich;
-                ma_thu_nhap = edt_ma_thu_nhap.getEditText().getText().toString();
-                userName = spinner_userName.getSelectedItem().toString();
-                so_Tien_thu = edt_so_Tien_THu.getEditText().getText().toString();
-                ngay_nhan_tien = edt_ngay_nhan_tien.getEditText().getText().toString();
-                chu_Thich = edt_Chu_Thich.getEditText().getText().toString();
-                String regex_so = "[0-9]+";
+                try {
+                    String ma_thu_nhap , userName , so_Tien_thu , ngay_nhan_tien , chu_Thich;
+                    ma_thu_nhap = edt_ma_thu_nhap.getEditText().getText().toString();
+                    userName = spinner_userName.getSelectedItem().toString();
+                    so_Tien_thu = edt_so_Tien_THu.getEditText().getText().toString();
+                    ngay_nhan_tien = edt_ngay_nhan_tien.getEditText().getText().toString();
+                    chu_Thich = edt_Chu_Thich.getEditText().getText().toString();
+                    String regex_so = "[0-9]+";
 
-                if (  ma_thu_nhap.isEmpty() ){
+                    if (  ma_thu_nhap.isEmpty() ){
 
-                    dialog_chung(0, getActivity(), "Phải nhập Mã Thu Nhập");
+                        dialog_chung(0, getActivity(), "Phải nhập Mã Thu Nhập");
 
-                } else if (  so_Tien_thu.isEmpty() ){
+                    } else if (  so_Tien_thu.isEmpty() ){
 
-                    dialog_chung(0, getActivity(), "Phải nhập Số Tiền");
+                        dialog_chung(0, getActivity(), "Phải nhập Số Tiền");
 
-                } else if ( ! so_Tien_thu.matches(regex_so) ){
+                    } else if ( ! so_Tien_thu.matches(regex_so) ){
 
-                    dialog_chung(0, getActivity(), "Số tiền phải nhập Số");
+                        dialog_chung(0, getActivity(), "Số tiền phải nhập Số");
 
-                }
-                else if (  ngay_nhan_tien.isEmpty() ){
+                    }
+                    else if (  ngay_nhan_tien.isEmpty() ){
 
-                    dialog_chung(0, getActivity(), "Phải chọn Ngày Nhận Tiền");
+                        dialog_chung(0, getActivity(), "Phải chọn Ngày Nhận Tiền");
 
-                } else {
-                    try {
+                    } else {
+
                         Thu thu = new Thu(
                                 "TN_" + ma_thu_nhap,
                                 userName,
@@ -151,6 +152,20 @@ public class ThuFragment extends Fragment {
                                 ngay_nhan_tien,
                                 chu_Thich
                         );
+
+                        String[] get_tk = thu.getUserName().split(" | ");
+                        String get_user = get_tk[0];
+
+                        NguoiDung nd = list_ND.get( get_vi_tri(list_ND , get_user) );
+
+                        Integer so_tien = Integer.parseInt(thu.getSoTienThu()) + Integer.parseInt(nd.getTongSoTien());
+
+                        nd.setTongSoTien(String.valueOf(so_tien));
+                        nguoiDungDAO.updateNguoiDung(nd);
+                        thu.setUserName(nd.toString());
+//                        boolean kq = userName.equals( list_ND.get( get_vi_tri(list_ND , get_user) ).toString() );
+//                        Log.e("\t\t" + userName , nd.toString()
+//                                + " | " + String.valueOf( " " + kq +" -- ") + get_user + "\t");
 
                         if ( thuDAO.inser_Khoan_Thu(thu) > 0) {
 
@@ -170,12 +185,10 @@ public class ThuFragment extends Fragment {
 
                             dialog_chung(1, getActivity(), "Thêm Thất Bại");
                         }
-
-                    } catch (Exception ex) {
-                        Log.e("Error Đăng Kí  : \t\t", ex.toString());
                     }
+                } catch (Exception ex){
+                    Log.e("thu fragment " , ex.toString() );
                 }
-
             }
         });
 
@@ -215,6 +228,7 @@ public class ThuFragment extends Fragment {
     }
 
     public void get_nguoi_Dung(Spinner spinner) {
+        list_ND.clear();
         list_ND = nguoiDungDAO.getAllNguoiDung();
 
         ArrayAdapter<NguoiDung> dataAdapter = new ArrayAdapter<NguoiDung>(
@@ -362,6 +376,15 @@ public class ThuFragment extends Fragment {
             }
         }
 
+        return 0;
+    }
+
+    private Integer get_vi_tri(List<NguoiDung> nd , String user){
+        for (int i = 0; i < nd.size() ; i++) {
+            if ( nd.get(i).getUserName().equals( user ) ){
+                return i;
+            }
+        }
         return 0;
     }
 }

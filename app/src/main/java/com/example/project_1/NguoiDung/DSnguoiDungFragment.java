@@ -98,7 +98,7 @@ public class DSnguoiDungFragment extends Fragment {
     edt_lai_mk.getEditText().setText( list.get(i).getPassword() );
 
     androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
-    builder.setView(view).setTitle("Đổi mật khẩu");
+    builder.setView(view).setTitle("Cập Nhật");
 
     androidx.appcompat.app.AlertDialog dialog = builder.create();
 
@@ -244,6 +244,7 @@ public class DSnguoiDungFragment extends Fragment {
                         NguoiDung user = new NguoiDung(
                                 tk , mk , ho_ten , "" , sdt
                         );
+                        user.setTongSoTien("0");
 
                         if (nguoiDungDAO.inserNguoiDung(user) > 0) {
 
