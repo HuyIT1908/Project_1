@@ -43,6 +43,7 @@ public class Sign_UpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                startActivity(new Intent(context , LoginActivity.class));
             }
         });
     }
