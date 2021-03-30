@@ -29,6 +29,7 @@ import com.example.project_1.KhoanNo.KhoanNoFragment;
 import com.example.project_1.Models.NguoiDung;
 import com.example.project_1.NguoiDung.DSnguoiDungFragment;
 import com.example.project_1.Thu.ThuFragment;
+import com.example.project_1.TietKiem.TietKiemFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -69,9 +70,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener
-                    , new KhoanNoFragment() ).commit();
-            navigationView.setCheckedItem(R.id.nav_ke_hoach);
-            setTitle("Khoản Nợ");
+                    , new TietKiemFragment() ).commit();
+            navigationView.setCheckedItem(R.id.nav_tiet_kiem);
+            setTitle("Tiết kiệm");
         }
 
     }
@@ -94,6 +95,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_khoan_no:
                 setTitle("Khoản Nợ");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new KhoanNoFragment() ).commit();
+                break;
+            case R.id.nav_tiet_kiem:
+                setTitle("Tiết Kiệm");
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new TietKiemFragment() ).commit();
                 break;
             case R.id.nav_list_user:
                 setTitle("Quản Lí Tài Khoản");
