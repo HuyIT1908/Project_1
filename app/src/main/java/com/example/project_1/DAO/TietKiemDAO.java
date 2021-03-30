@@ -95,11 +95,17 @@ public class TietKiemDAO {
         values.put("soTienTietKiem", tietKiem.getSoTienTietKiem()  );
         values.put("ngayTietKiem", tietKiem.getNgayTietKiem()  );
         values.put("chuThich", tietKiem.getChuThich()  );
+
 //        update for to database
-        int result = db.update(TABLE_NAME, values, "maTietKiem=?", new
-                String[]{tietKiem.getUserName()});
-        if (result == 0) {
-            return -1;
+        try {
+            int result = db.update(TABLE_NAME, values , "maTietKiem=?",
+                    new String[]{ tietKiem.getMaTietKiem() });
+
+            if (result == 0) {
+                return -1;
+            }
+        } catch (Exception ex){
+            Log.e(TAG + "update \n\n" , " line 109" + ex.toString() );
         }
         return 1;
     }

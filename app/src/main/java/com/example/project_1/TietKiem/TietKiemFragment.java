@@ -262,7 +262,7 @@ public class TietKiemFragment extends Fragment {
         TextInputLayout edt_ma_Tiet_Kiem, edt_so_Tien_Tiet_Kiem, edt_ngay_Tiet_Kiem, edt_Chu_Thich;
 
         Button btn_huy = view.findViewById(R.id.btn_huy);
-        Button btn_add_ke_hoach_chi = view.findViewById(R.id.btn_add_Khoan_Thu);
+        Button btn_update_Tiet_Kiem = view.findViewById(R.id.btn_add_Khoan_Thu);
         Button btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_nhan_tien);
         edt_ma_Tiet_Kiem  = view.findViewById(R.id.edt_ma_thu_nhap);
         Spinner spinner_userName = view.findViewById(R.id.spinner_userName);
@@ -277,13 +277,15 @@ public class TietKiemFragment extends Fragment {
 
         list_Tiet_Kiem.clear();
         list_Tiet_Kiem = tietKiemDAO.getAll_Tiet_Kiem();
+        TietKiemAdapter adapter = new TietKiemAdapter( getActivity() , list_Tiet_Kiem);
+        lv_ds_Tiet_Kiem.setAdapter(adapter);
         edt_ma_Tiet_Kiem.getEditText().setText( list_Tiet_Kiem.get(position).getMaTietKiem() );
         edt_ma_Tiet_Kiem.getEditText().setEnabled(false);
         spinner_userName.setSelection( getIndex( spinner_userName , list_Tiet_Kiem.get(position).getUserName() ) );
         edt_so_Tien_Tiet_Kiem.getEditText().setText( list_Tiet_Kiem.get(position).getSoTienTietKiem() );
         edt_ngay_Tiet_Kiem.getEditText().setText( list_Tiet_Kiem.get(position).getNgayTietKiem() );
         edt_Chu_Thich.getEditText().setText( list_Tiet_Kiem.get(position).getChuThich() );
-        btn_add_ke_hoach_chi.setText("Cập Nhật");
+        btn_update_Tiet_Kiem.setText("Cập Nhật");
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
         builder.setView(view).setTitle("Cập Nhật Tiết Kiệm");
@@ -298,7 +300,7 @@ public class TietKiemFragment extends Fragment {
             }
         });
 
-        btn_add_ke_hoach_chi.setOnClickListener(new View.OnClickListener() {
+        btn_update_Tiet_Kiem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String ma_Tiet_Kiem , userName , so_Tien_Tiet_Kiem , ngay_Tiet_Kiem , chu_Thich;
