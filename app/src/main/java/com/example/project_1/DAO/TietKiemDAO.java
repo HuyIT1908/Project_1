@@ -105,7 +105,7 @@ public class TietKiemDAO {
                 return -1;
             }
         } catch (Exception ex){
-            Log.e(TAG + "update \n\n" , " line 109" + ex.toString() );
+            Log.e(TAG + "update \n\n" , ex.toString() );
         }
         return 1;
     }
