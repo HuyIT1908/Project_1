@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -108,6 +109,12 @@ public class Sign_UpActivity extends AppCompatActivity {
             case 0:
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Thông Báo").setMessage(tb);
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
                 AlertDialog dialog = builder.create();
                 dialog.show();
                 break;

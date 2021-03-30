@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -60,11 +61,13 @@ public class LoginActivity extends AppCompatActivity {
 
                     startActivity(new Intent(context, HomeActivity.class));
                     finish();
+
                 } else if (tk.equalsIgnoreCase("admin") && mk.equalsIgnoreCase("admin")) {
 
                     rememberUser(tk , mk, cb_tk.isChecked());
                     startActivity(new Intent(this, HomeActivity.class));
                     finish();
+
                 } else {
 
                     dialog_chung(0 , context , "Tên đăng nhập và mật khẩu không đúng ???  \n\nHoặc không có ! ! !");
@@ -86,6 +89,12 @@ public class LoginActivity extends AppCompatActivity {
             case 0:
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Thông Báo").setMessage(tb);
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
                 AlertDialog dialog = builder.create();
                 dialog.show();
                 break;
