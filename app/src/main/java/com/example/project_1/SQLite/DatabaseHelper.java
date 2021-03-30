@@ -17,7 +17,7 @@ import com.example.project_1.DAO.TietKiemDAO;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "dbChiTieuManager";
-    public static final int VERSION = 4;
+    public static final int VERSION = 1;
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME + ".db", null, VERSION);

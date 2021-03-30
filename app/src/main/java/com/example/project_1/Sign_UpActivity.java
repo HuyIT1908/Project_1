@@ -79,6 +79,7 @@ public class Sign_UpActivity extends AppCompatActivity {
                 NguoiDung user = new NguoiDung(
                         tk , mk , ho_ten , "" , sdt
                 );
+                user.setTongSoTien("0");
 
                 if (nguoiDungDAO.inserNguoiDung(user) > 0) {
 
