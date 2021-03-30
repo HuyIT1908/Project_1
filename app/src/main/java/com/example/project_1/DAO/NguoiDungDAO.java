@@ -32,10 +32,9 @@ public class NguoiDungDAO {
 
     public NguoiDungDAO(Context context) {
 //        tao doi tuong va lay quyen doc ghi
-        dbHelper = new DatabaseHelper(context);
-        db = dbHelper.getWritableDatabase();
         try {
-
+            dbHelper = new DatabaseHelper(context);
+            db = dbHelper.getWritableDatabase();
         } catch (Exception ex){
             Log.e("\t\t line 34\t" + TAG , ex.toString() );
         }
