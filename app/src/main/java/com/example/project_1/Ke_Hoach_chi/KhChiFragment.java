@@ -148,6 +148,9 @@ public class KhChiFragment extends Fragment {
 
                     dialog_chung(0, getActivity(), "Phải chọn Ngày Dự Chi");
 
+                } else if ( (Integer.parseInt(so_Tien_Du_Chi)) == 0
+                            || (Integer.parseInt(so_Tien_Du_Chi)) < 0){
+                    dialog_chung(0, getActivity(), "Số Tiền phải > 0");
                 } else {
                     try {
                         KHchi kHchi = new KHchi(
@@ -158,7 +161,36 @@ public class KhChiFragment extends Fragment {
                                 chu_Thich
                         );
 
-                        if ( kHchiDAO.inser_ke_hoach_chi( kHchi ) > 0) {
+                        String[] get_tk = kHchi.getUserName().split(" | ");
+                        String get_user = get_tk[0];
+
+                        NguoiDung nd = list_ND.get( get_vi_tri(list_ND , get_user) );
+
+                        Integer so_tien_CHi = Integer.parseInt( so_Tien_Du_Chi );
+                        Integer tong_tien_TK = Integer.parseInt( nd.getTongSoTien() );
+
+                        int so_tien =  tong_tien_TK - so_tien_CHi;
+
+                        if ( so_tien_CHi > tong_tien_TK ){
+
+                            dialog_chung(0, getActivity(), "Bạn Không đủ tiền chi trả");
+
+                        } else if ( so_tien_CHi == 0 ){
+
+                            dialog_chung(0, getActivity(), "Số tiền phải > 0");
+
+                        } else if ( kHchiDAO.inser_ke_hoach_chi( kHchi ) > 0) {
+
+                            nd.setTongSoTien(String.valueOf(so_tien));
+                            nguoiDungDAO.updateNguoiDung(nd);
+                            kHchi.setUserName(nd.toString());
+                            //                        boolean kq = userName.equals( list_ND.get( get_vi_tri(list_ND , get_user) ).toString() );
+//                        Log.e("\t\t" + userName , nd.toString()
+//                                + " | " + String.valueOf( " " + kq +" -- ") + get_user + "\t");
+
+                            if ( kHchiDAO.update_ke_hoach_chi( kHchi ) > 0 ){
+
+                            }
 
                             dialog_chung(1, getActivity(), "Thêm khoản Chi Thành Công");
                             dialog.dismiss();
@@ -374,4 +406,14 @@ public class KhChiFragment extends Fragment {
 
         dialog.show();
     }
+
+    private Integer get_vi_tri(List<NguoiDung> nd , String user){
+        for (int i = 0; i < nd.size() ; i++) {
+            if ( nd.get(i).getUserName().equals( user ) ){
+                return i;
+            }
+        }
+        return 0;
+    }
+
 }

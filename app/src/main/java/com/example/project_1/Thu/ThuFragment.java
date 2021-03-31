@@ -143,6 +143,10 @@ public class ThuFragment extends Fragment {
 
                         dialog_chung(0, getActivity(), "Phải chọn Ngày Nhận Tiền");
 
+                    } else if ( (Integer.parseInt(so_Tien_thu)) == 0
+                            || (Integer.parseInt(so_Tien_thu)) < 0 ){
+
+                        dialog_chung(0, getActivity(), "Số Tiền phải > 0");
                     } else {
 
                         Thu thu = new Thu(
@@ -153,21 +157,25 @@ public class ThuFragment extends Fragment {
                                 chu_Thich
                         );
 
-                        String[] get_tk = thu.getUserName().split(" | ");
-                        String get_user = get_tk[0];
+                        if ( thuDAO.inser_Khoan_Thu(thu) > 0) {
 
-                        NguoiDung nd = list_ND.get( get_vi_tri(list_ND , get_user) );
+                            String[] get_tk = thu.getUserName().split(" | ");
+                            String get_user = get_tk[0];
 
-                        Integer so_tien = Integer.parseInt(thu.getSoTienThu()) + Integer.parseInt(nd.getTongSoTien());
+                            NguoiDung nd = list_ND.get( get_vi_tri(list_ND , get_user) );
 
-                        nd.setTongSoTien(String.valueOf(so_tien));
-                        nguoiDungDAO.updateNguoiDung(nd);
-                        thu.setUserName(nd.toString());
-//                        boolean kq = userName.equals( list_ND.get( get_vi_tri(list_ND , get_user) ).toString() );
+                            Integer so_tien = Integer.parseInt(thu.getSoTienThu()) + Integer.parseInt(nd.getTongSoTien());
+
+                            nd.setTongSoTien(String.valueOf(so_tien));
+                            nguoiDungDAO.updateNguoiDung(nd);
+                            thu.setUserName(nd.toString());
+                            //                        boolean kq = userName.equals( list_ND.get( get_vi_tri(list_ND , get_user) ).toString() );
 //                        Log.e("\t\t" + userName , nd.toString()
 //                                + " | " + String.valueOf( " " + kq +" -- ") + get_user + "\t");
 
-                        if ( thuDAO.inser_Khoan_Thu(thu) > 0) {
+                            if ( thuDAO.update_Khoan_Thu(thu) > 0 ){
+
+                            }
 
                             dialog_chung(1, getActivity(), "Thêm khoản thu Thành Công");
                             dialog.dismiss();
@@ -269,6 +277,7 @@ public class ThuFragment extends Fragment {
         edt_Chu_Thich  = view.findViewById(R.id.edt_Chu_Thich_khoan_thu);
         spinner_userName.setSelection(0);
         get_nguoi_Dung(spinner_userName);
+        edt_so_Tien_THu.getEditText().setEnabled(false);
 
         listThu.clear();
         listThu = thuDAO.getAll_Khoan_Thu();
@@ -281,7 +290,7 @@ public class ThuFragment extends Fragment {
         btn_add_Khoan_Thu.setText("Cập Nhật");
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
-        builder.setView(view).setTitle("Thêm Khoản Thu");
+        builder.setView(view).setTitle("Cập Nhật Khoản Thu");
         builder.setCancelable(false);
 
         AlertDialog dialog = builder.create();

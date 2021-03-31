@@ -148,6 +148,11 @@ public class TietKiemFragment extends Fragment {
 
                     dialog_chung(0, getActivity(), "Phải chọn Ngày Tiết Kiệm");
 
+                } else if ( (Integer.parseInt(so_Tien_Tiet_Kiem)) == 0
+                            || (Integer.parseInt(so_Tien_Tiet_Kiem)) < 0){
+
+                    dialog_chung(0, getActivity(), "Số tiền Phải > 0");
+
                 } else {
                     try {
                         TietKiem tietKiem = new TietKiem(
@@ -158,7 +163,40 @@ public class TietKiemFragment extends Fragment {
                                 chu_Thich
                         );
 
-                        if ( tietKiemDAO.inser_Tiet_Kiem( tietKiem ) > 0) {
+                        String[] get_tk = tietKiem.getUserName().split(" | ");
+                        String get_user = get_tk[0];
+
+                        NguoiDung nd = list_ND.get( get_vi_tri(list_ND , get_user) );
+
+                        Integer so_tien_CHi = Integer.parseInt( so_Tien_Tiet_Kiem );
+                        Integer tong_tien_TK = Integer.parseInt( nd.getTongSoTien() );
+
+                        int so_tien =  tong_tien_TK - so_tien_CHi;
+
+//                        boolean kq = so_tien_CHi > tong_tien_TK;
+//                        Log.e("----------------------\t" , "\t\t\t" + so_tien +
+//                                " " + tong_tien_TK + " " + so_tien_CHi + " |" + kq);
+                        if ( so_tien_CHi > tong_tien_TK ){
+
+                            dialog_chung(0, getActivity(), "Bạn Không đủ tiền chi trả");
+
+                        } else if ( so_tien_CHi == 0 ||
+                                    so_tien < 0){
+
+                            dialog_chung(0, getActivity(), "Số tiền chi phải > 0");
+
+                        } else if ( tietKiemDAO.inser_Tiet_Kiem( tietKiem ) > 0) {
+
+                            nd.setTongSoTien(String.valueOf(so_tien));
+                            nguoiDungDAO.updateNguoiDung(nd);
+                            tietKiem.setUserName(nd.toString());
+                            //                        boolean kq = userName.equals( list_ND.get( get_vi_tri(list_ND , get_user) ).toString() );
+//                        Log.e("\t\t" + userName , nd.toString()
+//                                + " | " + String.valueOf( " " + kq +" -- ") + get_user + "\t");
+
+                            if ( tietKiemDAO.update_Tiet_Kiem( tietKiem ) > 0 ){
+
+                            }
 
                             dialog_chung(1, getActivity(), "Thêm Tiết Kiệm Thành Công");
                             dialog.dismiss();
@@ -376,4 +414,12 @@ public class TietKiemFragment extends Fragment {
         dialog.show();
     }
 
+    private Integer get_vi_tri(List<NguoiDung> nd , String user){
+        for (int i = 0; i < nd.size() ; i++) {
+            if ( nd.get(i).getUserName().equals( user ) ){
+                return i;
+            }
+        }
+        return 0;
+    }
 }

@@ -104,7 +104,7 @@ public class ThuAdapter extends BaseAdapter {
 
         viewHoler.ma_thu_nhap.setText( list.get(position).getMaThuNhap() );
         viewHoler.userName.setText( list.get(position).getUserName() );
-        viewHoler.so_Tien_thu.setText( list.get(position).getSoTienThu() );
+        viewHoler.so_Tien_thu.setText( list.get(position).getSoTienThu() +" $");
         viewHoler.ngay_nhan_tien.setText( list.get(position).getNgayNhanTien() );
         viewHoler.chu_THich.setText( list.get(position).getChuThich() );
 

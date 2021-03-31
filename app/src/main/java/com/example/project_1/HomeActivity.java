@@ -93,7 +93,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new KhChiFragment() ).commit();
                 break;
             case R.id.nav_khoan_no:
-                setTitle("Khoản Nợ");
+                setTitle("Khoản Vay");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new KhoanNoFragment() ).commit();
                 break;
             case R.id.nav_tiet_kiem:

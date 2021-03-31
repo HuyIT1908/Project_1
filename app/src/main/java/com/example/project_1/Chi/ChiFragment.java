@@ -157,7 +157,40 @@ public class ChiFragment extends Fragment {
                                 chu_Thich
                         );
 
-                        if ( chiDAO.inser_Khoan_Chi( chi ) > 0) {
+                        String[] get_tk = chi.getUserName().split(" | ");
+                        String get_user = get_tk[0];
+
+                        NguoiDung nd = list_ND.get( get_vi_tri(list_ND , get_user) );
+
+                        Integer so_tien_CHi = Integer.parseInt( so_tien_chi );
+                        Integer tong_tien_TK = Integer.parseInt( nd.getTongSoTien() );
+
+                        int so_tien =  tong_tien_TK - so_tien_CHi;
+
+//                        boolean kq = so_tien_CHi > tong_tien_TK;
+//                        Log.e("----------------------\t" , "\t\t\t" + so_tien +
+//                                " " + tong_tien_TK + " " + so_tien_CHi + " |" + kq);
+                        if ( so_tien_CHi > tong_tien_TK ){
+
+                            dialog_chung(0, getActivity(), "Bạn Không đủ tiền chi trả");
+
+                        } else if ( so_tien_CHi == 0
+                                    || so_tien < 0){
+
+                            dialog_chung(0, getActivity(), "Số tiền chi phải > 0");
+
+                        } else if ( chiDAO.inser_Khoan_Chi( chi ) > 0) {
+
+                            nd.setTongSoTien(String.valueOf(so_tien));
+                            nguoiDungDAO.updateNguoiDung(nd);
+                            chi.setUserName(nd.toString());
+                            //                        boolean kq = userName.equals( list_ND.get( get_vi_tri(list_ND , get_user) ).toString() );
+//                        Log.e("\t\t" + userName , nd.toString()
+//                                + " | " + String.valueOf( " " + kq +" -- ") + get_user + "\t");
+
+                            if ( chiDAO.update_Khoan_Chi( chi ) > 0 ){
+
+                            }
 
                             dialog_chung(1, getActivity(), "Thêm khoản Chi Thành Công");
                             dialog.dismiss();
@@ -263,6 +296,7 @@ public class ChiFragment extends Fragment {
         edt_ma_chi_tieu.setHint("Mã Chi Tiêu");
         edt_so_tien_chi.setHint("Số Tiền Chi");
         edt_ngay_Chi.setHint("Ngày Chi");
+        edt_so_tien_chi.getEditText().setEnabled(false);
 
         list_CHi.clear();
         list_CHi = chiDAO.getAll_Khoan_Chi() ;
@@ -372,4 +406,14 @@ public class ChiFragment extends Fragment {
 
         return 0;
     }
+
+    private Integer get_vi_tri(List<NguoiDung> nd , String user){
+        for (int i = 0; i < nd.size() ; i++) {
+            if ( nd.get(i).getUserName().equals( user ) ){
+                return i;
+            }
+        }
+        return 0;
+    }
+
 }
