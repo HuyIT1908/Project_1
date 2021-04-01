@@ -25,6 +25,7 @@ public class KhoanNoDAO {
             "\t\"ngayNo\"\tTEXT,\n" +
             "\t\"ngayTra\"\tTEXT,\n" +
             "\t\"chuThich\"\tTEXT,\n" +
+            "\t\"status\"\tTEXT,\n" +
             "\tFOREIGN KEY(\"userName\") REFERENCES \"NguoiDung\"(\"userName\"),\n" +
             "\tPRIMARY KEY(\"maKhoanNo\")\n" +
             ");" ;
@@ -47,6 +48,7 @@ public class KhoanNoDAO {
         values.put("ngayNo", khoanNo.getNgayNo());
         values.put("ngayTra", khoanNo.getNgayTra());
         values.put("chuThich", khoanNo.getChuThich());
+        values.put("status", khoanNo.getStatus() );
 
 //        insert db
         try {
@@ -79,6 +81,7 @@ public class KhoanNoDAO {
                 ee.setNgayNo(c.getString(3));
                 ee.setNgayTra(c.getString(4));
                 ee.setChuThich(c.getString(5));
+                ee.setStatus(c.getString(6) );
 //            get data add list
                 list_Khoan_No.add(ee);
                 Log.d(TAG + "//=====\t\t\t\t", ee.toString());
@@ -99,6 +102,7 @@ public class KhoanNoDAO {
         values.put("ngayNo", khoanNo.getNgayNo());
         values.put("ngayTra", khoanNo.getNgayTra());
         values.put("chuThich", khoanNo.getChuThich());
+        values.put("status", khoanNo.getStatus() );
 
 //        update for to database
         int result = db.update(TABLE_NAME, values, "maKhoanNo=?", new
@@ -132,6 +136,7 @@ public class KhoanNoDAO {
                 ee.setNgayNo(c.getString(3));
                 ee.setNgayTra(c.getString(4));
                 ee.setChuThich(c.getString(5));
+                ee.setStatus(c.getString(6));
 
                 if ( khoanNo.getMaKhoanNo().equals( ee.getMaKhoanNo() ) ){
                     c.close();

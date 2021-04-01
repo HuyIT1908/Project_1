@@ -7,16 +7,18 @@ public class KhoanNo {
     private String ngayNo;
     private String ngayTra;
     private String chuThich;
+    private String status;
 
     public KhoanNo() {
     }
 
-    public KhoanNo(String maKhoanNo, String userName, String soTienNo, String ngayNo, String chuThich) {
+    public KhoanNo(String maKhoanNo, String userName, String soTienNo, String ngayNo, String chuThich, String status) {
         this.maKhoanNo = maKhoanNo;
         this.userName = userName;
         this.soTienNo = soTienNo;
         this.ngayNo = ngayNo;
         this.chuThich = chuThich;
+        this.status = status;
     }
 
     public String getMaKhoanNo() {
@@ -67,6 +69,14 @@ public class KhoanNo {
         this.chuThich = chuThich;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "KhoanNo{" +
@@ -76,6 +86,7 @@ public class KhoanNo {
                 ", ngayNo='" + ngayNo + '\'' +
                 ", ngayTra='" + ngayTra + '\'' +
                 ", chuThich='" + chuThich + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

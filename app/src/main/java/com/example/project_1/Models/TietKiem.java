@@ -6,16 +6,18 @@ public class TietKiem {
     private String soTienTietKiem;
     private String ngayTietKiem;
     private String chuThich;
+    private String status;
 
     public TietKiem() {
     }
 
-    public TietKiem(String maTietKiem, String userName, String soTienTietKiem, String ngayTietKiem, String chuThich) {
+    public TietKiem(String maTietKiem, String userName, String soTienTietKiem, String ngayTietKiem, String chuThich, String status) {
         this.maTietKiem = maTietKiem;
         this.userName = userName;
         this.soTienTietKiem = soTienTietKiem;
         this.ngayTietKiem = ngayTietKiem;
         this.chuThich = chuThich;
+        this.status = status;
     }
 
     public String getMaTietKiem() {
@@ -58,6 +60,14 @@ public class TietKiem {
         this.chuThich = chuThich;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "TietKiem{" +
@@ -66,6 +76,7 @@ public class TietKiem {
                 ", soTienTietKiem='" + soTienTietKiem + '\'' +
                 ", ngayTietKiem='" + ngayTietKiem + '\'' +
                 ", chuThich='" + chuThich + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

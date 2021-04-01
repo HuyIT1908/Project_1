@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp">
+
+    <RelativeLayout
+        android:id="@+id/linear_layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_orange_light"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tv_chung_ma_Tiet_Kiem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:text="Mã Chung"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/img_chung_delete_Tiet_Kiem"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_delete_3"
+            />
+
+        <ImageView
+            android:id="@+id/img_chung_edit_Tiet_kiem"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toLeftOf="@id/img_chung_delete_Tiet_Kiem"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_edit"
+            android:paddingRight="5dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear_layout_title"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_chung_so_1_TIet_Kiem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="UerName  :" />
+
+                <TextView
+                    android:id="@+id/tv_chung_so_2_Tiet_Kiem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Số tiền thu :" />
+
+                <TextView
+                    android:id="@+id/tv_chung_so_3_Tiet_Kiem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày nhận tiền :" />
+
+                <TextView
+                    android:id="@+id/tv_chung_so_4_Tiet_Kiem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nội Dung :" />
+
+                <TextView
+                    android:id="@+id/tv_chung_so_5_Tiet_Kiem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Trạng Thái :" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_chung_tk_Tiet_Kiem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/tv_chung_so_tien_Tiet_Kiem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/tv_chung_ngay_Tiet_Kiem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/tv_chung_chu_thich_Tiet_Kiem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TN08" />
+
+                <TextView
+                    android:id="@+id/tv_chung_Status_Tiet_Kiem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

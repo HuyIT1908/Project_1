@@ -24,6 +24,7 @@ public class TietKiemDAO {
             "\t\"soTienTietKiem\"\tTEXT,\n" +
             "\t\"ngayTietKiem\"\tTEXT,\n" +
             "\t\"chuThich\"\tTEXT,\n" +
+            "\t\"status\"\tTEXT,\n" +
             "\tFOREIGN KEY(\"userName\") REFERENCES \"NguoiDung\"(\"userName\"),\n" +
             "\tPRIMARY KEY(\"maTietKiem\")\n" +
             ");" ;
@@ -45,6 +46,7 @@ public class TietKiemDAO {
         values.put("soTienTietKiem", tietKiem.getSoTienTietKiem()  );
         values.put("ngayTietKiem", tietKiem.getNgayTietKiem()  );
         values.put("chuThich", tietKiem.getChuThich()  );
+        values.put("status", tietKiem.getStatus()  );
 
 //        insert db
         try {
@@ -76,6 +78,7 @@ public class TietKiemDAO {
                 ee.setSoTienTietKiem(c.getString(2));
                 ee.setNgayTietKiem(c.getString(3));
                 ee.setChuThich(c.getString(4));
+                ee.setStatus(c.getString(5) );
 //            get data add list
                 tietKiemList.add(ee);
                 Log.d(TAG + "//=====\t\t\t\t", ee.toString());
@@ -95,6 +98,7 @@ public class TietKiemDAO {
         values.put("soTienTietKiem", tietKiem.getSoTienTietKiem()  );
         values.put("ngayTietKiem", tietKiem.getNgayTietKiem()  );
         values.put("chuThich", tietKiem.getChuThich()  );
+        values.put("status", tietKiem.getStatus()  );
 
 //        update for to database
         try {
@@ -133,6 +137,7 @@ public class TietKiemDAO {
                 ee.setSoTienTietKiem(c.getString(2));
                 ee.setNgayTietKiem(c.getString(3));
                 ee.setChuThich(c.getString(4));
+                ee.setStatus(c.getString(5));
 
                 if ( tietKiem.getMaTietKiem().equals( ee.getMaTietKiem() ) ){
                     c.close();

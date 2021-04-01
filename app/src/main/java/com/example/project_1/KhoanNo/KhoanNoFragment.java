@@ -160,7 +160,8 @@ public class KhoanNoFragment extends Fragment {
                                 userName ,
                                 so_Tien_No ,
                                 ngay_No ,
-                                chu_Thich
+                                chu_Thich ,
+                                " "
                         );
 
                         if ( khoanNoDAO.insert_Khoan_no( khoanNo ) > 0) {
@@ -356,7 +357,8 @@ public class KhoanNoFragment extends Fragment {
                                 userName ,
                                 so_Tien_No ,
                                 ngay_No ,
-                                chu_Thich
+                                chu_Thich ,
+                                " "
                         );
 
                         if ( khoanNoDAO.update_Khoan_NO( khoanNo ) > 0) {
