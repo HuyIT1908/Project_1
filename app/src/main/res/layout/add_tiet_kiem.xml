@@ -88,14 +88,15 @@
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
+                <ImageButton
                     android:id="@+id/btn_ngay_Tiet_Kiem"
                     android:layout_marginLeft="5dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textAllCaps="false"
-                    android:text="Chọn" />
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/iconfinder_google_calendar"
+                    />
 
             </LinearLayout>
 

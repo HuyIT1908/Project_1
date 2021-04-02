@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -93,7 +94,7 @@ public class ChiFragment extends Fragment {
 
         Button btn_huy = view.findViewById(R.id.btn_huy);
         Button btn_add_Khoan_Chi = view.findViewById(R.id.btn_add_Khoan_Thu);
-        Button btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_nhan_tien);
+        ImageButton btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_nhan_tien);
         edt_ma_chi_tieu  = view.findViewById(R.id.edt_ma_thu_nhap);
         Spinner spinner_userName = view.findViewById(R.id.spinner_userName);
         edt_so_tien_chi  = view.findViewById(R.id.edt_so_Tien_THu);
@@ -286,7 +287,7 @@ public class ChiFragment extends Fragment {
 
         Button btn_huy = view.findViewById(R.id.btn_huy);
         Button btn_add_Khoan_Chi = view.findViewById(R.id.btn_add_Khoan_Thu);
-        Button btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_nhan_tien);
+        ImageButton btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_nhan_tien);
         edt_ma_chi_tieu  = view.findViewById(R.id.edt_ma_thu_nhap);
         Spinner spinner_userName = view.findViewById(R.id.spinner_userName);
         edt_so_tien_chi  = view.findViewById(R.id.edt_so_Tien_THu);

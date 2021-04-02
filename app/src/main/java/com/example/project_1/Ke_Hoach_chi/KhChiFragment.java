@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -95,7 +96,7 @@ public class KhChiFragment extends Fragment {
 
         Button btn_huy = view.findViewById(R.id.btn_huy_tiet_Kiem);
         Button btn_add_ke_hoach_chi = view.findViewById(R.id.btn_add_Tiet_Kiem);
-        Button btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_Tiet_Kiem);
+        ImageButton btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_Tiet_Kiem);
         CheckBox cbk_Status = view.findViewById(R.id.ckb_tiet_Kiem);
 
         edt_ma_Du_Chi  = view.findViewById(R.id.edt_ma_Tiet_Kiem);
@@ -304,7 +305,7 @@ public class KhChiFragment extends Fragment {
 
         Button btn_huy = view.findViewById(R.id.btn_huy_tiet_Kiem);
         Button btn_add_ke_hoach_chi = view.findViewById(R.id.btn_add_Tiet_Kiem);
-        Button btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_Tiet_Kiem);
+        ImageButton btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_Tiet_Kiem);
         CheckBox cbk_Status = view.findViewById(R.id.ckb_tiet_Kiem);
 
         edt_ma_Du_Chi  = view.findViewById(R.id.edt_ma_Tiet_Kiem);
