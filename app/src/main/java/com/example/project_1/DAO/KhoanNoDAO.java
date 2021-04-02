@@ -83,7 +83,7 @@ public class KhoanNoDAO {
                 ee.setChuThich(c.getString(5));
                 ee.setStatus(c.getString(6) );
 //            get data add list
-                list_Khoan_No.add(ee);
+                list_Khoan_No.add(0 , ee);
                 Log.d(TAG + "//=====\t\t\t\t", ee.toString());
                 c.moveToNext();
             }

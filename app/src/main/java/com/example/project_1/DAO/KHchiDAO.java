@@ -24,6 +24,7 @@ public class KHchiDAO {
             "\t\"soTienDuChi\"\tTEXT,\n" +
             "\t\"ngayDuChi\"\tTEXT,\n" +
             "\t\"chuThich\"\tTEXT,\n" +
+            "\t\"status\"\tTEXT,\n" +
             "\tFOREIGN KEY(\"userName\") REFERENCES \"NguoiDung\"(\"userName\"),\n" +
             "\tPRIMARY KEY(\"maDuChi\")\n" +
             ")" ;
@@ -45,6 +46,7 @@ public class KHchiDAO {
         values.put("soTienDuChi", kHchi.getSoTienDuChi() );
         values.put("ngayDuChi", kHchi.getNgayDuChi() );
         values.put("chuThich", kHchi.getChuThich() );
+        values.put("status", kHchi.getStatus() );
 //        insert db
         try {
             if ( check_ID_KhChi(kHchi) ){
@@ -75,6 +77,8 @@ public class KHchiDAO {
                 kHchi.setSoTienDuChi(  c.getString(2));
                 kHchi.setNgayDuChi(  c.getString(3));
                 kHchi.setChuThich(  c.getString(4));
+                kHchi.setStatus(  c.getString(5) );
+
 //            get data add list
                 list_ke_hoach_chi.add(kHchi);
                 Log.d(TAG + "//=====\t\t", kHchi.toString());
@@ -94,6 +98,7 @@ public class KHchiDAO {
         values.put("soTienDuChi", kHchi.getSoTienDuChi() );
         values.put("ngayDuChi", kHchi.getNgayDuChi() );
         values.put("chuThich", kHchi.getChuThich() );
+        values.put("status", kHchi.getStatus() );
 
 //        update for to database
         int result = db.update(TABLE_NAME, values, "maDuChi=?", new
@@ -126,6 +131,7 @@ public class KHchiDAO {
                 kHchi.setSoTienDuChi(  c.getString(2));
                 kHchi.setNgayDuChi(  c.getString(3));
                 kHchi.setChuThich(  c.getString(4));
+                kHchi.setStatus(  c.getString(5) );
 
                 if ( ngoai.getMaDuChi().toString().equals( kHchi.getMaDuChi().toString() ) ){
                     c.close();

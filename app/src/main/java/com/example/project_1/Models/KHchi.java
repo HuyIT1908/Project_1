@@ -6,16 +6,18 @@ public class KHchi {
     private String soTienDuChi;
     private String ngayDuChi;
     private String chuThich;
+    private String status;
 
     public KHchi() {
     }
 
-    public KHchi(String maDuChi, String userName, String soTienDuChi, String ngayDuChi, String chuThich) {
+    public KHchi(String maDuChi, String userName, String soTienDuChi, String ngayDuChi, String chuThich, String status) {
         this.maDuChi = maDuChi;
         this.userName = userName;
         this.soTienDuChi = soTienDuChi;
         this.ngayDuChi = ngayDuChi;
         this.chuThich = chuThich;
+        this.status = status;
     }
 
     public String getMaDuChi() {
@@ -58,6 +60,14 @@ public class KHchi {
         this.chuThich = chuThich;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "KHchi{" +
@@ -66,6 +76,7 @@ public class KHchi {
                 ", soTienDuChi='" + soTienDuChi + '\'' +
                 ", ngayDuChi='" + ngayDuChi + '\'' +
                 ", chuThich='" + chuThich + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

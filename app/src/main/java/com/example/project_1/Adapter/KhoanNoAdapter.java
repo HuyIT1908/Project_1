@@ -52,27 +52,29 @@ public class KhoanNoAdapter extends BaseAdapter {
             viewHoler = new ViewHoler();
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.show_chung , null);
+            convertView = inflater.inflate(R.layout.show_tiet_kiem , null);
 
-            viewHoler.maKhoanNo = convertView.findViewById(R.id.tv_chung_ma);
-            viewHoler.userName = convertView.findViewById(R.id.tv_chung_tk);
-            viewHoler.soTienNo = convertView.findViewById(R.id.tv_chung_so_tien);
-            viewHoler.ngayNo = convertView.findViewById(R.id.tv_chung_ngay);
-            viewHoler.chu_THich = convertView.findViewById(R.id.tv_chung_chu_thich);
-            viewHoler.edit = convertView.findViewById(R.id.img_chung_edit);
-            viewHoler.delete = convertView.findViewById(R.id.img_chung_delete);
+            viewHoler.maKhoanNo = convertView.findViewById(R.id.tv_chung_ma_Tiet_Kiem);
+            viewHoler.userName = convertView.findViewById(R.id.tv_chung_tk_Tiet_Kiem);
+            viewHoler.soTienNo = convertView.findViewById(R.id.tv_chung_so_tien_Tiet_Kiem);
+            viewHoler.ngayNo = convertView.findViewById(R.id.tv_chung_ngay_Tiet_Kiem);
+            viewHoler.chu_THich = convertView.findViewById(R.id.tv_chung_chu_thich_Tiet_Kiem);
+            viewHoler.edit = convertView.findViewById(R.id.img_chung_edit_Tiet_kiem);
+            viewHoler.delete = convertView.findViewById(R.id.img_chung_delete_Tiet_Kiem);
+            viewHoler.status = convertView.findViewById(R.id.tv_chung_Status_Tiet_Kiem);
 
-            ((TextView) convertView.findViewById(R.id.tv_chung_so_1)).setText("Tài Khoản :");
-            ((TextView) convertView.findViewById(R.id.tv_chung_so_2)).setText("Số Tiền Nợ :");
-            ((TextView) convertView.findViewById(R.id.tv_chung_so_3)).setText("Ngày Nợ :");
-            ((TextView) convertView.findViewById(R.id.tv_chung_so_4)).setText("Ghi chú :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_1_TIet_Kiem)).setText("Tài Khoản :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_2_Tiet_Kiem)).setText("Số Tiền Vay :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_3_Tiet_Kiem)).setText("Ngày Vay :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_4_Tiet_Kiem)).setText("Ghi chú :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_5_Tiet_Kiem)).setText("Trạng Thái :");
 
             viewHoler.delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-                    builder.setTitle("Thông báo").setMessage("Bạn có chắc chắn muốn xóa Khoản Nợ này không ?");
+                    builder.setTitle("Thông báo").setMessage("Bạn có chắc chắn muốn xóa Khoản Vay này không ?");
                     builder.setNegativeButton("Xóa",
                             new DialogInterface.OnClickListener() {
                                 @Override
@@ -108,6 +110,12 @@ public class KhoanNoAdapter extends BaseAdapter {
         viewHoler.ngayNo.setText( list.get(position).getNgayNo() );
         viewHoler.chu_THich.setText( list.get(position).getChuThich() );
 
+        if ( list.get(position).getStatus().equalsIgnoreCase( "true" ) ){
+            viewHoler.status.setText("Đã Vay");
+        } else {
+            viewHoler.status.setText("Chưa Vay");
+        }
+
         return convertView;
     }
 
@@ -117,6 +125,7 @@ public class KhoanNoAdapter extends BaseAdapter {
         TextView soTienNo;
         TextView ngayNo;
         TextView chu_THich;
+        TextView status;
         ImageView delete;
         ImageView edit;
     }
