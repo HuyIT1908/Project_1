@@ -151,6 +151,10 @@ public class TietKiemFragment extends Fragment {
 
                     dialog_chung(0, getActivity(), "Phải chọn Ngày Tiết Kiệm");
 
+                } else if ( so_Tien_Tiet_Kiem.length() > 10 ){
+
+                    dialog_chung(0, getActivity(), "Số tiền phải < 1 tỷ");
+
                 } else if ( (Integer.parseInt(so_Tien_Tiet_Kiem)) == 0
                             || (Integer.parseInt(so_Tien_Tiet_Kiem)) < 0){
 
@@ -380,7 +384,12 @@ public class TietKiemFragment extends Fragment {
 
                     dialog_chung(0, getActivity(), "Phải chọn Ngày Tiết Kiệm");
 
-                } else {
+                } else if ( so_Tien_Tiet_Kiem.length() > 10){
+
+                    dialog_chung(0, getActivity(), "Số tiền phải < 1 tỷ");
+
+                }
+                else {
                     try {
                         TietKiem tietKiem = new TietKiem(
                                 ma_Tiet_Kiem ,

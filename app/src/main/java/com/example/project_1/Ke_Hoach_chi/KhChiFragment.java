@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -88,23 +89,28 @@ public class KhChiFragment extends Fragment {
 
     private void add_Ke_hoach_chi() {
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.add_khoan_thu , null);
+        View view = inflater.inflate(R.layout.add_tiet_kiem , null);
 
         TextInputLayout edt_ma_Du_Chi, edt_so_Tien_Du_Chi , edt_ngay_Du_Chi, edt_Chu_Thich;
 
-        Button btn_huy = view.findViewById(R.id.btn_huy);
-        Button btn_add_ke_hoach_chi = view.findViewById(R.id.btn_add_Khoan_Thu);
-        Button btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_nhan_tien);
-        edt_ma_Du_Chi  = view.findViewById(R.id.edt_ma_thu_nhap);
-        Spinner spinner_userName = view.findViewById(R.id.spinner_userName);
-        edt_so_Tien_Du_Chi  = view.findViewById(R.id.edt_so_Tien_THu);
-        edt_ngay_Du_Chi  = view.findViewById(R.id.edt_ngay_nhan_tien);
-        edt_Chu_Thich  = view.findViewById(R.id.edt_Chu_Thich_khoan_thu);
+        Button btn_huy = view.findViewById(R.id.btn_huy_tiet_Kiem);
+        Button btn_add_ke_hoach_chi = view.findViewById(R.id.btn_add_Tiet_Kiem);
+        Button btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_Tiet_Kiem);
+        CheckBox cbk_Status = view.findViewById(R.id.ckb_tiet_Kiem);
+
+        edt_ma_Du_Chi  = view.findViewById(R.id.edt_ma_Tiet_Kiem);
+        Spinner spinner_userName = view.findViewById(R.id.spinner_userName_Tiet_kiem);
+        edt_so_Tien_Du_Chi  = view.findViewById(R.id.edt_so_Tien_Tiet_KIem);
+        edt_ngay_Du_Chi  = view.findViewById(R.id.edt_ngay_nhan_tien_Tiet_Kiem);
+        edt_Chu_Thich  = view.findViewById(R.id.edt_Chu_Thich_Tiet_Kiem);
         spinner_userName.setSelection(0);
         get_nguoi_Dung(spinner_userName);
         edt_ma_Du_Chi.setHint("Mã Dự Chi");
         edt_so_Tien_Du_Chi.setHint("Số Tiền Dự Chi");
         edt_ngay_Du_Chi.setHint("Ngày Dự Chi");
+        cbk_Status.setText("Chưa Chi");
+        edt_ma_Du_Chi.setEnabled(false);
+        set_Status(cbk_Status);
 
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder( getActivity() );
@@ -123,42 +129,49 @@ public class KhChiFragment extends Fragment {
         btn_add_ke_hoach_chi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String ma_Du_Chi , userName , so_Tien_Du_Chi , ngay_Du_Chi , chu_Thich;
-                ma_Du_Chi = edt_ma_Du_Chi.getEditText().getText().toString();
-                userName = spinner_userName.getSelectedItem().toString();
-                so_Tien_Du_Chi = edt_so_Tien_Du_Chi.getEditText().getText().toString();
-                ngay_Du_Chi = edt_ngay_Du_Chi.getEditText().getText().toString();
-                chu_Thich = edt_Chu_Thich.getEditText().getText().toString();
-                String regex_so = "[0-9]+";
+                try {
+                    String ma_Du_Chi , userName , so_Tien_Du_Chi , ngay_Du_Chi , chu_Thich;
 
-                if (  ma_Du_Chi.isEmpty() ){
+                    ma_Du_Chi = edt_ma_Du_Chi.getEditText().getText().toString();
+                    userName = spinner_userName.getSelectedItem().toString();
+                    so_Tien_Du_Chi = edt_so_Tien_Du_Chi.getEditText().getText().toString();
+                    ngay_Du_Chi = edt_ngay_Du_Chi.getEditText().getText().toString();
+                    chu_Thich = edt_Chu_Thich.getEditText().getText().toString();
+                    String regex_so = "[0-9]+";
+                    String status = String.valueOf( cbk_Status.isChecked() );
 
-                    dialog_chung(0, getActivity(), "Phải nhập Mã Dự Chi");
+                    if (  ma_Du_Chi.isEmpty() ){
 
-                } else if (  so_Tien_Du_Chi.isEmpty() ){
+                        dialog_chung(0, getActivity(), "Phải nhập Mã Dự Chi");
 
-                    dialog_chung(0, getActivity(), "Phải nhập Số Tiền Dự Chi");
+                    } else if (  so_Tien_Du_Chi.isEmpty() ){
 
-                } else if ( ! so_Tien_Du_Chi.matches(regex_so) ){
+                        dialog_chung(0, getActivity(), "Phải nhập Số Tiền Dự Chi");
 
-                    dialog_chung(0, getActivity(), "Số tiền phải nhập dạng Số");
+                    } else if ( ! so_Tien_Du_Chi.matches(regex_so) ){
 
-                }
-                else if (  ngay_Du_Chi.isEmpty() ){
+                        dialog_chung(0, getActivity(), "Số tiền phải nhập dạng Số");
 
-                    dialog_chung(0, getActivity(), "Phải chọn Ngày Dự Chi");
+                    }
+                    else if (  ngay_Du_Chi.isEmpty() ){
 
-                } else if ( (Integer.parseInt(so_Tien_Du_Chi)) == 0
+                        dialog_chung(0, getActivity(), "Phải chọn Ngày Dự Chi");
+
+                    } else if ( so_Tien_Du_Chi.length() > 10 ){
+
+                        dialog_chung(0, getActivity(), "Số tiền phải < 1 tỷ");
+
+                    } else if ( (Integer.parseInt(so_Tien_Du_Chi)) == 0
                             || (Integer.parseInt(so_Tien_Du_Chi)) < 0){
-                    dialog_chung(0, getActivity(), "Số Tiền phải > 0");
-                } else {
-                    try {
+                        dialog_chung(0, getActivity(), "Số Tiền phải > 0");
+                    } else {
                         KHchi kHchi = new KHchi(
-                                "KHC_" + ma_Du_Chi ,
+                                "KHC_" + System.currentTimeMillis() ,
                                 userName ,
                                 so_Tien_Du_Chi ,
                                 ngay_Du_Chi ,
-                                chu_Thich
+                                chu_Thich ,
+                                status
                         );
 
                         String[] get_tk = kHchi.getUserName().split(" | ");
@@ -209,11 +222,10 @@ public class KhChiFragment extends Fragment {
                             dialog_chung(1, getActivity(), "Thêm Thất Bại");
                         }
 
-                    } catch (Exception ex) {
-                        Log.e("Error Đăng Kí  : \t\t", ex.toString());
                     }
+                } catch (Exception ex){
+                    Log.e("Error add KH Chi\t\t" , ex.toString() );
                 }
-
             }
         });
 
@@ -366,7 +378,8 @@ public class KhChiFragment extends Fragment {
                                 userName ,
                                 so_Tien_Du_Chi ,
                                 ngay_Du_Chi ,
-                                chu_Thich
+                                chu_Thich ,
+                                ""
                         );
 
                         if ( kHchiDAO.update_ke_hoach_chi( kHchi ) > 0) {
@@ -416,4 +429,16 @@ public class KhChiFragment extends Fragment {
         return 0;
     }
 
+    private void set_Status(CheckBox cbk){
+        cbk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( cbk.isChecked() ){
+                    cbk.setText("Đã Chi");
+                } else {
+                    cbk.setText("Chưa Chi");
+                }
+            }
+        });
+    }
 }

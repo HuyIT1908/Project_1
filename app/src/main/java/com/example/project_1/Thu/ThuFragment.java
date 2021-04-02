@@ -99,6 +99,7 @@ public class ThuFragment extends Fragment {
         edt_Chu_Thich  = view.findViewById(R.id.edt_Chu_Thich_khoan_thu);
         spinner_userName.setSelection(0);
         get_nguoi_Dung(spinner_userName);
+        edt_ma_thu_nhap.setEnabled(false);
 
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
@@ -150,7 +151,7 @@ public class ThuFragment extends Fragment {
                     } else {
 
                         Thu thu = new Thu(
-                                "TN_" + ma_thu_nhap,
+                                "TN_" + System.currentTimeMillis(),
                                 userName,
                                 so_Tien_thu,
                                 ngay_nhan_tien,

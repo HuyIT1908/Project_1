@@ -52,20 +52,22 @@ public class KhCHiAdapter extends BaseAdapter {
             viewHoler = new ViewHoler();
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.show_chung , null);
+            convertView = inflater.inflate(R.layout.show_tiet_kiem , null);
 
-            viewHoler.maDuChi = convertView.findViewById(R.id.tv_chung_ma);
-            viewHoler.userName = convertView.findViewById(R.id.tv_chung_tk);
-            viewHoler.soTienDuChi = convertView.findViewById(R.id.tv_chung_so_tien);
-            viewHoler.ngayDuChi = convertView.findViewById(R.id.tv_chung_ngay);
-            viewHoler.chu_THich = convertView.findViewById(R.id.tv_chung_chu_thich);
-            viewHoler.edit = convertView.findViewById(R.id.img_chung_edit);
-            viewHoler.delete = convertView.findViewById(R.id.img_chung_delete);
+            viewHoler.maDuChi = convertView.findViewById(R.id.tv_chung_ma_Tiet_Kiem);
+            viewHoler.userName = convertView.findViewById(R.id.tv_chung_tk_Tiet_Kiem);
+            viewHoler.soTienDuChi = convertView.findViewById(R.id.tv_chung_so_tien_Tiet_Kiem);
+            viewHoler.ngayDuChi = convertView.findViewById(R.id.tv_chung_ngay_Tiet_Kiem);
+            viewHoler.chu_THich = convertView.findViewById(R.id.tv_chung_chu_thich_Tiet_Kiem);
+            viewHoler.edit = convertView.findViewById(R.id.img_chung_edit_Tiet_kiem);
+            viewHoler.delete = convertView.findViewById(R.id.img_chung_delete_Tiet_Kiem);
+            viewHoler.status = convertView.findViewById(R.id.tv_chung_Status_Tiet_Kiem);
 
-            ((TextView) convertView.findViewById(R.id.tv_chung_so_1)).setText("Tài Khoản :");
-            ((TextView) convertView.findViewById(R.id.tv_chung_so_2)).setText("Số Tiền Dự chi :");
-            ((TextView) convertView.findViewById(R.id.tv_chung_so_3)).setText("Ngày Dự Chi :");
-            ((TextView) convertView.findViewById(R.id.tv_chung_so_4)).setText("Ghi chú :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_1_TIet_Kiem)).setText("Tài Khoản :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_2_Tiet_Kiem)).setText("Số Tiền DỰ Chi :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_3_Tiet_Kiem)).setText("Ngày Dự Chi :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_4_Tiet_Kiem)).setText("Ghi chú :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_5_Tiet_Kiem)).setText("Trạng Thái :");
 
             viewHoler.delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -108,6 +110,11 @@ public class KhCHiAdapter extends BaseAdapter {
         viewHoler.ngayDuChi.setText( list.get(position).getNgayDuChi() );
         viewHoler.chu_THich.setText( list.get(position).getChuThich() );
 
+        if ( list.get(position).getStatus().equalsIgnoreCase( "true" ) ){
+            viewHoler.status.setText("Đã Chi");
+        } else {
+            viewHoler.status.setText("Chưa Chi");
+        }
         return convertView;
     }
 
@@ -117,6 +124,7 @@ public class KhCHiAdapter extends BaseAdapter {
         TextView soTienDuChi;
         TextView ngayDuChi;
         TextView chu_THich;
+        TextView status;
         ImageView delete;
         ImageView edit;
     }

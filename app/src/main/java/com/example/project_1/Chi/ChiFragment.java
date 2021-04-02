@@ -104,6 +104,7 @@ public class ChiFragment extends Fragment {
         edt_ma_chi_tieu.setHint("Mã Chi Tiêu");
         edt_so_tien_chi.setHint("Số Tiền Chi");
         edt_ngay_Chi.setHint("Ngày Chi");
+        edt_ma_chi_tieu.setEnabled(false);
 
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder( getActivity() );
@@ -150,7 +151,7 @@ public class ChiFragment extends Fragment {
                 } else {
                     try {
                         Chi chi = new Chi(
-                                "CT_" + ma_chi_tieu ,
+                                "CT_" + System.currentTimeMillis() ,
                                 userName ,
                                 so_tien_chi ,
                                 ngay_Chi ,
