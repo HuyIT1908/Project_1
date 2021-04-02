@@ -131,11 +131,7 @@ public class ChiFragment extends Fragment {
                 chu_Thich = edt_Chu_Thich.getEditText().getText().toString();
                 String regex_so = "[0-9]+";
 
-                if (  ma_chi_tieu.isEmpty() ){
-
-                    dialog_chung(0, getActivity(), "Phải nhập Mã Chi Tiêu");
-
-                } else if (  so_tien_chi.isEmpty() ){
+                if (  so_tien_chi.isEmpty() ){
 
                     dialog_chung(0, getActivity(), "Phải nhập Số Tiền Chi");
 
@@ -148,7 +144,11 @@ public class ChiFragment extends Fragment {
 
                     dialog_chung(0, getActivity(), "Phải chọn Ngày Chi");
 
-                } else {
+                } else if ( so_tien_chi.length() > 10){
+
+                    dialog_chung(0, getActivity(), "Số tiền phải < 1 tỷ");
+
+                }  else {
                     try {
                         Chi chi = new Chi(
                                 "CT_" + System.currentTimeMillis() ,
@@ -333,11 +333,7 @@ public class ChiFragment extends Fragment {
                 chu_Thich = edt_Chu_Thich.getEditText().getText().toString();
                 String regex_so = "[0-9]+";
 
-                if (  ma_chi_tieu.isEmpty() ){
-
-                    dialog_chung(0, getActivity(), "Phải nhập Mã Chi Tiêu");
-
-                } else if (  so_tien_chi.isEmpty() ){
+                if (  so_tien_chi.isEmpty() ){
 
                     dialog_chung(0, getActivity(), "Phải nhập Số Tiền");
 
@@ -349,6 +345,10 @@ public class ChiFragment extends Fragment {
                 else if (  ngay_chi.isEmpty() ){
 
                     dialog_chung(0, getActivity(), "Phải chọn Ngày Chi");
+
+                } else if ( so_tien_chi.length() > 10){
+
+                    dialog_chung(0, getActivity(), "Số tiền phải < 1 tỷ");
 
                 } else {
                     try {

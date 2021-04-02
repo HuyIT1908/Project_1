@@ -127,11 +127,7 @@ public class ThuFragment extends Fragment {
                     chu_Thich = edt_Chu_Thich.getEditText().getText().toString();
                     String regex_so = "[0-9]+";
 
-                    if (  ma_thu_nhap.isEmpty() ){
-
-                        dialog_chung(0, getActivity(), "Phải nhập Mã Thu Nhập");
-
-                    } else if (  so_Tien_thu.isEmpty() ){
+                    if (  so_Tien_thu.isEmpty() ){
 
                         dialog_chung(0, getActivity(), "Phải nhập Số Tiền");
 
@@ -144,7 +140,11 @@ public class ThuFragment extends Fragment {
 
                         dialog_chung(0, getActivity(), "Phải chọn Ngày Nhận Tiền");
 
-                    } else if ( (Integer.parseInt(so_Tien_thu)) == 0
+                    } else if ( so_Tien_thu.length() > 10){
+
+                        dialog_chung(0, getActivity(), "Số Tiền phải < 1 tỷ");
+
+                    }  else if ( (Integer.parseInt(so_Tien_thu)) == 0
                             || (Integer.parseInt(so_Tien_thu)) < 0 ){
 
                         dialog_chung(0, getActivity(), "Số Tiền phải > 0");
@@ -314,11 +314,7 @@ public class ThuFragment extends Fragment {
                 chu_Thich = edt_Chu_Thich.getEditText().getText().toString();
                 String regex_so = "[0-9]+";
 
-                if (  ma_thu_nhap.isEmpty() ){
-
-                    dialog_chung(0, getActivity(), "Phải nhập Mã Thu Nhập");
-
-                } else if (  so_Tien_thu.isEmpty() ){
+                if (  so_Tien_thu.isEmpty() ){
 
                     dialog_chung(0, getActivity(), "Phải nhập Số Tiền");
 
@@ -330,6 +326,10 @@ public class ThuFragment extends Fragment {
                 else if (  ngay_nhan_tien.isEmpty() ){
 
                     dialog_chung(0, getActivity(), "Phải chọn Ngày Nhận Tiền");
+
+                } else if ( so_Tien_thu.length() > 10){
+
+                    dialog_chung(0, getActivity(), "Số Tiền phải < 1 tỷ");
 
                 } else {
                     try {

@@ -317,6 +317,14 @@ public class KhoanNoFragment extends Fragment {
         edt_so_Tien_No.getEditText().setText( list_Khoan_No.get(position).getSoTienNo() );
         edt_ngay_No.getEditText().setText( list_Khoan_No.get(position).getNgayNo() );
         edt_Chu_Thich.getEditText().setText( list_Khoan_No.get(position).getChuThich() );
+
+        if ( Boolean.parseBoolean( list_Khoan_No.get(position).getStatus() ) ){
+            cbk_Status.setChecked( Boolean.parseBoolean( list_Khoan_No.get(position).getStatus() ) );
+            cbk_Status.setText("Đã Trả");
+        } else {
+            cbk_Status.setChecked( Boolean.parseBoolean( list_Khoan_No.get(position).getStatus() ) );
+            cbk_Status.setText("Chưa Trả");
+        }
         btn_add_Khoan_No.setText("Cập Nhật");
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());

@@ -111,9 +111,9 @@ public class KhoanNoAdapter extends BaseAdapter {
         viewHoler.chu_THich.setText( list.get(position).getChuThich() );
 
         if ( list.get(position).getStatus().equalsIgnoreCase( "true" ) ){
-            viewHoler.status.setText("Đã Vay");
+            viewHoler.status.setText("Đã Trả");
         } else {
-            viewHoler.status.setText("Chưa Vay");
+            viewHoler.status.setText("Chưa Trả");
         }
 
         return convertView;
