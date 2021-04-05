@@ -28,6 +28,7 @@ import com.example.project_1.Ke_Hoach_chi.KhChiFragment;
 import com.example.project_1.KhoanNo.KhoanNoFragment;
 import com.example.project_1.Models.NguoiDung;
 import com.example.project_1.NguoiDung.DSnguoiDungFragment;
+import com.example.project_1.ThongKe.ThongKeFragment;
 import com.example.project_1.Thu.ThuFragment;
 import com.example.project_1.TietKiem.TietKiemFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -70,9 +71,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener
-                    , new TietKiemFragment() ).commit();
-            navigationView.setCheckedItem(R.id.nav_tiet_kiem);
-            setTitle("Tiết kiệm");
+                    , new ThongKeFragment() ).commit();
+            navigationView.setCheckedItem(R.id.nav_thong_ke);
+            setTitle("Thống Kê");
         }
 
     }
@@ -102,9 +103,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_list_user:
                 setTitle("Quản Lí Tài Khoản");
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new DSnguoiDungFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new DSnguoiDungFragment() ).commit();
+                break;
+            case R.id.nav_thong_ke:
+                setTitle("Thống Kê");
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new ThongKeFragment() ).commit();
                 break;
             case R.id.nav_thoat:
+                finish();
                 System.exit(0);
                 break;
         }
