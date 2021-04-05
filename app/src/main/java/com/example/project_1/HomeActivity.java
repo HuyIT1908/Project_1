@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -134,6 +135,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case 0:
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Thông Báo").setMessage(tb);
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
                 AlertDialog dialog = builder.create();
                 dialog.show();
                 break;
