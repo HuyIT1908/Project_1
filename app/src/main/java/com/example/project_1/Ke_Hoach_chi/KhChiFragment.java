@@ -226,7 +226,7 @@ public class KhChiFragment extends Fragment {
                                 }
 
                                 if ( chiDAO.inser_Khoan_Chi( new Chi(
-                                        "CT" + System.currentTimeMillis() ,
+                                        "CT__" + System.currentTimeMillis() ,
                                         userName ,
                                         so_Tien_Du_Chi ,
                                         ngay_Du_Chi ,
