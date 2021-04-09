@@ -22,11 +22,13 @@ public class KhCHiAdapter extends BaseAdapter {
     Context context;
     List<KHchi> list = new ArrayList<>();
     KHchiDAO kHchiDAO;
+    TextView tv_so_tien;
 
-    public KhCHiAdapter(Context context, List<KHchi> list) {
+    public KhCHiAdapter(Context context, List<KHchi> list, TextView tv_so_tien) {
         super();
         this.context = context;
         this.list = list;
+        this.tv_so_tien = tv_so_tien;
         kHchiDAO = new KHchiDAO(context);
     }
 
@@ -85,6 +87,8 @@ public class KhCHiAdapter extends BaseAdapter {
                                     notifyDataSetChanged();
                                     Toast.makeText(context, "Đã xóa Kế Hoạch CHi thành công",
                                             Toast.LENGTH_SHORT).show();
+
+                                    tv_so_tien.setText("Số tiền dự chi : " + kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;") );
                                 }
                             });
 

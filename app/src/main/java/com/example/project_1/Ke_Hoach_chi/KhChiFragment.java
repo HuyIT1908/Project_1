@@ -20,6 +20,7 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project_1.Adapter.ChiAdapter;
@@ -50,6 +51,7 @@ public class KhChiFragment extends Fragment {
     private List<NguoiDung> list_ND = new ArrayList<>();
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     final Calendar calendar = Calendar.getInstance();
+    TextView tv_so_tien;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +63,8 @@ public class KhChiFragment extends Fragment {
         nguoiDungDAO = new NguoiDungDAO( getActivity() );
         lv_ds_ke_hoach_Chi = view.findViewById(R.id.lv_ds_ke_hoach_Chi);
         fbtn_add_ke_hoach_Chi = view.findViewById(R.id.fbtn_add_ke_hoach_Chi);
+        tv_so_tien = view.findViewById(R.id.tv_khCHi_so_tien);
+        tv_so_tien.setText("Số tiền dự chi : " + kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;") );
 
         fbtn_add_ke_hoach_Chi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +75,7 @@ public class KhChiFragment extends Fragment {
 
         list_KhChi.clear();
         list_KhChi = kHchiDAO.getAll_Ke_hoach_chi();
-        KhCHiAdapter adapter = new KhCHiAdapter( getActivity() , list_KhChi );
+        KhCHiAdapter adapter = new KhCHiAdapter( getActivity() , list_KhChi , tv_so_tien);
         lv_ds_ke_hoach_Chi.setAdapter(adapter);
 
         try {
@@ -112,6 +116,7 @@ public class KhChiFragment extends Fragment {
         cbk_Status.setText("Chưa Chi");
         edt_ma_Du_Chi.setEnabled(false);
         set_Status(cbk_Status);
+        edt_so_Tien_Du_Chi.setError("");
 
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder( getActivity() );
@@ -181,9 +186,23 @@ public class KhChiFragment extends Fragment {
 
                         int so_tien =  tong_tien_TK - so_tien_CHi;
 
-                        if ( so_tien_CHi > tong_tien_TK ){
+                        if ( so_tien_CHi > tong_tien_TK && (cbk_Status.isChecked()) == false){
 
-                            dialog_chung(0, getActivity(), "Bạn Không đủ tiền chi trả");
+                            dialog_chung(0 , getActivity() , "Số tiền trong tài khoản của bạn ko đủ nha !!! ");
+                            if ( kHchiDAO.inser_ke_hoach_chi( kHchi) > 0){
+                                dialog_chung(1, getActivity(), "Thêm khoản Chi Thành Công");
+                                dialog.dismiss();
+
+                                list_KhChi.clear();
+                                list_KhChi = kHchiDAO.getAll_Ke_hoach_chi();
+                                KhCHiAdapter adapter = new KhCHiAdapter( getActivity() , list_KhChi , tv_so_tien);
+                                lv_ds_ke_hoach_Chi.setAdapter(adapter);
+
+                                dialog.dismiss();
+                            }
+                        } else if ( so_tien_CHi > tong_tien_TK){
+
+                            dialog_chung(0 , getActivity() , "Số tiền trong tài khoản của bạn ko đủ nha !!! ");
 
                         } else if ( so_tien_CHi == 0 ){
 
@@ -191,15 +210,18 @@ public class KhChiFragment extends Fragment {
 
                         } else if ( kHchiDAO.inser_ke_hoach_chi( kHchi ) > 0) {
 
-                            nd.setTongSoTien(String.valueOf(so_tien));
-                            nguoiDungDAO.updateNguoiDung(nd);
-                            kHchi.setUserName(nd.toString());
-                            //                        boolean kq = userName.equals( list_ND.get( get_vi_tri(list_ND , get_user) ).toString() );
+                            if ( (cbk_Status.isChecked()) == true){
+
+                                nd.setTongSoTien(String.valueOf(so_tien));
+                                nguoiDungDAO.updateNguoiDung(nd);
+                                kHchi.setUserName(nd.toString());
+                                //                        boolean kq = userName.equals( list_ND.get( get_vi_tri(list_ND , get_user) ).toString() );
 //                        Log.e("\t\t" + userName , nd.toString()
 //                                + " | " + String.valueOf( " " + kq +" -- ") + get_user + "\t");
 
-                            if ( kHchiDAO.update_ke_hoach_chi( kHchi ) > 0 ){
+                                if ( kHchiDAO.update_ke_hoach_chi( kHchi ) > 0 ){
 
+                                }
                             }
 
                             dialog_chung(1, getActivity(), "Thêm khoản Chi Thành Công");
@@ -207,7 +229,7 @@ public class KhChiFragment extends Fragment {
 
                             list_KhChi.clear();
                             list_KhChi = kHchiDAO.getAll_Ke_hoach_chi();
-                            KhCHiAdapter adapter = new KhCHiAdapter( getActivity() , list_KhChi );
+                            KhCHiAdapter adapter = new KhCHiAdapter( getActivity() , list_KhChi , tv_so_tien);
                             lv_ds_ke_hoach_Chi.setAdapter(adapter);
 
                         } else if ( kHchiDAO.check_ID_KhChi( kHchi ) ) {
@@ -220,6 +242,7 @@ public class KhChiFragment extends Fragment {
                         }
 
                     }
+                    tv_so_tien.setText("Số tiền dự chi : " + kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;") );
                 } catch (Exception ex){
                     Log.e("Error add KH Chi\t\t" , ex.toString() );
                 }
@@ -233,7 +256,7 @@ public class KhChiFragment extends Fragment {
 
                 list_KhChi.clear();
                 list_KhChi = kHchiDAO.getAll_Ke_hoach_chi();
-                KhCHiAdapter adapter = new KhCHiAdapter( getActivity() , list_KhChi );
+                KhCHiAdapter adapter = new KhCHiAdapter( getActivity() , list_KhChi , tv_so_tien);
                 lv_ds_ke_hoach_Chi.setAdapter(adapter);
             }
         });
@@ -324,7 +347,7 @@ public class KhChiFragment extends Fragment {
 
         list_KhChi.clear();
         list_KhChi = kHchiDAO.getAll_Ke_hoach_chi();
-        KhCHiAdapter adapter = new KhCHiAdapter(getActivity() , list_KhChi);
+        KhCHiAdapter adapter = new KhCHiAdapter(getActivity() , list_KhChi , tv_so_tien);
         lv_ds_ke_hoach_Chi.setAdapter(adapter);
         edt_ma_Du_Chi.getEditText().setText( list_KhChi.get(position).getMaDuChi() );
         edt_ma_Du_Chi.getEditText().setEnabled(false);
@@ -398,7 +421,7 @@ public class KhChiFragment extends Fragment {
 
                             list_KhChi.clear();
                             list_KhChi = kHchiDAO.getAll_Ke_hoach_chi();
-                            KhCHiAdapter adapter = new KhCHiAdapter( getActivity() , list_KhChi );
+                            KhCHiAdapter adapter = new KhCHiAdapter( getActivity() , list_KhChi , tv_so_tien);
                             lv_ds_ke_hoach_Chi.setAdapter(adapter);
 
                         } else {
@@ -421,7 +444,7 @@ public class KhChiFragment extends Fragment {
 
                 list_KhChi.clear();
                 list_KhChi = kHchiDAO.getAll_Ke_hoach_chi();
-                KhCHiAdapter adapter = new KhCHiAdapter( getActivity() , list_KhChi );
+                KhCHiAdapter adapter = new KhCHiAdapter( getActivity() , list_KhChi , tv_so_tien);
                 lv_ds_ke_hoach_Chi.setAdapter(adapter);
             }
         });

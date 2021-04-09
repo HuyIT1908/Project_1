@@ -52,22 +52,22 @@ public class TietKiemAdapter extends BaseAdapter {
             viewHoler = new ViewHoler();
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.show_tiet_kiem , null);
+            convertView = inflater.inflate(R.layout.show_chung , null);
 
-            viewHoler.maTietKiem = convertView.findViewById(R.id.tv_chung_ma_Tiet_Kiem);
-            viewHoler.userName = convertView.findViewById(R.id.tv_chung_tk_Tiet_Kiem);
-            viewHoler.soTienTietKiem = convertView.findViewById(R.id.tv_chung_so_tien_Tiet_Kiem);
-            viewHoler.ngayTietKiem = convertView.findViewById(R.id.tv_chung_ngay_Tiet_Kiem);
-            viewHoler.chu_THich = convertView.findViewById(R.id.tv_chung_chu_thich_Tiet_Kiem);
-            viewHoler.status = convertView.findViewById(R.id.tv_chung_Status_Tiet_Kiem);
-            viewHoler.edit = convertView.findViewById(R.id.img_chung_edit_Tiet_kiem);
-            viewHoler.delete = convertView.findViewById(R.id.img_chung_delete_Tiet_Kiem);
+            viewHoler.maTietKiem = convertView.findViewById(R.id.tv_chung_ma);
+            viewHoler.userName = convertView.findViewById(R.id.tv_chung_tk);
+            viewHoler.soTienTietKiem = convertView.findViewById(R.id.tv_chung_so_tien);
+            viewHoler.ngayTietKiem = convertView.findViewById(R.id.tv_chung_ngay);
+            viewHoler.chu_THich = convertView.findViewById(R.id.tv_chung_chu_thich);
+//            viewHoler.status = convertView.findViewById(R.id.tv_chung_Status_Tiet_Kiem);
+            viewHoler.edit = convertView.findViewById(R.id.img_chung_edit);
+            viewHoler.delete = convertView.findViewById(R.id.img_chung_delete);
 
-            ((TextView) convertView.findViewById(R.id.tv_chung_so_1_TIet_Kiem)).setText("Tài Khoản :");
-            ((TextView) convertView.findViewById(R.id.tv_chung_so_2_Tiet_Kiem)).setText("Số Tiền Tiết Kiệm :");
-            ((TextView) convertView.findViewById(R.id.tv_chung_so_3_Tiet_Kiem)).setText("Ngày Tiết Kiệm :");
-            ((TextView) convertView.findViewById(R.id.tv_chung_so_4_Tiet_Kiem)).setText("Ghi chú :");
-            ((TextView) convertView.findViewById(R.id.tv_chung_so_5_Tiet_Kiem)).setText("Trạng Thái :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_1)).setText("Tài Khoản :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_2)).setText("Số Tiền Tiết Kiệm :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_3)).setText("Ngày Tiết Kiệm :");
+            ((TextView) convertView.findViewById(R.id.tv_chung_so_4)).setText("Ghi chú :");
+//            ((TextView) convertView.findViewById(R.id.tv_chung_so_5_Tiet_Kiem)).setText("Trạng Thái :");
 
             viewHoler.delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -110,11 +110,11 @@ public class TietKiemAdapter extends BaseAdapter {
         viewHoler.ngayTietKiem.setText( list.get(position).getNgayTietKiem() );
         viewHoler.chu_THich.setText( list.get(position).getChuThich() );
 
-        if ( list.get(position).getStatus().equalsIgnoreCase( "true" ) ){
-            viewHoler.status.setText("Đã Tiết Kiệm");
-        } else {
-            viewHoler.status.setText("Chưa Tiết Kiệm");
-        }
+//        if ( list.get(position).getStatus().equalsIgnoreCase( "true" ) ){
+//            viewHoler.status.setText("Đã Tiết Kiệm");
+//        } else {
+//            viewHoler.status.setText("Chưa Tiết Kiệm");
+//        }
 
         return convertView;
     }

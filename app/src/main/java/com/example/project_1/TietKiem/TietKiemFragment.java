@@ -90,28 +90,28 @@ public class TietKiemFragment extends Fragment {
 
     private void add_Tiet_Kiem() {
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.add_tiet_kiem , null);
+        View view = inflater.inflate(R.layout.add_khoan_thu , null);
 
         TextInputLayout edt_ma_Tiet_Kiem, edt_so_Tien_Tiet_Kiem , edt_ngay_Tiet_Kiem, edt_Chu_Thich;
 
-        Button btn_huy = view.findViewById(R.id.btn_huy_tiet_Kiem);
-        Button btn_add_Tiet_kiem = view.findViewById(R.id.btn_add_Tiet_Kiem);
-        ImageButton btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_Tiet_Kiem);
-        CheckBox cbk_Status = view.findViewById(R.id.ckb_tiet_Kiem);
+        Button btn_huy = view.findViewById(R.id.btn_huy);
+        Button btn_add_Tiet_kiem = view.findViewById(R.id.btn_add_Khoan_Thu);
+        ImageButton btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_nhan_tien);
+//        CheckBox cbk_Status = view.findViewById(R.id.ckb_tiet_Kiem);
 
-        edt_ma_Tiet_Kiem  = view.findViewById(R.id.edt_ma_Tiet_Kiem);
-        Spinner spinner_userName = view.findViewById(R.id.spinner_userName_Tiet_kiem);
-        edt_so_Tien_Tiet_Kiem  = view.findViewById(R.id.edt_so_Tien_Tiet_KIem);
-        edt_ngay_Tiet_Kiem  = view.findViewById(R.id.edt_ngay_nhan_tien_Tiet_Kiem);
-        edt_Chu_Thich  = view.findViewById(R.id.edt_Chu_Thich_Tiet_Kiem);
+        edt_ma_Tiet_Kiem  = view.findViewById(R.id.edt_ma_thu_nhap);
+        Spinner spinner_userName = view.findViewById(R.id.spinner_userName);
+        edt_so_Tien_Tiet_Kiem  = view.findViewById(R.id.edt_so_Tien_THu);
+        edt_ngay_Tiet_Kiem  = view.findViewById(R.id.edt_ngay_nhan_tien);
+        edt_Chu_Thich  = view.findViewById(R.id.edt_Chu_Thich_khoan_thu);
         spinner_userName.setSelection(0);
         get_nguoi_Dung(spinner_userName);
         edt_ma_Tiet_Kiem.setHint("Mã Tiết Kiệm");
         edt_so_Tien_Tiet_Kiem.setHint("Số Tiền Tiết Kiệm");
         edt_ngay_Tiet_Kiem.setHint("Ngày Tiết Kiệm");
-        cbk_Status.setText("Chưa Tiết Kiệm");
+//        cbk_Status.setText("Chưa Tiết Kiệm");
         edt_ma_Tiet_Kiem.setEnabled(false);
-        set_Status(cbk_Status);
+//        set_Status(cbk_Status);
 
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder( getActivity() );
@@ -136,7 +136,7 @@ public class TietKiemFragment extends Fragment {
                 so_Tien_Tiet_Kiem = edt_so_Tien_Tiet_Kiem.getEditText().getText().toString();
                 ngay_Tiet_Kiem = edt_ngay_Tiet_Kiem.getEditText().getText().toString();
                 chu_Thich = edt_Chu_Thich.getEditText().getText().toString();
-                String status = String.valueOf( cbk_Status.isChecked() );
+//                String status = String.valueOf( cbk_Status.isChecked() );
                 String regex_so = "[0-9]+";
 
                 if (  so_Tien_Tiet_Kiem.isEmpty() ){
@@ -169,7 +169,7 @@ public class TietKiemFragment extends Fragment {
                                 so_Tien_Tiet_Kiem ,
                                 ngay_Tiet_Kiem ,
                                 chu_Thich ,
-                                status
+                                ""
                         );
 
                         String[] get_tk = tietKiem.getUserName().split(" | ");
@@ -304,28 +304,28 @@ public class TietKiemFragment extends Fragment {
 
     private void update_Tiet_Kiem(Integer position){
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.add_tiet_kiem , null);
+        View view = inflater.inflate(R.layout.add_khoan_thu , null);
 
         TextInputLayout edt_ma_Tiet_Kiem, edt_so_Tien_Tiet_Kiem, edt_ngay_Tiet_Kiem, edt_Chu_Thich;
 
-        Button btn_huy = view.findViewById(R.id.btn_huy_tiet_Kiem);
-        Button btn_update_Tiet_Kiem = view.findViewById(R.id.btn_add_Tiet_Kiem);
-        ImageButton btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_Tiet_Kiem);
-        CheckBox cbk_Status = view.findViewById(R.id.ckb_tiet_Kiem);
+        Button btn_huy = view.findViewById(R.id.btn_huy);
+        Button btn_update_Tiet_Kiem = view.findViewById(R.id.btn_add_Khoan_Thu);
+        ImageButton btn_ngay_nhan_tien = view.findViewById(R.id.btn_ngay_nhan_tien);
+//        CheckBox cbk_Status = view.findViewById(R.id.ckb_tiet_Kiem);
 
-        edt_ma_Tiet_Kiem  = view.findViewById(R.id.edt_ma_Tiet_Kiem);
-        Spinner spinner_userName = view.findViewById(R.id.spinner_userName_Tiet_kiem);
-        edt_so_Tien_Tiet_Kiem  = view.findViewById(R.id.edt_so_Tien_Tiet_KIem);
-        edt_ngay_Tiet_Kiem  = view.findViewById(R.id.edt_ngay_nhan_tien_Tiet_Kiem);
-        edt_Chu_Thich  = view.findViewById(R.id.edt_Chu_Thich_Tiet_Kiem);
+        edt_ma_Tiet_Kiem  = view.findViewById(R.id.edt_ma_thu_nhap);
+        Spinner spinner_userName = view.findViewById(R.id.spinner_userName);
+        edt_so_Tien_Tiet_Kiem  = view.findViewById(R.id.edt_so_Tien_THu);
+        edt_ngay_Tiet_Kiem  = view.findViewById(R.id.edt_ngay_nhan_tien);
+        edt_Chu_Thich  = view.findViewById(R.id.edt_Chu_Thich_khoan_thu);
         spinner_userName.setSelection(0);
         get_nguoi_Dung(spinner_userName);
         edt_ma_Tiet_Kiem.setHint("Mã Tiết Kiệm");
         edt_so_Tien_Tiet_Kiem.setHint("Số Tiền Tiết Kiệm");
         edt_ngay_Tiet_Kiem.setHint("Ngày Tiết Kiệm");
-        cbk_Status.setText("Chưa Tiết Kiệm");
+//        cbk_Status.setText("Chưa Tiết Kiệm");
         edt_ma_Tiet_Kiem.setEnabled(false);
-        set_Status(cbk_Status);
+//        set_Status(cbk_Status);
 
         list_Tiet_Kiem.clear();
         list_Tiet_Kiem = tietKiemDAO.getAll_Tiet_Kiem();
@@ -338,13 +338,13 @@ public class TietKiemFragment extends Fragment {
         edt_ngay_Tiet_Kiem.getEditText().setText( list_Tiet_Kiem.get(position).getNgayTietKiem() );
         edt_Chu_Thich.getEditText().setText( list_Tiet_Kiem.get(position).getChuThich() );
 
-        if ( Boolean.parseBoolean( list_Tiet_Kiem.get(position).getStatus() ) ){
-            cbk_Status.setChecked( Boolean.parseBoolean( list_Tiet_Kiem.get(position).getStatus() ) );
-            cbk_Status.setText("Đã Tiết Kiệm");
-        } else {
-            cbk_Status.setChecked( Boolean.parseBoolean( list_Tiet_Kiem.get(position).getStatus() ) );
-            cbk_Status.setText("Chưa Tiết Kiệm");
-        }
+//        if ( Boolean.parseBoolean( list_Tiet_Kiem.get(position).getStatus() ) ){
+//            cbk_Status.setChecked( Boolean.parseBoolean( list_Tiet_Kiem.get(position).getStatus() ) );
+//            cbk_Status.setText("Đã Tiết Kiệm");
+//        } else {
+//            cbk_Status.setChecked( Boolean.parseBoolean( list_Tiet_Kiem.get(position).getStatus() ) );
+//            cbk_Status.setText("Chưa Tiết Kiệm");
+//        }
         btn_update_Tiet_Kiem.setText("Cập Nhật");
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
@@ -370,7 +370,7 @@ public class TietKiemFragment extends Fragment {
                 ngay_Tiet_Kiem = edt_ngay_Tiet_Kiem.getEditText().getText().toString();
                 chu_Thich = edt_Chu_Thich.getEditText().getText().toString();
                 String regex_so = "[0-9]+";
-                String status = String.valueOf( cbk_Status.isChecked() );
+//                String status = String.valueOf( cbk_Status.isChecked() );
 
                 if (  so_Tien_Tiet_Kiem.isEmpty() ){
 
@@ -398,7 +398,7 @@ public class TietKiemFragment extends Fragment {
                                 so_Tien_Tiet_Kiem ,
                                 ngay_Tiet_Kiem ,
                                 chu_Thich ,
-                                status
+                                ""
                         );
 
                         if ( tietKiemDAO.update_Tiet_Kiem( tietKiem ) > 0) {
