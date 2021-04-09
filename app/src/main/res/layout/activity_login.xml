@@ -43,12 +43,14 @@
                 android:id="@+id/edt_login_mk"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Mật khẩu" />
+                    android:hint="Mật khẩu"
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <CheckBox

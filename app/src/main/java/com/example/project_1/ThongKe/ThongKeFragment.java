@@ -161,69 +161,75 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
 
     private static void addDataSet(PieChart pieChart , ThuDAO thuDAO , ChiDAO chiDAO, KHchiDAO kHchiDAO ,
                 KhoanNoDAO khoanNoDAO , TietKiemDAO tietKiemDAO , NguoiDungDAO nguoiDungDAO) {
-        List<PieEntry> yEntrys = new ArrayList<>();
-        List<String> xEntrys = new ArrayList<>();
+        try {
+            List<PieEntry> yEntrys = new ArrayList<>();
+            List<String> xEntrys = new ArrayList<>();
 
-        List<NguoiDung> nguoiDungList = new ArrayList<>();
-        nguoiDungList = nguoiDungDAO.getAllNguoiDung();
-        Integer tong = Integer.parseInt( nguoiDungList.get(0).getTongSoTien() );
+            List<NguoiDung> nguoiDungList = new ArrayList<>();
+            nguoiDungList = nguoiDungDAO.getAllNguoiDung();
+            Integer tong = Integer.parseInt( nguoiDungList.get(0).getTongSoTien() );
 //        Log.e(tong + "\t" , "\t" + thuDAO.get_GT("SELECT sum(soTienThu) FROM Thu;")
 //        + "\t" + Integer.parseInt(String.valueOf( (Integer.parseInt(thuDAO.get_GT("SELECT sum(soTienThu) FROM Thu;")) / tong) * 100)));
-//        float[] yData = {
-//                Integer.parseInt(String.valueOf( (Integer.parseInt( thuDAO.get_GT("SELECT sum(soTienThu) FROM Thu;")) / tong) * 100)),
-//                Integer.parseInt(String.valueOf( (Integer.parseInt(chiDAO.get_GT("SELECT sum(soTienChi) FROM Chi;")) / tong) * 100)),
-//                Integer.parseInt(String.valueOf( (Integer.parseInt(kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;")) / tong) * 100)),
-//                5};
+//            float[] yData = {
+//                    Integer.parseInt(String.valueOf( ( (Integer.parseInt( thuDAO.get_GT("SELECT sum(soTienThu) FROM Thu;"))) / tong) * 100)),
+//                    Integer.parseInt(String.valueOf( ( (Integer.parseInt(chiDAO.get_GT("SELECT sum(soTienChi) FROM Chi;"))) / tong) * 100)),
+//                    Integer.parseInt(String.valueOf( ( (Integer.parseInt(kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;"))) / tong) * 100)),
+//                    Integer.parseInt(String.valueOf( ( (Integer.parseInt(khoanNoDAO.get_GT("SELECT sum(soTienNo) FROM KhoanNo;"))) / tong) * 100)),
+//                    Integer.parseInt(String.valueOf( ( (Integer.parseInt(tietKiemDAO.get_GT("SELECT sum(soTienTietKiem) FROM TietKiem;"))) / tong) * 100)),
+//            };
 
-        float[] yData = {
+            float[] yData = {
                 25,
                 25,
                 25,
                 10,
                 15};
-        String[] xData = {"Thu", "Chi", "Kế hoạch", "vay" , "Tiết Kiệm"};
+            String[] xData = {"Thu", "Chi", "Kế hoạch", "vay" , "Tiết Kiệm"};
 
-        for (int i = 0; i < yData.length; i++) {
-            yEntrys.add(new PieEntry(yData[i], xData[i]) );
-        }
-        for (int i = 0; i < xData.length; i++) {
-            xEntrys.add(xData[i]);
-        }
+            for (int i = 0; i < yData.length; i++) {
+                yEntrys.add(new PieEntry(yData[i], xData[i]) );
+            }
+            for (int i = 0; i < xData.length; i++) {
+                xEntrys.add(xData[i]);
+            }
 
-        PieDataSet pieDataSet = new PieDataSet(yEntrys, "Quản Lí Chi Tiêu");
-        pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(12);
+            PieDataSet pieDataSet = new PieDataSet(yEntrys, "Quản Lí Chi Tiêu");
+            pieDataSet.setSliceSpace(2);
+            pieDataSet.setValueTextSize(12);
 
-        ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.RED);
-        colors.add(Color.GREEN);
-        colors.add(Color.BLUE);
-        colors.add(Color.CYAN);
-        colors.add(Color.GRAY);
+            ArrayList<Integer> colors = new ArrayList<>();
+            colors.add(Color.RED);
+            colors.add(Color.GREEN);
+            colors.add(Color.BLUE);
+            colors.add(Color.CYAN);
+            colors.add(Color.GRAY);
 
 
-        pieDataSet.setColors(colors);
+            pieDataSet.setColors(colors);
 
-        Legend legend = pieChart.getLegend();
-        legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setEnabled(true);
+            Legend legend = pieChart.getLegend();
+            legend.setForm(Legend.LegendForm.CIRCLE);
+            legend.setEnabled(true);
 
-        List<LegendEntry> entries = new ArrayList<>();
-        int[] mau = {Color.RED , Color.GREEN , Color.BLUE , Color.CYAN , Color.GRAY};
-        for (int i = 0; i < yEntrys.size(); i++) {
-            LegendEntry entry = new LegendEntry();
-            entry.formColor = mau[i];
-            entry.label = xData[i];
-            entries.add(entry);
-        }
+            List<LegendEntry> entries = new ArrayList<>();
+            int[] mau = {Color.RED , Color.GREEN , Color.BLUE , Color.CYAN , Color.GRAY};
+            for (int i = 0; i < yEntrys.size(); i++) {
+                LegendEntry entry = new LegendEntry();
+                entry.formColor = mau[i];
+                entry.label = xData[i];
+                entries.add(entry);
+            }
 
-        legend.setCustom(entries);
+            legend.setCustom(entries);
 //        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
 
-        PieData pieData = new PieData(pieDataSet);
-        pieChart.setData(pieData);
-        pieData.setValueFormatter(new PercentFormatter());
-        pieChart.invalidate();
+            PieData pieData = new PieData(pieDataSet);
+            pieChart.setData(pieData);
+            pieData.setValueFormatter(new PercentFormatter());
+            pieChart.invalidate();
+        } catch (Exception ex){
+            Log.e("thong ke Error\t" , ex.toString() );
+        }
 
     }
 

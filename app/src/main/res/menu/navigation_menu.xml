@@ -6,45 +6,42 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_thu"
-
+            android:icon="@drawable/icon_menu_thu"
             android:title="Thu" />
         <item
             android:id="@+id/nav_chi"
-
+            android:icon="@drawable/icon_menu_chi"
             android:title="Chi" />
         <item
             android:id="@+id/nav_thong_ke"
-
+            android:icon="@drawable/icon_menu_thong_ke"
             android:title="Thống kê" />
 
         <item
             android:id="@+id/nav_ke_hoach"
-
+            android:icon="@drawable/icon_menu_ke_hoach"
             android:title="Kế Hoạch Chi" />
 
         <item
             android:id="@+id/nav_khoan_no"
-
+            android:icon="@drawable/icon_menu_vay"
             android:title="Khoản Vay" />
 
         <item
             android:id="@+id/nav_tiet_kiem"
-
+            android:icon="@drawable/icon_menu_tiet_kiem"
             android:title="Tiết Kiệm" />
 
         <item
             android:id="@+id/nav_list_user"
-
+            android:icon="@drawable/icon_menu_list_user"
             android:title="Quản Lí Tài Khoản" />
     </group>
 
 
     <item android:title="Chức Năng Khác">
         <menu>
-            <item
-                android:id="@+id/nav_gioi_thieu"
 
-                android:title="Giới thiệu" />
             <item
                 android:id="@+id/nav_thoat"
                 android:icon="@drawable/icon_exit"
