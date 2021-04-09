@@ -200,10 +200,9 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
             ArrayList<Integer> colors = new ArrayList<>();
             colors.add(Color.RED);
             colors.add(Color.GREEN);
-            colors.add(Color.BLUE);
+            colors.add(Color.MAGENTA);
             colors.add(Color.CYAN);
             colors.add(Color.GRAY);
-
 
             pieDataSet.setColors(colors);
 
@@ -212,7 +211,7 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
             legend.setEnabled(true);
 
             List<LegendEntry> entries = new ArrayList<>();
-            int[] mau = {Color.RED , Color.GREEN , Color.BLUE , Color.CYAN , Color.GRAY};
+            int[] mau = {Color.RED , Color.GREEN , Color.MAGENTA , Color.CYAN , Color.GRAY};
             for (int i = 0; i < yEntrys.size(); i++) {
                 LegendEntry entry = new LegendEntry();
                 entry.formColor = mau[i];

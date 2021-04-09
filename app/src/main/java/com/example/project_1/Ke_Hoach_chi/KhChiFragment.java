@@ -230,7 +230,7 @@ public class KhChiFragment extends Fragment {
                                         userName ,
                                         so_Tien_Du_Chi ,
                                         ngay_Du_Chi ,
-                                        "Tiết Kiệm"
+                                        "Đã Tiết Kiệm"
                                 )) > 0 ){
 
                                 }
