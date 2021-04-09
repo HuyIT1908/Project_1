@@ -51,7 +51,8 @@ public class KhChiFragment extends Fragment {
     private List<NguoiDung> list_ND = new ArrayList<>();
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     final Calendar calendar = Calendar.getInstance();
-    TextView tv_so_tien;
+    private TextView tv_so_tien;
+    private ChiDAO chiDAO;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +60,7 @@ public class KhChiFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_kh_chi, container, false);
 
+        chiDAO = new ChiDAO( getActivity() );
         kHchiDAO = new KHchiDAO( getActivity() );
         nguoiDungDAO = new NguoiDungDAO( getActivity() );
         lv_ds_ke_hoach_Chi = view.findViewById(R.id.lv_ds_ke_hoach_Chi);
@@ -188,7 +190,7 @@ public class KhChiFragment extends Fragment {
 
                         if ( so_tien_CHi > tong_tien_TK && (cbk_Status.isChecked()) == false){
 
-                            dialog_chung(0 , getActivity() , "Số tiền trong tài khoản của bạn ko đủ nha !!! ");
+//                            dialog_chung(0 , getActivity() , "Số tiền trong tài khoản của bạn ko đủ nha !!! ");
                             if ( kHchiDAO.inser_ke_hoach_chi( kHchi) > 0){
                                 dialog_chung(1, getActivity(), "Thêm khoản Chi Thành Công");
                                 dialog.dismiss();
@@ -222,9 +224,19 @@ public class KhChiFragment extends Fragment {
                                 if ( kHchiDAO.update_ke_hoach_chi( kHchi ) > 0 ){
 
                                 }
+
+                                if ( chiDAO.inser_Khoan_Chi( new Chi(
+                                        "CT" + System.currentTimeMillis() ,
+                                        userName ,
+                                        so_Tien_Du_Chi ,
+                                        ngay_Du_Chi ,
+                                        "Tiết Kiệm"
+                                )) > 0 ){
+
+                                }
                             }
 
-                            dialog_chung(1, getActivity(), "Thêm khoản Chi Thành Công");
+                            dialog_chung(1, getActivity(), "Thêm Kế hoạch Chi Thành Công");
                             dialog.dismiss();
 
                             list_KhChi.clear();
@@ -381,30 +393,38 @@ public class KhChiFragment extends Fragment {
         btn_add_ke_hoach_chi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String ma_Du_Chi , userName , so_Tien_Du_Chi , ngay_Du_Chi , chu_Thich;
-                ma_Du_Chi = edt_ma_Du_Chi.getEditText().getText().toString();
-                userName = spinner_userName.getSelectedItem().toString();
-                so_Tien_Du_Chi = edt_so_Tien_Du_Chi.getEditText().getText().toString();
-                ngay_Du_Chi = edt_ngay_Du_Chi.getEditText().getText().toString();
-                chu_Thich = edt_Chu_Thich.getEditText().getText().toString();
-                String regex_so = "[0-9]+";
-                String status = String.valueOf( cbk_Status.isChecked() );
+                try {
+                    String ma_Du_Chi , userName , so_Tien_Du_Chi , ngay_Du_Chi , chu_Thich;
 
-                if (  so_Tien_Du_Chi.isEmpty() ){
+                    ma_Du_Chi = edt_ma_Du_Chi.getEditText().getText().toString();
+                    userName = spinner_userName.getSelectedItem().toString();
+                    so_Tien_Du_Chi = edt_so_Tien_Du_Chi.getEditText().getText().toString();
+                    ngay_Du_Chi = edt_ngay_Du_Chi.getEditText().getText().toString();
+                    chu_Thich = edt_Chu_Thich.getEditText().getText().toString();
+                    String regex_so = "[0-9]+";
+                    String status = String.valueOf( cbk_Status.isChecked() );
 
-                    dialog_chung(0, getActivity(), "Phải nhập Số Tiền Dự Chi");
+                    if (  so_Tien_Du_Chi.isEmpty() ){
 
-                } else if ( ! so_Tien_Du_Chi.matches(regex_so) ){
+                        dialog_chung(0, getActivity(), "Phải nhập Số Tiền Dự Chi");
 
-                    dialog_chung(0, getActivity(), "Số tiền phải dạng nhập Số");
+                    } else if ( ! so_Tien_Du_Chi.matches(regex_so) ){
 
-                }
-                else if (  ngay_Du_Chi.isEmpty() ){
+                        dialog_chung(0, getActivity(), "Số tiền phải nhập dạng Số");
 
-                    dialog_chung(0, getActivity(), "Phải chọn Ngày Dự Chi");
+                    }
+                    else if (  ngay_Du_Chi.isEmpty() ){
 
-                } else {
-                    try {
+                        dialog_chung(0, getActivity(), "Phải chọn Ngày Dự Chi");
+
+                    } else if ( so_Tien_Du_Chi.length() > 10 ){
+
+                        dialog_chung(0, getActivity(), "Số tiền phải < 1 tỷ");
+
+                    } else if ( (Integer.parseInt(so_Tien_Du_Chi)) == 0
+                            || (Integer.parseInt(so_Tien_Du_Chi)) < 0){
+                        dialog_chung(0, getActivity(), "Số Tiền phải > 0");
+                    } else {
                         KHchi kHchi = new KHchi(
                                 ma_Du_Chi ,
                                 userName ,
@@ -414,9 +434,55 @@ public class KhChiFragment extends Fragment {
                                 status
                         );
 
-                        if ( kHchiDAO.update_ke_hoach_chi( kHchi ) > 0) {
+                        String[] get_tk = kHchi.getUserName().split(" | ");
+                        String get_user = get_tk[0];
 
-                            dialog_chung(1, getActivity(), "Cập Nhật Kế Hoạch Chi Thành Công");
+                        NguoiDung nd = list_ND.get( get_vi_tri(list_ND , get_user) );
+
+                        Integer so_tien_CHi = Integer.parseInt( so_Tien_Du_Chi );
+                        Integer tong_tien_TK = Integer.parseInt( nd.getTongSoTien() );
+
+                        int so_tien =  tong_tien_TK - so_tien_CHi;
+
+                        if ( so_tien_CHi > tong_tien_TK && (cbk_Status.isChecked()) == false){
+
+//                            dialog_chung(0 , getActivity() , "Số tiền trong tài khoản của bạn ko đủ nha !!! ");
+                            if ( kHchiDAO.update_ke_hoach_chi( kHchi) > 0){
+                                dialog_chung(1, getActivity(), "Cập nhật kế hoạch Chi Thành Công");
+                                dialog.dismiss();
+
+                                list_KhChi.clear();
+                                list_KhChi = kHchiDAO.getAll_Ke_hoach_chi();
+                                KhCHiAdapter adapter = new KhCHiAdapter( getActivity() , list_KhChi , tv_so_tien);
+                                lv_ds_ke_hoach_Chi.setAdapter(adapter);
+
+                                dialog.dismiss();
+                            }
+                        } else if ( so_tien_CHi > tong_tien_TK){
+
+                            dialog_chung(0 , getActivity() , "Số tiền trong tài khoản của bạn ko đủ nha !!! ");
+
+                        } else if ( so_tien_CHi == 0 ){
+
+                            dialog_chung(0, getActivity(), "Số tiền phải > 0");
+
+                        } else if ( kHchiDAO.update_ke_hoach_chi( kHchi ) > 0) {
+
+//                            if ( (cbk_Status.isChecked()) == true){
+//
+//                                nd.setTongSoTien(String.valueOf(so_tien));
+//                                nguoiDungDAO.updateNguoiDung(nd);
+//                                kHchi.setUserName(nd.toString());
+//                                //                        boolean kq = userName.equals( list_ND.get( get_vi_tri(list_ND , get_user) ).toString() );
+////                        Log.e("\t\t" + userName , nd.toString()
+////                                + " | " + String.valueOf( " " + kq +" -- ") + get_user + "\t");
+//
+//                                if ( kHchiDAO.update_ke_hoach_chi( kHchi ) > 0 ){
+//
+//                                }
+//                            }
+
+                            dialog_chung(1, getActivity(), "Cập Nhật Kế hoạch Chi Thành Công");
                             dialog.dismiss();
 
                             list_KhChi.clear();
@@ -426,14 +492,14 @@ public class KhChiFragment extends Fragment {
 
                         } else {
 
-                            dialog_chung(1, getActivity(), "Cập Nhật Thất Bại");
+                            dialog_chung(1, getActivity(), "Cập nhật Thất Bại");
                         }
 
-                    } catch (Exception ex) {
-                        Log.e("Error Cập Nhật  : \t\t", ex.toString());
                     }
+                    tv_so_tien.setText("Số tiền dự chi : " + kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;") );
+                } catch (Exception ex){
+                    Log.e("Error add KH Chi\t\t" , ex.toString() );
                 }
-
             }
         });
 
