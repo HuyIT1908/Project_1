@@ -13,13 +13,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +28,8 @@ import com.example.project_1.ThongKe.ThongKeFragment;
 import com.example.project_1.Thu.ThuFragment;
 import com.example.project_1.TietKiem.TietKiemFragment;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -41,6 +37,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     Context context = HomeActivity.this;
     NguoiDungDAO nguoiDungDAO;
     NavigationView navigationView;
+    List<NguoiDung> nguoiDungList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +45,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home);
 
         nguoiDungDAO = new NguoiDungDAO(context);
-//        Log.e( nguoiDungDAO.getAllNguoiDung().toString() , "\n!!!home 37 nha");
+        nguoiDungList = nguoiDungDAO.getAllNguoiDung();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
@@ -58,7 +56,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         View mHeaderView = navigationView.getHeaderView(0);
         TextView tv_chao = mHeaderView.findViewById(R.id.tv_header_chao);
-        get_remember_User(tv_chao);
+        String tk = get_remember_User("Xin chào :  ");
+        tv_chao.setText("Xin Chào :  " + tk);
+        TextView tv_so_tien = mHeaderView.findViewById(R.id.tv_header_2);
+        tv_so_tien.setText("Số tiền :  " + nguoiDungList.get( get_value(nguoiDungList , tk)).getTongSoTien() );
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this,
@@ -110,6 +111,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 setTitle("Thống Kê");
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_contener, new ThongKeFragment() ).commit();
                 break;
+            case R.id.nav_logout:
+                dialog_chung(1 , context , "Bạn đã đăng xuất !!!");
+                startActivity(new Intent(context , LoginActivity.class));
+                finish();
+                break;
+
             case R.id.nav_thoat:
                 finish();
                 System.exit(0);
@@ -150,14 +157,24 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private void get_remember_User(TextView tv) {
+    private String get_remember_User(String s) {
         SharedPreferences pref = getSharedPreferences("USER_FILE", MODE_PRIVATE);
         String tk = pref.getString("USERNAME", null);
         String mk = pref.getString("PASSWORD", null);
         boolean nho = pref.getBoolean("REMEMBER", true);
         if (tk != null && mk != null) {
-            tv.setText("Xin Chào :  " + tk);
+//            tv.setText("Xin Chào :  " + tk);
 //            Log.e("-----------login test", String.valueOf(nho) + "\t" + tk + "\t\t" + mk);
         }
+        return tk;
+    }
+
+    private Integer get_value(List<NguoiDung> list , String tk){
+        for (int i = 0; i < list.size(); i++) {
+            if ( list.get(i).getUserName().equals( tk ) ){
+                return i;
+            }
+        }
+        return 0;
     }
 }

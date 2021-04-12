@@ -80,53 +80,85 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
         list_Ndung = nguoiDungDAO.getAllNguoiDung();
         tv_show_tien.setText("Số tiền :  " + list_Ndung.get(0).getTongSoTien() );
 
-        mChart = (PieChart) view.findViewById(R.id.piechart);
-        mChart.setRotationEnabled(true);
-        Description description = new Description();
-        description.setText("");
-        mChart.setDescription(description );
-        mChart.setHoleRadius(35f);
-        mChart.setTransparentCircleAlpha(0);
-        mChart.setCenterText("Thống Kê Chi Tiêu");
-        mChart.setCenterTextSize(14);
-        mChart.setDrawEntryLabels(true);
+//        mChart = (PieChart) view.findViewById(R.id.piechart);
+//        mChart.setRotationEnabled(true);
+//        Description description = new Description();
+//        description.setText("");
+//        mChart.setDescription(description );
+//        mChart.setHoleRadius(35f);
+//        mChart.setTransparentCircleAlpha(0);
+//        mChart.setCenterText("Thống Kê Chi Tiêu");
+//        mChart.setCenterTextSize(14);
+//        mChart.setDrawEntryLabels(true);
+//
+//        addDataSet(mChart , thuDAO , chiDAO , kHchiDAO , khoanNoDAO , tietKiemDAO , nguoiDungDAO);
+//
+//        mChart.setOnChartValueSelectedListener(this);
 
-        addDataSet(mChart , thuDAO , chiDAO , kHchiDAO , khoanNoDAO , tietKiemDAO , nguoiDungDAO);
+        barChart = view.findViewById(R.id.barChart);
 
-        mChart.setOnChartValueSelectedListener(this);
+        ArrayList<BarEntry> entries = new ArrayList<>();
+//        entries.add(new BarEntry(4f, 10));
+//        entries.add(new BarEntry(8f, 20));
+//        entries.add(new BarEntry(6f, 25));
+//        entries.add(new BarEntry(12f, 40));
+//        entries.add(new BarEntry(18f, 15));
 
-//        barChart = view.findViewById(R.id.barChart);
-//        ArrayList<BarEntry> entries = new ArrayList<>();
-//        entries.add(new BarEntry(4f, 0));
-//        entries.add(new BarEntry(8f, 1));
-//        entries.add(new BarEntry(6f, 2));
-//        entries.add(new BarEntry(12f, 3));
-//        entries.add(new BarEntry(18f, 4));
-//        entries.add(new BarEntry(9f, 5));
+        entries.add(new BarEntry(6f, 40));
+        entries.add(new BarEntry(8f, 20));
+        entries.add(new BarEntry(10f, 25));
+        entries.add(new BarEntry(12f, 10));
+        entries.add(new BarEntry(14f, 15));
+
 //        for (int i = 0; i < 10; i++) {
 //            float value = (float) (Math.random() *100);
 //            entries.add(new BarEntry(i , (int) value) );
 //        }
 //
-//        BarDataSet dataSet = new BarDataSet(entries, "DATA NEW");
-//        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-//        dataSet.setValueTextColor(Color.BLACK);
-//        dataSet.setValueTextSize(16f);
-//        dataSet.setDrawValues( true);
-//        Description description = new Description();
-//        description.setText("Months");
-//        barChart.setDescription(description);
-//
-//        List<String> labels = new ArrayList<String>();
-//        labels.add("January");
-//        labels.add("February");
-//        labels.add("March");
-//        labels.add("April");
-//        labels.add("May");
-//        labels.add("June");
-//
-//        BarData data = new BarData(dataSet);
-//        barChart.setData(data);
+        BarDataSet dataSet = new BarDataSet(entries, "Thống Kê Chi Tiêu");
+
+        dataSet.setValueTextSize(12);
+
+        List<String> labels = new ArrayList<String>();
+        labels.add("Thu");
+        labels.add("Chi");
+        labels.add("Kế hoạch");
+        labels.add("Tiết Kiệm");
+        labels.add("Vay");
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.RED);
+        colors.add(Color.GREEN);
+        colors.add(Color.MAGENTA);
+        colors.add(Color.CYAN);
+        colors.add(Color.GRAY);
+
+        dataSet.setColors(colors);
+
+        Legend legend = barChart.getLegend();
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setEnabled(true);
+
+        List<LegendEntry> legendEntries = new ArrayList<>();
+        int[] mau = {Color.RED , Color.GREEN , Color.MAGENTA , Color.CYAN , Color.GRAY};
+        for (int i = 0; i < entries.size(); i++) {
+            LegendEntry entry = new LegendEntry();
+            entry.formColor = mau[i];
+            entry.label = labels.get(i);
+            legendEntries.add(entry);
+        }
+
+        legend.setCustom(legendEntries);
+
+        dataSet.setValueTextColor(Color.BLACK);
+        dataSet.setValueTextSize(16f);
+        dataSet.setDrawValues( true);
+        Description description = new Description();
+        description.setText("");
+        barChart.setDescription(description);
+
+        BarData data = new BarData(dataSet);
+        barChart.setData(data);
 
 //        XAxis xAxis = barChart.getXAxis();
 //        xAxis.setValueFormatter(new IndexAxisValueFormatter( labels ) );
@@ -140,9 +172,9 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
 ////        xAxis.setLabelRotationAngle( 270 );
 ////        xAxis.setDrawLabels( true);
 
-//        barChart.setFitBars( true );
-//        barChart.animateY(1000);
-//        barChart.invalidate();
+        barChart.setFitBars( true );
+        barChart.animateY(1000);
+        barChart.invalidate();
 
         return view;
     }
