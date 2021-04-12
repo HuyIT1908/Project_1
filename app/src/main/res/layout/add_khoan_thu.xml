@@ -95,7 +95,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/iconfinder_google_calendar"
-                    android:scaleType="fitCenter"
+                    android:scaleType="fitStart"
+                    android:background="@null"
                     android:text="Chọn" />
 
             </LinearLayout>

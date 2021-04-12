@@ -171,11 +171,12 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
 //        Log.e(tong + "\t" , "\t" + thuDAO.get_GT("SELECT sum(soTienThu) FROM Thu;")
 //        + "\t" + Integer.parseInt(String.valueOf( (Integer.parseInt(thuDAO.get_GT("SELECT sum(soTienThu) FROM Thu;")) / tong) * 100)));
 //            float[] yData = {
-//                    Integer.parseInt(String.valueOf( ( (Integer.parseInt( thuDAO.get_GT("SELECT sum(soTienThu) FROM Thu;"))) / tong) * 100)),
+//                    ( ( thuDAO.get_GT("SELECT sum(soTienThu) FROM Thu;") / tong) * 100 ),
 //                    Integer.parseInt(String.valueOf( ( (Integer.parseInt(chiDAO.get_GT("SELECT sum(soTienChi) FROM Chi;"))) / tong) * 100)),
-//                    Integer.parseInt(String.valueOf( ( (Integer.parseInt(kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;"))) / tong) * 100)),
+////                    Integer.parseInt(String.valueOf( ( (Integer.parseInt(kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;"))) / tong) * 100)),
+//                    0,
 //                    Integer.parseInt(String.valueOf( ( (Integer.parseInt(khoanNoDAO.get_GT("SELECT sum(soTienNo) FROM KhoanNo;"))) / tong) * 100)),
-//                    Integer.parseInt(String.valueOf( ( (Integer.parseInt(tietKiemDAO.get_GT("SELECT sum(soTienTietKiem) FROM TietKiem;"))) / tong) * 100)),
+//                    Integer.parseInt(String.valueOf( ( (Integer.parseInt(tietKiemDAO.get_GT("SELECT sum(soTienTietKiem) FROM TietKiem;"))) / tong) * 100))
 //            };
 
             float[] yData = {
