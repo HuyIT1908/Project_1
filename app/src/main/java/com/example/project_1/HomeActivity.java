@@ -38,6 +38,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     NguoiDungDAO nguoiDungDAO;
     NavigationView navigationView;
     List<NguoiDung> nguoiDungList;
+    TextView tv_so_tien;
+    String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +59,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         View mHeaderView = navigationView.getHeaderView(0);
         TextView tv_chao = mHeaderView.findViewById(R.id.tv_header_chao);
         String tk = get_remember_User("Xin chào :  ");
+        user = tk;
         tv_chao.setText("Xin Chào :  " + tk);
-        TextView tv_so_tien = mHeaderView.findViewById(R.id.tv_header_2);
+        tv_so_tien = mHeaderView.findViewById(R.id.tv_header_2);
         tv_so_tien.setText("Số tiền :  " + nguoiDungList.get( get_value(nguoiDungList , tk)).getTongSoTien() );
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -78,6 +81,29 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             setTitle("Thống Kê");
         }
 
+        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+                nguoiDungList.clear();
+                nguoiDungList = nguoiDungDAO.getAllNguoiDung();
+                tv_so_tien.setText("Số tiền :  " + nguoiDungList.get( get_value(nguoiDungList , tk)).getTongSoTien() );
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
     }
 
     @Override
@@ -135,7 +161,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
 
     private void dialog_chung(Integer so, Context context, String tb) {
         switch (so) {

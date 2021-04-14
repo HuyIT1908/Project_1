@@ -66,7 +66,7 @@ public class KhChiFragment extends Fragment {
         lv_ds_ke_hoach_Chi = view.findViewById(R.id.lv_ds_ke_hoach_Chi);
         fbtn_add_ke_hoach_Chi = view.findViewById(R.id.fbtn_add_ke_hoach_Chi);
         tv_so_tien = view.findViewById(R.id.tv_khCHi_so_tien);
-        tv_so_tien.setText("Số tiền dự chi : " + kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;") );
+        tv_so_tien.setText("Tổng tiền dự chi : " + kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;") );
 
         fbtn_add_ke_hoach_Chi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,9 +230,9 @@ public class KhChiFragment extends Fragment {
                                         userName ,
                                         so_Tien_Du_Chi ,
                                         ngay_Du_Chi ,
-                                        "Đã Tiết Kiệm"
+                                        "Kế hoạch đã chi"
                                 )) > 0 ){
-
+                                    kHchiDAO.delete_Ke_hoach_Chi_By_ID( kHchi.getMaDuChi() );
                                 }
                             }
 
@@ -254,7 +254,7 @@ public class KhChiFragment extends Fragment {
                         }
 
                     }
-                    tv_so_tien.setText("Số tiền dự chi : " + kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;") );
+                    tv_so_tien.setText("Tổng tiền dự chi : " + kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;") );
                 } catch (Exception ex){
                     Log.e("Error add KH Chi\t\t" , ex.toString() );
                 }
@@ -468,19 +468,29 @@ public class KhChiFragment extends Fragment {
 
                         } else if ( kHchiDAO.update_ke_hoach_chi( kHchi ) > 0) {
 
-//                            if ( (cbk_Status.isChecked()) == true){
-//
-//                                nd.setTongSoTien(String.valueOf(so_tien));
-//                                nguoiDungDAO.updateNguoiDung(nd);
-//                                kHchi.setUserName(nd.toString());
-//                                //                        boolean kq = userName.equals( list_ND.get( get_vi_tri(list_ND , get_user) ).toString() );
-////                        Log.e("\t\t" + userName , nd.toString()
-////                                + " | " + String.valueOf( " " + kq +" -- ") + get_user + "\t");
-//
-//                                if ( kHchiDAO.update_ke_hoach_chi( kHchi ) > 0 ){
-//
-//                                }
-//                            }
+                            if ( (cbk_Status.isChecked()) == true){
+
+                                nd.setTongSoTien(String.valueOf(so_tien));
+                                nguoiDungDAO.updateNguoiDung(nd);
+                                kHchi.setUserName(nd.toString());
+                                //                        boolean kq = userName.equals( list_ND.get( get_vi_tri(list_ND , get_user) ).toString() );
+//                        Log.e("\t\t" + userName , nd.toString()
+//                                + " | " + String.valueOf( " " + kq +" -- ") + get_user + "\t");
+
+                                if ( kHchiDAO.update_ke_hoach_chi( kHchi ) > 0 ){
+
+                                }
+
+                                if ( chiDAO.inser_Khoan_Chi( new Chi(
+                                        "CT__" + System.currentTimeMillis() ,
+                                        userName ,
+                                        so_Tien_Du_Chi ,
+                                        ngay_Du_Chi ,
+                                        "Kế hoạch đã chi"
+                                )) > 0 ){
+                                    kHchiDAO.delete_Ke_hoach_Chi_By_ID( kHchi.getMaDuChi() );
+                                }
+                            }
 
                             dialog_chung(1, getActivity(), "Cập Nhật Kế hoạch Chi Thành Công");
                             dialog.dismiss();
@@ -496,7 +506,7 @@ public class KhChiFragment extends Fragment {
                         }
 
                     }
-                    tv_so_tien.setText("Số tiền dự chi : " + kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;") );
+                    tv_so_tien.setText("Tổng tiền dự chi : " + kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;") );
                 } catch (Exception ex){
                     Log.e("Error add KH Chi\t\t" , ex.toString() );
                 }
