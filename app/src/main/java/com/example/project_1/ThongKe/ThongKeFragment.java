@@ -104,11 +104,11 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
 //        entries.add(new BarEntry(12f, 40));
 //        entries.add(new BarEntry(18f, 15));
 
-        entries.add(new BarEntry(6f, 40));
-        entries.add(new BarEntry(8f, 20));
-        entries.add(new BarEntry(10f, 25));
-        entries.add(new BarEntry(12f, 10));
-        entries.add(new BarEntry(14f, 15));
+        entries.add(new BarEntry(6f, 20));
+        entries.add(new BarEntry(8f, 25));
+        entries.add(new BarEntry(10f, 40));
+        entries.add(new BarEntry(12f, 15));
+        entries.add(new BarEntry(14f, 10));
 
 //        for (int i = 0; i < 10; i++) {
 //            float value = (float) (Math.random() *100);
@@ -120,9 +120,9 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
         dataSet.setValueTextSize(12);
 
         List<String> labels = new ArrayList<String>();
-        labels.add("Thu");
         labels.add("Chi");
         labels.add("Kế hoạch");
+        labels.add("Thu");
         labels.add("Tiết Kiệm");
         labels.add("Vay");
 

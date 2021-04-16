@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
             String tk = edt_login_tk.getEditText().getText().toString();
             String mk = edt_login_mk.getEditText().getText().toString();
             boolean luu_tk = cb_tk.isChecked();
+//            Log.e("log in \t" , "\t" + tk + "\t" + mk);
 
             if ( tk.isEmpty() ) {
                 dialog_chung(0, context, "Không được để trống \n\nTài Khoản !!!");

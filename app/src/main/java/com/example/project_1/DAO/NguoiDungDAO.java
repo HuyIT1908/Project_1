@@ -179,11 +179,11 @@ public class NguoiDungDAO {
             ee.setGioiTinh(c.getString(3));
             ee.setPhone(c.getString(4));
 
-            Log.d(TAG + "//=====\t\t\t\t", ee.toString());
-            if ( username.equals(c.getString(0)) ){
-                c.close();
-                return 1;
-            } else if (  username.equals(c.getString(0))
+//            if ( username.equals(c.getString(0)) ){
+//                c.close();
+//                return 1;
+//            } else
+            if (  username.equals(c.getString(0))
                     && password.equals(c.getString(1)) ){
                 c.close();
 //                Log.e("-kiem tra login -------" , "----------thanh cong roi nha");
