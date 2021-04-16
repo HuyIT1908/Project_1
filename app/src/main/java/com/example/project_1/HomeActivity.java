@@ -56,13 +56,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) context);
 
-        View mHeaderView = navigationView.getHeaderView(0);
-        TextView tv_chao = mHeaderView.findViewById(R.id.tv_header_chao);
-        String tk = get_remember_User("Xin chào :  ");
-        user = tk;
-        tv_chao.setText("Xin Chào :  " + tk);
-        tv_so_tien = mHeaderView.findViewById(R.id.tv_header_2);
-        tv_so_tien.setText("Số tiền :  " + nguoiDungList.get( get_value(nguoiDungList , tk)).getTongSoTien() );
+        try {
+//            nguoiDungList.clear();
+//            nguoiDungList = nguoiDungDAO.getAllNguoiDung();
+//            dialog_chung(1 , context , "Bạn hiện không có tài khoản nào Đăng Nhập !!!");
+//            if (nguoiDungList.size() == 0){
+//                finish();
+//                startActivity(new Intent(context , LoginActivity.class));
+//            }
+
+            View mHeaderView = navigationView.getHeaderView(0);
+            TextView tv_chao = mHeaderView.findViewById(R.id.tv_header_chao);
+            String tk = get_remember_User("Xin chào :  ");
+            user = tk;
+            tv_chao.setText("Xin Chào :  " + tk);
+            tv_so_tien = mHeaderView.findViewById(R.id.tv_header_2);
+            tv_so_tien.setText("Số tiền :  " + nguoiDungList.get( get_value(nguoiDungList , tk)).getTongSoTien() );
+        } catch (Exception ex){
+            tv_so_tien.setText("Số tiền :  " + 0);
+        }
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this,
@@ -89,9 +101,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onDrawerOpened(@NonNull View drawerView) {
-                nguoiDungList.clear();
-                nguoiDungList = nguoiDungDAO.getAllNguoiDung();
-                tv_so_tien.setText("Số tiền :  " + nguoiDungList.get( get_value(nguoiDungList , tk)).getTongSoTien() );
+                try {
+                    nguoiDungList.clear();
+                    nguoiDungList = nguoiDungDAO.getAllNguoiDung();
+                    if (nguoiDungList.size() == 0){
+                        dialog_chung(1 , context, "Bạn hiện không có tài khoản nào Đăng Nhập !!!");
+                        finish();
+                        startActivity(new Intent(context , LoginActivity.class));
+                    }
+                    tv_so_tien.setText("Số tiền :  " + nguoiDungList.get( get_value(nguoiDungList , user)).getTongSoTien() );
+                } catch (Exception ex){
+                    tv_so_tien.setText("Số tiền :  " + "0");
+                }
             }
 
             @Override

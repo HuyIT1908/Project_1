@@ -129,8 +129,8 @@ public class LoginActivity extends AppCompatActivity {
 //            Toast.makeText(getApplicationContext(), "Lưu tài khoản thành công",
 //                    Toast.LENGTH_SHORT).show();
         }
-        Log.e("-----------------------", String.valueOf(status) + "\n\t" + tk + "\n\t"
-                + mk + "\n\t\t\t" + thu);
+//        Log.e("-----------------------", String.valueOf(status) + "\n\t" + tk + "\n\t"
+//                + mk + "\n\t\t\t" + thu);
     }
 
     private void get_remember_User(TextInputLayout edt_tk, TextInputLayout edt_mk, CheckBox chkRememberPass) {

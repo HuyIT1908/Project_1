@@ -1,6 +1,7 @@
 package com.example.project_1.NguoiDung;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.example.project_1.Adapter.DSnguoiDungAdapter;
 import com.example.project_1.DAO.NguoiDungDAO;
 import com.example.project_1.HomeActivity;
+import com.example.project_1.LoginActivity;
 import com.example.project_1.Models.NguoiDung;
 import com.example.project_1.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,6 +48,11 @@ public class DSnguoiDungFragment extends Fragment {
 
         nguoiDungDAO = new NguoiDungDAO( getActivity() );
         list = nguoiDungDAO.getAllNguoiDung();
+        if (list.size() == 0){
+            dialog_chung(1 , getActivity() , "Bạn hiện không có tài khoản nào Đăng Nhập !!!");
+            getActivity().finish();
+            startActivity(new Intent(getActivity() , LoginActivity.class));
+        }
         DSnguoiDungAdapter adapter = new DSnguoiDungAdapter( getActivity() , list);
         lv_ds.setAdapter(adapter);
 
