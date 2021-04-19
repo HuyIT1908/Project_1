@@ -78,7 +78,11 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
         nguoiDungDAO = new NguoiDungDAO( getActivity() );
         list_Ndung = new ArrayList<>();
         list_Ndung = nguoiDungDAO.getAllNguoiDung();
-        tv_show_tien.setText("Số tiền :  " + list_Ndung.get(0).getTongSoTien() );
+        try {
+            tv_show_tien.setText("Số tiền :  " + list_Ndung.get(0).getTongSoTien() );
+        } catch (Exception ex){
+            tv_show_tien.setText("Số tiền :  0" );
+        }
 
 //        mChart = (PieChart) view.findViewById(R.id.piechart);
 //        mChart.setRotationEnabled(true);
@@ -94,21 +98,28 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
 //        addDataSet(mChart , thuDAO , chiDAO , kHchiDAO , khoanNoDAO , tietKiemDAO , nguoiDungDAO);
 //
 //        mChart.setOnChartValueSelectedListener(this);
+        float[] yData = {
+                thuDAO.get_GT("SELECT sum(soTienThu) FROM Thu;"),
+                chiDAO.get_GT("SELECT sum(soTienChi) FROM Chi;"),
+                kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;"),
+                khoanNoDAO.get_GT("SELECT sum(soTienNo) FROM KhoanNo;"),
+                tietKiemDAO.get_GT("SELECT sum(soTienTietKiem) FROM TietKiem;")
+        };
 
         barChart = view.findViewById(R.id.barChart);
 
         ArrayList<BarEntry> entries = new ArrayList<>();
-//        entries.add(new BarEntry(4f, 10));
-//        entries.add(new BarEntry(8f, 20));
-//        entries.add(new BarEntry(6f, 25));
-//        entries.add(new BarEntry(12f, 40));
-//        entries.add(new BarEntry(18f, 15));
+        entries.add(new BarEntry(4f, yData[0] ));
+        entries.add(new BarEntry(8f, yData[1] ));
+        entries.add(new BarEntry(6f, yData[2] ));
+        entries.add(new BarEntry(12f, yData[3] ));
+        entries.add(new BarEntry(18f, yData[4] ));
 
-        entries.add(new BarEntry(6f, 20));
-        entries.add(new BarEntry(8f, 25));
-        entries.add(new BarEntry(10f, 40));
-        entries.add(new BarEntry(12f, 15));
-        entries.add(new BarEntry(14f, 10));
+//        entries.add(new BarEntry(6f, 20));
+//        entries.add(new BarEntry(8f, 25));
+//        entries.add(new BarEntry(10f, 40));
+//        entries.add(new BarEntry(12f, 15));
+//        entries.add(new BarEntry(14f, 10));
 
 //        for (int i = 0; i < 10; i++) {
 //            float value = (float) (Math.random() *100);
@@ -202,13 +213,20 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
             Integer tong = Integer.parseInt( nguoiDungList.get(0).getTongSoTien() );
 //        Log.e(tong + "\t" , "\t" + thuDAO.get_GT("SELECT sum(soTienThu) FROM Thu;")
 //        + "\t" + Integer.parseInt(String.valueOf( (Integer.parseInt(thuDAO.get_GT("SELECT sum(soTienThu) FROM Thu;")) / tong) * 100)));
+//            float[] yData = {
+//                    ( ( thuDAO.get_GT("SELECT sum(soTienThu) FROM Thu;") / tong) * 100 ),
+//                    ( ( chiDAO.get_GT("SELECT sum(soTienChi) FROM Chi;") / tong) * 100 ),
+//                    ( ( kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;") / tong ) * 100),
+//                    ( (khoanNoDAO.get_GT("SELECT sum(soTienNo) FROM KhoanNo;") / tong) * 100),
+//                    ( (tietKiemDAO.get_GT("SELECT sum(soTienTietKiem) FROM TietKiem;") / tong) * 100)
+//            };
+
             float[] yData = {
-                    ( ( thuDAO.get_GT("SELECT sum(soTienThu) FROM Thu;") / tong) * 100 ),
-                    Integer.parseInt(String.valueOf( ( (Integer.parseInt(chiDAO.get_GT("SELECT sum(soTienChi) FROM Chi;"))) / tong) * 100)),
-//                    Integer.parseInt(String.valueOf( ( (Integer.parseInt(kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;"))) / tong) * 100)),
-                    0,
-                    Integer.parseInt(String.valueOf( ( (Integer.parseInt(khoanNoDAO.get_GT("SELECT sum(soTienNo) FROM KhoanNo;"))) / tong) * 100)),
-                    Integer.parseInt(String.valueOf( ( (Integer.parseInt(tietKiemDAO.get_GT("SELECT sum(soTienTietKiem) FROM TietKiem;"))) / tong) * 100))
+                    thuDAO.get_GT("SELECT sum(soTienThu) FROM Thu;"),
+                    chiDAO.get_GT("SELECT sum(soTienChi) FROM Chi;"),
+                    kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;"),
+                    khoanNoDAO.get_GT("SELECT sum(soTienNo) FROM KhoanNo;"),
+                    tietKiemDAO.get_GT("SELECT sum(soTienTietKiem) FROM TietKiem;")
             };
 
 //            float[] yData = {

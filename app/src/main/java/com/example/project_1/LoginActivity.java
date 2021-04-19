@@ -55,7 +55,13 @@ public class LoginActivity extends AppCompatActivity {
                 dialog_chung(0, context, "Không được để trống \n\nMật khẩu !!!");
             } else {
 
-                if ( nguoiDungDAO.checkLogin(tk , mk) > 0) {
+                if (tk.equalsIgnoreCase("admin") && mk.equalsIgnoreCase("admin")) {
+
+                    rememberUser(tk , mk, cb_tk.isChecked());
+                    startActivity(new Intent(context, HomeActivity.class));
+                    finish();
+
+                } else if ( nguoiDungDAO.checkLogin(tk , mk) > 0) {
 
                     rememberUser(tk, mk, luu_tk);
                     dialog_chung(1, context, "Đăng nhập thành công");
@@ -63,15 +69,14 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(context, HomeActivity.class));
                     finish();
 
-                } else if (tk.equalsIgnoreCase("admin") && mk.equalsIgnoreCase("admin")) {
+                }  else if ( nguoiDungDAO.checkLogin(tk , mk) < 0) {
 
-                    rememberUser(tk , mk, cb_tk.isChecked());
-                    startActivity(new Intent(this, HomeActivity.class));
-                    finish();
 
-                } else {
+                    dialog_chung(0, context, "Tài khoản chưa được đăng ký. \n\nVui Lòng Đăng Kí tài khoản !");
 
-                    dialog_chung(0 , context , "Tên đăng nhập và mật khẩu không đúng ???  \n\nHoặc không có ! ! !");
+                }else {
+
+                    dialog_chung(0 , context , "Tên đăng nhập và mật khẩu không đúng ???");
                 }
 
             }

@@ -151,8 +151,8 @@ public class TietKiemDAO {
         return false;
     }
 
-    public String get_GT(String sql){
-        String kq = null;
+    public Integer get_GT(String sql){
+        Integer kq = null;
 
         Cursor c = db.rawQuery(sql , null);
         if (c != null){
@@ -165,7 +165,7 @@ public class TietKiemDAO {
 //                chi.setSoTienChi(  c.getString(2));
 //                chi.setNgayChi(  c.getString(3));
 //                chi.setChuThich(  c.getString(4));
-                kq = String.valueOf(c.getInt(0));
+                kq = c.getInt(0);
 
 
                 c.moveToNext();
