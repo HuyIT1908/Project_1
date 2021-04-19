@@ -90,7 +90,9 @@ public class Sign_UpActivity extends AppCompatActivity {
                     startActivity(new Intent(context , LoginActivity.class));
                     finish();
                 } else if ( nguoiDungDAO.checkLogin(user.getUserName() , user.getPassword()) > 0){
+
                     dialog_chung(0 , context , "Tài Khoản đã tồn tại !\nVui lòng chọn tài khoản khác.");
+
                 } else {
 
                     dialog_chung(1 , context , "Đăng Kí Thất Bại");

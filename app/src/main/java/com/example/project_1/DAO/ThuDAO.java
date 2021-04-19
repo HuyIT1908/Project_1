@@ -119,6 +119,19 @@ public class ThuDAO {
         return 1;
     }
 
+    public int delete_All() {
+        int result = -1;
+        try {
+            result = db.delete(TABLE_NAME, null , null);
+        } catch (Exception ex){
+            Log.e("\t\t\t" + TAG + "Error Database" , ex.toString() );
+        }
+
+        if (result == 0)
+            return -1;
+        return 1;
+    }
+
     public boolean check_Khoan_Thu(Thu thu){
 
         Cursor c = db.query(TABLE_NAME, null, null, null, null, null, null);

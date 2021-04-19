@@ -116,6 +116,14 @@ public class ChiDAO {
         return 1;
     }
 
+    public int delete_ALL() {
+        int result = db.delete(TABLE_NAME, null , null);
+
+        if (result == 0)
+            return -1;
+        return 1;
+    }
+
     public boolean check(Chi ngoai){
         //        get all data for to list
 

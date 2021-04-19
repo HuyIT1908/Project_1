@@ -123,6 +123,14 @@ public class TietKiemDAO {
         return 1;
     }
 
+    public int delete_ALL() {
+        int result = db.delete(TABLE_NAME, null , null);
+
+        if (result == 0)
+            return -1;
+        return 1;
+    }
+
     public boolean chech_Tiet_kiem(TietKiem tietKiem){
 
         Cursor c = db.query(TABLE_NAME, null, null, null, null, null, null);

@@ -19,7 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project_1.Chi.ChiFragment;
+import com.example.project_1.DAO.ChiDAO;
+import com.example.project_1.DAO.KHchiDAO;
+import com.example.project_1.DAO.KhoanNoDAO;
 import com.example.project_1.DAO.NguoiDungDAO;
+import com.example.project_1.DAO.ThuDAO;
+import com.example.project_1.DAO.TietKiemDAO;
 import com.example.project_1.Ke_Hoach_chi.KhChiFragment;
 import com.example.project_1.KhoanNo.KhoanNoFragment;
 import com.example.project_1.Models.NguoiDung;
@@ -40,6 +45,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     List<NguoiDung> nguoiDungList;
     TextView tv_so_tien;
     String user;
+    private ThuDAO thuDAO;
+    private ChiDAO chiDAO;
+    private KHchiDAO kHchiDAO;
+    private TietKiemDAO tietKiemDAO;
+    private KhoanNoDAO khoanNoDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +57,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home);
 
         nguoiDungDAO = new NguoiDungDAO(context);
+        thuDAO = new ThuDAO( context );
+        chiDAO = new ChiDAO( context );
+        kHchiDAO = new KHchiDAO( context );
+        tietKiemDAO = new TietKiemDAO( context );
+        khoanNoDAO = new KhoanNoDAO( context );
         nguoiDungList = nguoiDungDAO.getAllNguoiDung();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -108,6 +123,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         dialog_chung(1 , context, "Bạn hiện không có tài khoản nào Đăng Nhập !!!");
                         finish();
                         startActivity(new Intent(context , LoginActivity.class));
+                        thuDAO.delete_All();
+                        chiDAO.delete_ALL();
+                        kHchiDAO.delete_ALL();
+                        khoanNoDAO.delete_ALL();
+                        tietKiemDAO.delete_ALL();
                     }
                     tv_so_tien.setText("Số tiền :  " + nguoiDungList.get( get_value(nguoiDungList , user)).getTongSoTien() );
                 } catch (Exception ex){

@@ -118,6 +118,14 @@ public class KHchiDAO {
         return 1;
     }
 
+    public int delete_ALL() {
+        int result = db.delete(TABLE_NAME, null , null);
+
+        if (result == 0)
+            return -1;
+        return 1;
+    }
+
     public boolean check_ID_KhChi(KHchi ngoai){
         Cursor c = db.query(TABLE_NAME, null, null, null, null, null, null);
         if (c != null){

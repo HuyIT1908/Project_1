@@ -47,6 +47,7 @@ public class ThuFragment extends Fragment {
     private List<NguoiDung> list_ND = new ArrayList<>();
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     final Calendar calendar = Calendar.getInstance();
+    private String user = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -163,6 +164,7 @@ public class ThuFragment extends Fragment {
 
                             String[] get_tk = thu.getUserName().split(" | ");
                             String get_user = get_tk[0];
+                            user = get_user;
 
                             NguoiDung nd = list_ND.get( get_vi_tri(list_ND , get_user) );
 
@@ -197,7 +199,12 @@ public class ThuFragment extends Fragment {
                         }
                     }
                 } catch (Exception ex){
-                    Log.e("thu fragment " , ex.toString() );
+                    Log.e("thu fragment 203" , ex.toString() );
+                    list_ND.clear();
+                    list_ND = nguoiDungDAO.getAllNguoiDung();
+
+                    list_ND.get( get_vi_tri(list_ND , user) ).setTongSoTien("0");
+                    nguoiDungDAO.updateNguoiDung( list_ND.get( get_vi_tri(list_ND , user) ) );
                 }
             }
         });

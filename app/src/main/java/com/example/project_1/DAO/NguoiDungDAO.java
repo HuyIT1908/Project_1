@@ -202,4 +202,90 @@ public class NguoiDungDAO {
             return -1;
         return 1;
     }
+
+    public boolean check_PassWord(String username, String password) {
+
+        Cursor c = db.query(TABLE_NAME, null, null, null, null, null, null);
+        c.moveToFirst();
+        while (c.isAfterLast() == false) {
+
+            NguoiDung ee = new NguoiDung();
+            ee.setUserName(c.getString(0));
+            ee.setPassword(c.getString(1));
+
+            ee.setHoTen(c.getString(2));
+            ee.setGioiTinh(c.getString(3));
+            ee.setPhone(c.getString(4));
+
+            if ( password.equals(c.getString(1)) ){
+                c.close();
+//                Log.e("-kiem tra login -------" , "----------thanh cong roi nha");
+                return true;
+            }
+
+            c.moveToNext();
+        }
+        c.close();
+        return false;
+    }
+
+    public boolean check_UserName(String username, String password) {
+
+        Cursor c = db.query(TABLE_NAME, null, null, null, null, null, null);
+        c.moveToFirst();
+        while (c.isAfterLast() == false) {
+
+            NguoiDung ee = new NguoiDung();
+            ee.setUserName(c.getString(0));
+            ee.setPassword(c.getString(1));
+
+            ee.setHoTen(c.getString(2));
+            ee.setGioiTinh(c.getString(3));
+            ee.setPhone(c.getString(4));
+
+            if ( username.equals(c.getString(0)) ){
+                c.close();
+//                Log.e("-kiem tra login -------" , "----------thanh cong roi nha");
+                return true;
+            }
+
+            c.moveToNext();
+        }
+        c.close();
+        return false;
+    }
+
+    public void fix_so_tien_null() {
+
+        Cursor c = null;
+        try {
+            c = db.query(TABLE_NAME, null, null, null, null, null, null);
+//            c = db.rawQuery("SELECT * FROM NguoiDung" , null);
+//            Log.e("\t\t" + TAG , c.toString() );
+        } catch (Exception ex){
+            Log.e(TAG + "\tline 268" , ex.toString() +"\t" + c);
+        }
+        if (c != null){
+            c.moveToFirst();
+            while (c.isAfterLast() == false) {
+
+                NguoiDung ee = new NguoiDung();
+                ee.setUserName(c.getString(0));
+                ee.setPassword(c.getString(1));
+
+                ee.setHoTen(c.getString(2));
+                ee.setGioiTinh(c.getString(3));
+                ee.setPhone(c.getString(4));
+                ee.setTongSoTien( c.getString(5) );
+
+                if ( ee.getTongSoTien().equals(" ") ){
+                    ee.setTongSoTien("0");
+                    this.updateNguoiDung( ee );
+                }
+                Log.d(TAG + "//==\t\t" + "tien", ee.getTongSoTien() );
+                c.moveToNext();
+            }
+            c.close();
+        }
+    }
 }

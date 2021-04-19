@@ -76,12 +76,22 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
         kHchiDAO = new KHchiDAO( getActivity() );
         TextView tv_show_tien = view.findViewById(R.id.tv_show_tien);
         nguoiDungDAO = new NguoiDungDAO( getActivity() );
+
         list_Ndung = new ArrayList<>();
         list_Ndung = nguoiDungDAO.getAllNguoiDung();
         try {
+            if ( list_Ndung.size() == 0){
+                thuDAO.delete_All();
+                chiDAO.delete_ALL();
+                kHchiDAO.delete_ALL();
+                khoanNoDAO.delete_ALL();
+                tietKiemDAO.delete_ALL();
+            }
+            nguoiDungDAO.fix_so_tien_null();
             tv_show_tien.setText("Số tiền :  " + list_Ndung.get(0).getTongSoTien() );
         } catch (Exception ex){
             tv_show_tien.setText("Số tiền :  0" );
+            Log.e("Error thong ke 87" , ex.toString() );
         }
 
 //        mChart = (PieChart) view.findViewById(R.id.piechart);
@@ -99,11 +109,11 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
 //
 //        mChart.setOnChartValueSelectedListener(this);
         float[] yData = {
-                thuDAO.get_GT("SELECT sum(soTienThu) FROM Thu;"),
                 chiDAO.get_GT("SELECT sum(soTienChi) FROM Chi;"),
                 kHchiDAO.get_GT("SELECT sum(soTienDuChi) FROM KeHoachChi;"),
+                thuDAO.get_GT("SELECT sum(soTienThu) FROM Thu;"),
+                tietKiemDAO.get_GT("SELECT sum(soTienTietKiem) FROM TietKiem;"),
                 khoanNoDAO.get_GT("SELECT sum(soTienNo) FROM KhoanNo;"),
-                tietKiemDAO.get_GT("SELECT sum(soTienTietKiem) FROM TietKiem;")
         };
 
         barChart = view.findViewById(R.id.barChart);

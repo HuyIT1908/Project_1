@@ -69,14 +69,14 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(context, HomeActivity.class));
                     finish();
 
-                }  else if ( nguoiDungDAO.checkLogin(tk , mk) < 0) {
+                } else if ( !nguoiDungDAO.check_UserName(tk , mk) ){
 
+                    dialog_chung(0 , context , "Tài khoản không đúng ???");
 
-                    dialog_chung(0, context, "Tài khoản chưa được đăng ký. \n\nVui Lòng Đăng Kí tài khoản !");
+                } else if ( !nguoiDungDAO.check_PassWord(tk , mk) ){
 
-                }else {
+                    dialog_chung(0 , context , "Mật khẩu không đúng ???");
 
-                    dialog_chung(0 , context , "Tên đăng nhập và mật khẩu không đúng ???");
                 }
 
             }
