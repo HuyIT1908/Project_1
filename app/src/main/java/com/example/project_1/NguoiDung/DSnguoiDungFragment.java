@@ -37,7 +37,6 @@ public class DSnguoiDungFragment extends Fragment {
     private List<NguoiDung> list = new ArrayList<>();
     private FloatingActionButton fbtn_add_user;
 //    private HomeActivity homeActivity;
-    private Context context = getActivity();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -142,17 +141,17 @@ public class DSnguoiDungFragment extends Fragment {
                 dialog_chung(0 , getActivity() , "Số Điện Thoại phải nhập SỐ ...");
             }
             else if ( ho_ten.matches(regex_khoang_trang) || ho_ten.matches(regex_ky_tu_trang) ){
-                dialog_chung(0 , context , "Họ Tên bạn phải nhập ký tự chữ hoặc số nha !");
+                dialog_chung(0 , getActivity() , "Họ Tên bạn phải nhập ký tự chữ hoặc số nha !");
             }  else if ( sdt.matches(regex_khoang_trang) || sdt.matches(regex_ky_tu_trang) ){
-                dialog_chung(0 , context , "Số Điện Thoại bạn phải nhập ký tự số nha !");
+                dialog_chung(0 , getActivity() , "Số Điện Thoại bạn phải nhập ký tự số nha !");
             }  else if ( tk.matches(regex_khoang_trang) || tk.matches(regex_ky_tu_trang) ){
-                dialog_chung(0 , context , "Tài Khoản bạn phải nhập ký tự chữ hoặc số nha !");
+                dialog_chung(0 , getActivity() , "Tài Khoản bạn phải nhập ký tự chữ hoặc số nha !");
             }  else if ( mk.matches(regex_khoang_trang) || mk.matches(regex_ky_tu_trang) ){
-                dialog_chung(0 , context , "Mật Khẩu bạn phải nhập ký tự chữ hoặc số nha !");
+                dialog_chung(0 , getActivity() , "Mật Khẩu bạn phải nhập ký tự chữ hoặc số nha !");
             }  else if ( lai_mk.matches(regex_khoang_trang) || lai_mk.matches(regex_ky_tu_trang) ){
-                dialog_chung(0 , context , "Nhập Lại Mật Khẩu bạn phải nhập ký tự chữ hoặc số nha !");
+                dialog_chung(0 , getActivity() , "Nhập Lại Mật Khẩu bạn phải nhập ký tự chữ hoặc số nha !");
             }  else if ( !mk.equals(lai_mk)) {
-                dialog_chung(0, context, "Mật khẩu không khớp. Vui lòng Nhập lại !!!");
+                dialog_chung(0, getActivity(), "Mật khẩu không khớp. Vui lòng Nhập lại !!!");
             } else {
 
                 try {
@@ -179,8 +178,8 @@ public class DSnguoiDungFragment extends Fragment {
                 }
             }
 
-            Log.e("show  : ", ho_ten + "\n" + sdt + "\n" + tk
-                    + "\n" + mk + "\n" + lai_mk + "\n\t\t\t\t\t" + sdt.matches(regex_sdt) );
+//            Log.e("show  : ", ho_ten + "\n" + sdt + "\n" + tk
+//                    + "\n" + mk + "\n" + lai_mk + "\n\t\t\t\t\t" + sdt.matches(regex_sdt) );
         }
     });
 
@@ -262,12 +261,23 @@ public class DSnguoiDungFragment extends Fragment {
                     dialog_chung(0, getActivity(), "Hãy nhập lại Mật Khẩu !!!");
                 } else if (sdt.length() > 10) {
                     dialog_chung(0, getActivity(), "Số Điện Thoại \nChỉ được nhập 10 số");
-                } else if ( !mk.equals(lai_mk)) {
-                    dialog_chung(0, getActivity(), "Mật khẩu không khớp. Vui lòng Nhập lại !!!");
                 } else if (sdt.length() < 10){
                     dialog_chung(0 , getActivity() , "Số điện thoại phải là dạng 10 số");
                 } else if ( !sdt.matches(regex_sdt) ){
                     dialog_chung(0 , getActivity() , "Số Điện Thoại phải nhập SỐ ...");
+                }
+                else if ( ho_ten.matches(regex_khoang_trang) || ho_ten.matches(regex_ky_tu_trang) ){
+                    dialog_chung(0 , getActivity() , "Họ Tên bạn phải nhập ký tự chữ hoặc số nha !");
+                }  else if ( sdt.matches(regex_khoang_trang) || sdt.matches(regex_ky_tu_trang) ){
+                    dialog_chung(0 , getActivity() , "Số Điện Thoại bạn phải nhập ký tự số nha !");
+                }  else if ( tk.matches(regex_khoang_trang) || tk.matches(regex_ky_tu_trang) ){
+                    dialog_chung(0 , getActivity() , "Tài Khoản bạn phải nhập ký tự chữ hoặc số nha !");
+                }  else if ( mk.matches(regex_khoang_trang) || mk.matches(regex_ky_tu_trang) ){
+                    dialog_chung(0 , getActivity() , "Mật Khẩu bạn phải nhập ký tự chữ hoặc số nha !");
+                }  else if ( lai_mk.matches(regex_khoang_trang) || lai_mk.matches(regex_ky_tu_trang) ){
+                    dialog_chung(0 , getActivity() , "Nhập Lại Mật Khẩu bạn phải nhập ký tự chữ hoặc số nha !");
+                }  else if ( !mk.equals(lai_mk)) {
+                    dialog_chung(0, getActivity(), "Mật khẩu không khớp. Vui lòng Nhập lại !!!");
                 } else {
 
                     try {
@@ -298,8 +308,8 @@ public class DSnguoiDungFragment extends Fragment {
                     }
                 }
 
-                Log.e("show  : ", ho_ten + "\n" + sdt + "\n" + tk
-                        + "\n" + mk + "\n" + lai_mk + "\n\t\t\t\t\t" + sdt.matches(regex_sdt) );
+//                Log.e("show  : ", ho_ten + "\n" + sdt + "\n" + tk
+//                        + "\n" + mk + "\n" + lai_mk + "\n\t\t\t\t\t" + sdt.matches(regex_sdt) );
             }
         });
 
