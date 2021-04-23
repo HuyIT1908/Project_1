@@ -2,6 +2,7 @@ package com.example.project_1.ThongKe;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -51,6 +52,8 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class ThongKeFragment extends Fragment implements OnChartValueSelectedListener {
 
     private PieChart mChart;
@@ -62,6 +65,7 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
     private KhoanNoDAO khoanNoDAO;
     private TietKiemDAO tietKiemDAO;
     private KHchiDAO kHchiDAO;
+    private String tk;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,10 +92,11 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
                 tietKiemDAO.delete_ALL();
             }
             nguoiDungDAO.fix_so_tien_null();
-            tv_show_tien.setText("Số tiền :  " + list_Ndung.get(0).getTongSoTien() );
+            tk = get_remember_User("get user");
+            tv_show_tien.setText("Số tiền :  " + tk );
         } catch (Exception ex){
             tv_show_tien.setText("Số tiền :  0" );
-            Log.e("Error thong ke 87" , ex.toString() );
+            Log.e("Error thong ke 94" , ex.toString() );
         }
 
 //        mChart = (PieChart) view.findViewById(R.id.piechart);
@@ -313,4 +318,15 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
         }
     }
 
+    private String get_remember_User(String s) {
+        SharedPreferences pref = getActivity().getSharedPreferences("USER_FILE", MODE_PRIVATE);
+        String tk = pref.getString("USERNAME", null);
+        String mk = pref.getString("PASSWORD", null);
+        boolean nho = pref.getBoolean("REMEMBER", true);
+        if (tk != null && mk != null) {
+//            tv.setText("Xin Chào :  " + tk);
+//            Log.e("-----------login test", String.valueOf(nho) + "\t" + tk + "\t\t" + mk);
+        }
+        return tk;
+    }
 }
