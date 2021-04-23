@@ -56,6 +56,7 @@ public class Sign_UpActivity extends AppCompatActivity {
         mk = edt_mk.getEditText().getText().toString();
         lai_mk = edt_lai_mk.getEditText().getText().toString();
         String regex_sdt = "[0-9]{9,10}";
+        String regex_khoang_trang = "[ ]+";
 
         if (  ho_ten.isEmpty() ){
             dialog_chung(0, context, "Phải nhập Họ Tên");
@@ -75,6 +76,17 @@ public class Sign_UpActivity extends AppCompatActivity {
             dialog_chung(0 , context , "Số điện thoại phải là dạng 10 số");
         } else if ( !sdt.matches(regex_sdt) ){
             dialog_chung(0 , context , "Số Điện Thoại phải nhập SỐ ...");
+        }
+        else if ( ho_ten.matches(regex_khoang_trang) ){
+            dialog_chung(0 , context , "Bạn phải nhập ký tự chữ hoặc số nha !");
+        }  else if ( sdt.matches(regex_khoang_trang) ){
+            dialog_chung(0 , context , "Bạn phải nhập ký tự chữ hoặc số nha !");
+        }  else if ( tk.matches(regex_khoang_trang) ){
+            dialog_chung(0 , context , "Bạn phải nhập ký tự chữ hoặc số nha !");
+        }  else if ( mk.matches(regex_khoang_trang) ){
+            dialog_chung(0 , context , "Bạn phải nhập ký tự chữ hoặc số nha !");
+        }  else if ( lai_mk.matches(regex_khoang_trang) ){
+            dialog_chung(0 , context , "Bạn phải nhập ký tự chữ hoặc số nha !");
         } else {
 
             try {
@@ -103,8 +115,8 @@ public class Sign_UpActivity extends AppCompatActivity {
             }
         }
 
-        Log.e("show  : ", ho_ten + "\n" + sdt + "\n" + tk
-                + "\n" + mk + "\n" + lai_mk + "\n\t\t\t\t\t" + sdt.matches(regex_sdt) );
+//        Log.e("show  : ", ho_ten + "\n" + sdt + "\n" + tk
+//                + "\n" + mk + "\n" + lai_mk + "\n\t\t\t\t\t" + sdt.matches(regex_sdt) );
     }
 
     private void dialog_chung(Integer so, Context context, String tb) {
