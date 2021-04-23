@@ -93,7 +93,7 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
             }
             nguoiDungDAO.fix_so_tien_null();
             tk = get_remember_User("get user");
-            tv_show_tien.setText("Số tiền :  " + tk );
+            tv_show_tien.setText("Số tiền :  " + list_Ndung.get( get_index(list_Ndung , tk) ).getTongSoTien() );
         } catch (Exception ex){
             tv_show_tien.setText("Số tiền :  0" );
             Log.e("Error thong ke 94" , ex.toString() );
@@ -328,5 +328,14 @@ public class ThongKeFragment extends Fragment implements OnChartValueSelectedLis
 //            Log.e("-----------login test", String.valueOf(nho) + "\t" + tk + "\t\t" + mk);
         }
         return tk;
+    }
+
+    private Integer get_index(List<NguoiDung> list_Ndung, String user){
+        for (int i = 0; i < list_Ndung.size(); i++) {
+            if ( list_Ndung.get(i).getUserName().equals( user ) ){
+                return i;
+            }
+        }
+        return 0;
     }
 }
