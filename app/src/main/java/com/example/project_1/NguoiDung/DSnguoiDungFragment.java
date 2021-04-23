@@ -1,6 +1,7 @@
 package com.example.project_1.NguoiDung;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -36,6 +37,7 @@ public class DSnguoiDungFragment extends Fragment {
     private List<NguoiDung> list = new ArrayList<>();
     private FloatingActionButton fbtn_add_user;
 //    private HomeActivity homeActivity;
+    private Context context = getActivity();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -119,6 +121,8 @@ public class DSnguoiDungFragment extends Fragment {
             mk = edt_mk.getEditText().getText().toString();
             lai_mk = edt_lai_mk.getEditText().getText().toString();
             String regex_sdt = "[0-9]{9,10}";
+            String regex_khoang_trang = "[ ]+";
+            String regex_ky_tu_trang = "[\\s]+";
 
             if (  ho_ten.isEmpty() ){
                 dialog_chung(0, getActivity() , "Phải nhập Họ Tên");
@@ -132,12 +136,23 @@ public class DSnguoiDungFragment extends Fragment {
                 dialog_chung(0, getActivity() , "Hãy nhập lại Mật Khẩu !!!");
             } else if (sdt.length() > 10) {
                 dialog_chung(0, getActivity() , "Số Điện Thoại \nChỉ được nhập 10 số");
-            } else if ( !mk.equals(lai_mk)) {
-                dialog_chung(0, getActivity() , "Mật khẩu không khớp. Vui lòng Nhập lại !!!");
             } else if (sdt.length() < 10){
                 dialog_chung(0 , getActivity()  , "Số điện thoại phải là dạng 10 số");
             } else if ( !sdt.matches(regex_sdt) ){
                 dialog_chung(0 , getActivity() , "Số Điện Thoại phải nhập SỐ ...");
+            }
+            else if ( ho_ten.matches(regex_khoang_trang) || ho_ten.matches(regex_ky_tu_trang) ){
+                dialog_chung(0 , context , "Họ Tên bạn phải nhập ký tự chữ hoặc số nha !");
+            }  else if ( sdt.matches(regex_khoang_trang) || sdt.matches(regex_ky_tu_trang) ){
+                dialog_chung(0 , context , "Số Điện Thoại bạn phải nhập ký tự số nha !");
+            }  else if ( tk.matches(regex_khoang_trang) || tk.matches(regex_ky_tu_trang) ){
+                dialog_chung(0 , context , "Tài Khoản bạn phải nhập ký tự chữ hoặc số nha !");
+            }  else if ( mk.matches(regex_khoang_trang) || mk.matches(regex_ky_tu_trang) ){
+                dialog_chung(0 , context , "Mật Khẩu bạn phải nhập ký tự chữ hoặc số nha !");
+            }  else if ( lai_mk.matches(regex_khoang_trang) || lai_mk.matches(regex_ky_tu_trang) ){
+                dialog_chung(0 , context , "Nhập Lại Mật Khẩu bạn phải nhập ký tự chữ hoặc số nha !");
+            }  else if ( !mk.equals(lai_mk)) {
+                dialog_chung(0, context, "Mật khẩu không khớp. Vui lòng Nhập lại !!!");
             } else {
 
                 try {
@@ -189,6 +204,12 @@ public class DSnguoiDungFragment extends Fragment {
             case 0:
                 androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context);
                 builder.setTitle("Thông Báo").setMessage(tb);
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
                 androidx.appcompat.app.AlertDialog dialog = builder.create();
                 dialog.show();
                 break;
@@ -226,6 +247,8 @@ public class DSnguoiDungFragment extends Fragment {
                 mk = edt_mk.getEditText().getText().toString();
                 lai_mk = edt_lai_mk.getEditText().getText().toString();
                 String regex_sdt = "[0-9]{9,10}";
+                String regex_khoang_trang = "[ ]+";
+                String regex_ky_tu_trang = "[\\s]+";
 
                 if (  ho_ten.isEmpty() ){
                     dialog_chung(0, getActivity(), "Phải nhập Họ Tên");
