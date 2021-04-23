@@ -77,7 +77,7 @@ public class Sign_UpActivity extends AppCompatActivity {
         } else if ( !sdt.matches(regex_sdt) ){
             dialog_chung(0 , context , "Số Điện Thoại phải nhập SỐ ...");
         }
-        else if ( ho_ten.matches(regex_khoang_trang)  ){
+        else if ( ho_ten.matches(regex_khoang_trang) ){
             dialog_chung(0 , context , "Bạn phải nhập ký tự chữ hoặc số nha !");
         }  else if ( sdt.matches(regex_khoang_trang) ){
             dialog_chung(0 , context , "Bạn phải nhập ký tự chữ hoặc số nha !");
